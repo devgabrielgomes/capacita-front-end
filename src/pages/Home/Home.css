@@ -1,0 +1,17 @@
+.page-title {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 70px;
+}
+
+.page-title h1 {
+    font-weight: bold;
+}
+
+.project-info {
+    text-align: center;
+}
+
+.project-info-image {
+    margin-bottom: 20px;
+}

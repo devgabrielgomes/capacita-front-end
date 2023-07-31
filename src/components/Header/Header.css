@@ -1,0 +1,19 @@
+#navbar {
+    padding: 4px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+    font-weight: bold;
+}
+
+#navbar-container {
+    margin: 0%;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.nav-link>a {
+    text-decoration: none;
+    color: white;
+}

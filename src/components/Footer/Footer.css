@@ -1,0 +1,18 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.capacita-slogan {
+    width: 200px;
+    height: auto;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+hr {
+    width: 90%;
+    margin-bottom: 30px;
+}
