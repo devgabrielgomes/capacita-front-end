@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { Router, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
@@ -8,6 +8,7 @@ import Home from "./pages/Home/Home";
 import Sobre from "./pages/Sobre/Sobre";
 import Contatos from "./pages/Contatos/Contatos";
 import Auth from "./pages/Auth/Auth";
+import AreaTrabalho from "./pages/AreaTrabalho/AreaTrabalho";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     element: <Contatos />
   },
   {
+    path: "/area_trabalho",
+    element: <AreaTrabalho />
+  },
+  {
     path: "/auth",
     element: <Auth />
   }
@@ -35,11 +40,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div className="App">
-        <RouterProvider router={router} />
-      </div>
-    </>
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
   )
 }
 export default App

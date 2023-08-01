@@ -14,4 +14,10 @@
 
 .project-info-image {
     margin-bottom: 20px;
+    transition: transform .3s;
+}
+
+.project-info-image:hover {
+    transform: scale(1.1);
+    
 }

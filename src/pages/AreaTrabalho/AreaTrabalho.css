@@ -1,0 +1,13 @@
+.area-trabalho {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.area-trabalho.container>div {
+    height: 100%;
+}
+
+.title {
+    margin-top: 20px;
+}

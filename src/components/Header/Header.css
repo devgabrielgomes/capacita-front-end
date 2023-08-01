@@ -7,13 +7,13 @@
     font-weight: bold;
 }
 
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(0, 193, 201, 0.699);
+}
+
+
 #navbar-container {
     margin: 0%;
     white-space: nowrap;
     max-width: 100%;
-}
-
-.nav-link>a {
-    text-decoration: none;
-    color: white;
 }
