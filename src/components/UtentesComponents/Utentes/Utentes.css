@@ -1,0 +1,9 @@
+.search {
+    display: block;
+    padding: 9px 4px 9px 40px;
+    background: transparent url("/src/assets/search.svg") no-repeat 13px;
+}
+
+.add-patient-btn {
+    text-align: right;
+}

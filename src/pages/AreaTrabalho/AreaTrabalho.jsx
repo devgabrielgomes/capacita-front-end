@@ -75,9 +75,9 @@ function AreaTrabalho() {
     return (
         <>
             <Header />
-            <Container className='area-trabalho'>
-                <Row>
-                    <Col md={3}>
+            <div className='area-trabalho'>
+                <Row className='area-trabalho-row'>
+                    <Col md={3} className='side-bar-col'>
                         <div className='side-bar'>
                             <ul>
                                 {SideBarItems.map((val, key) => {
@@ -104,7 +104,7 @@ function AreaTrabalho() {
                         {selectedCompoent}
                     </Col>
                 </Row>
-            </Container>
+            </div>
 
             <Footer />
         </>

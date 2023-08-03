@@ -2,10 +2,20 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
+    width: 100%;
 }
 
 .area-trabalho.container>div {
     height: 100%;
+}
+
+.area-trabalho-row {
+    width: 100%;
+    margin: 0%;
+}
+
+.side-bar-col {
+    padding: 0%;
 }
 
 .title {

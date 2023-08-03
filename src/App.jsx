@@ -9,6 +9,7 @@ import Sobre from "./pages/Sobre/Sobre";
 import Contatos from "./pages/Contatos/Contatos";
 import Auth from "./pages/Auth/Auth";
 import AreaTrabalho from "./pages/AreaTrabalho/AreaTrabalho";
+import AddUtente from "./components/UtentesComponents/AddUtente/AddUtente";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />
+  },
+  {
+    path: "/area_trabalho/utentes/add",
+    element: <AddUtente />
   }
 ])
 function App() {
