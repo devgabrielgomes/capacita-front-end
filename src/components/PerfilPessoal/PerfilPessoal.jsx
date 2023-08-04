@@ -14,9 +14,9 @@ const PerfilPessoal = () => {
     const [email, setEmail] = useState();
 
     useEffect(() => {
-        if (effectRan.current === false && sessionStorage.length > 0) {
+        if (effectRan.current === false && sessionStorage.getItem('token')) {
             const getStaff = async () => {
-                const headers = { 'Authorization': TOKEN };
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(API + 'staff', { headers })
                 const data = await res.json()
                 setStaffData(data[0])

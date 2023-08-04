@@ -17,3 +17,18 @@
     white-space: nowrap;
     max-width: 100%;
 }
+
+.right-side {
+    display: block;
+    text-align: center;
+}
+
+.user-name {
+    color: white;
+    display: inline-block;
+}
+
+#logout-link {
+    display: inline-block;
+    margin-left: 10px;
+}

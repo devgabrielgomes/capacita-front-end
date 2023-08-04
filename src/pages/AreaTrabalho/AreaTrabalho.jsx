@@ -13,38 +13,6 @@ import LivroVerde from '../../components/LivroVerde/LivroVerde';
 
 function AreaTrabalho() {
     const [selectedCompoent, setSelectedComponent] = useState(<PerfilPessoal />)
-    let email = sessionStorage.getItem('email');
-    const effectRan = useRef(false)
-    const [staffData, setStaffData] = useState();
-
-    useEffect(() => {
-        if (effectRan.current === false) {
-            const getStaff = async () => {
-                const headers = { 'Authorization': TOKEN };
-                const res = await fetch(API + 'staff', { headers })
-                const data = await res.json()
-                console.log(data)
-                setStaffData(data)
-            }
-            getStaff()
-
-            return () => {
-                effectRan.current = true
-            }
-        }
-    }, [])
-
-    function getUserInfo() {
-        staffData.forEach(staff => {
-            if (staff.user.email == email) {
-                console.log(staff.user.id)
-                sessionStorage.setItem('email', email);
-                sessionStorage.setItem('id', staff.user.id);
-            }
-        });
-    }
-
-
     function handleClick(component) {
         setSelectedComponent(component)
     }

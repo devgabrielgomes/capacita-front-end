@@ -15,7 +15,7 @@ const Utentes = () => {
     // const effectRan = useRef(false)
     useEffect(() => {
         // if (effectRan.current === false) {
-
+        // console.log(sessionStorage.getItem('token'))
         getPatients()
 
         // return () => {
@@ -25,11 +25,9 @@ const Utentes = () => {
     }, [])
 
     const getPatients = async () => {
-        const headers = { 'Authorization': TOKEN };
+        const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(API + 'patients', { headers })
         const data = await res.json()
-        console.log("patientsData: ")
-        console.log(data)
         setPatientsData(data)
     }
 

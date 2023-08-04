@@ -10,88 +10,66 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-/**
-     * Display an error toast with a specific message
-     * @param message
-     */
-function toastError(message) {
-    toast.error(`${message}`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-    });
-}
-
-async function loginUser(credentials) {
-    return fetch(API + 'login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(
-            data => data.json(),
-            window.location.href = '/area_trabalho'
-        )
-        .catch(({ response }) => {
-            toastError(`As credenciais estão incorretas!`)
-        })
-
-}
-
 export default function Auth() {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [staffData, setStaffData] = useState();
     const effectRan = useRef(false)
 
-    useEffect(() => {
-        if (effectRan.current === false) {
-            const getStaff = async () => {
-                const headers = { 'Authorization': TOKEN };
-                const res = await fetch(API + 'staff', { headers })
-                const data = await res.json()
-                console.log(data)
-                setStaffData(data)
-            }
-            getStaff()
+    /**
+     * Display an error toast with a specific message
+     * @param message
+     */
+    function toastError(message) {
+        toast.error(`${message}`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
 
-            return () => {
-                effectRan.current = true
-            }
-        }
-    }, [])
+    const resetForm = () => {
+        setEmail("")
+        setPassword("")
+    }
+
+    async function loginUser(credentials) {
+        return fetch(API + 'login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.access_token) {
+                    sessionStorage.setItem('token', data.access_token);
+                    sessionStorage.setItem('email', email);
+                    window.location.href = '/area_trabalho'
+                } else {
+                    toastError(`As credenciais estão incorretas!`)
+                    resetForm()
+                }
+            })
+            .catch((e) => {
+                toastError(`As credenciais estão incorretas!`)
+                resetForm()
+            })
+    }
 
     const handleSubmit = async e => {
         e.preventDefault();
-        getUserInfo()
-        const token = await loginUser({
+        await loginUser({
             email,
             password
         });
     }
-
-    // function setToken(userToken) {
-    //     sessionStorage.setItem('token', JSON.stringify(userToken));
-    // }
-
-    function getUserInfo() {
-        staffData.forEach(staff => {
-            if (staff.user.email == email) {
-                console.log(staff.user.id)
-                sessionStorage.setItem('email', email);
-                sessionStorage.setItem('id', staff.user.id);
-            }
-        });
-    }
-
-
 
     return (
         <>
@@ -104,12 +82,11 @@ export default function Auth() {
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Endereço de Email</Form.Label>
-                                <Form.Control type="email" placeholder="Introduza o seu email" onChange={e => setEmail(e.target.value)} />
+                                <Form.Control type="email" placeholder="Introduza o seu email" value={email} onChange={e => setEmail(e.target.value)} />
                             </Form.Group>
-
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                             </Form.Group>
                             <Button className='login-button' variant="primary" type="submit">
                                 Login
@@ -136,6 +113,6 @@ export default function Auth() {
     )
 }
 
-Auth.propTypes = {
-    setToken: PropTypes.func.isRequired
-};
+// Auth.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// };

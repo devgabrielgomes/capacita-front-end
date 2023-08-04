@@ -4,23 +4,28 @@ import "./Header.css";
 import { Link } from "react-router-dom"
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
-    let email = sessionStorage.getItem('email');
     const effectRan = useRef(false)
+    const [email, setEmail] = useState();
     const [staffData, setStaffData] = useState();
     const [userName, setUserName] = useState();
     const [userType, setUserType] = useState();
 
     useEffect(() => {
-        if (effectRan.current === false) {
+        if (effectRan.current === false && sessionStorage.getItem('email') != null) {
+            setEmail(sessionStorage.getItem('email'));
             const getStaff = async () => {
-                const headers = { 'Authorization': TOKEN };
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(API + 'staff', { headers })
                 const data = await res.json()
-                setStaffData(data)
-                getUserInfo()
+                data.forEach(user => {
+                    if (user.email == email) {
+                        setUserName(user.first_name + " " + user.last_name)
+                        getUserType(sessionStorage.getItem('email'))
+                    }
+                });
             }
             getStaff()
 
@@ -30,13 +35,7 @@ const Header = () => {
         }
     }, [])
 
-    function getUserInfo() {
-        staffData.forEach(staff => {
-            if (staff.user.email == email) {
-                console.log(staff.user.id)
-                setUserName(staff.first_name + " " + staff.last_name)
-            }
-        });
+    function getUserType(email) {
         const mail = email.split("@");
         if (mail[0] == "admin") {
             setUserType("Administrador")
@@ -47,8 +46,7 @@ const Header = () => {
         }
     }
 
-
-    function deleteStorage() {
+    function logout() {
         sessionStorage.clear()
         window.location.href = '/home';
     }
@@ -69,8 +67,6 @@ const Header = () => {
                             {email != null &&
                                 <Nav.Link className='nav-link' as={Link} to="/area_trabalho">Area de Trabalho</Nav.Link>
                             }
-
-
                         </Nav>
                         <Nav>
                             {email == null ?
@@ -78,10 +74,16 @@ const Header = () => {
                                     <FontAwesomeIcon icon={faRightToBracket} /> Iniciar Sessão
                                 </Nav.Link>
                                 :
-                                <Nav.Link className='nav-link' as={Link} onClick={() => { deleteStorage() }}>
-                                    <FontAwesomeIcon icon={faUser} /> {userType} {userName}
-                                    <Button variant="outline-danger">Terminar sessão</Button>{' '}
-                                </Nav.Link>
+                                <div className='right-side'>
+                                    <div className='user-name'>
+                                        <FontAwesomeIcon icon={faUser} /> {userType} {userName}
+                                    </div>
+                                    <Nav.Link className='nav-link' id='logout-link' as={Link} onClick={() => { logout() }}>
+                                        <Button variant="outline-danger">
+                                            <FontAwesomeIcon icon={faRightFromBracket} /> Terminar sessão
+                                        </Button>
+                                    </Nav.Link>
+                                </div>
                             }
 
                         </Nav>
