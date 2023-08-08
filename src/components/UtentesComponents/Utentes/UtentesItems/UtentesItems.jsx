@@ -38,7 +38,7 @@ const UtentesItems = ({ patient, removePatient }) => {
                 <td>{patient.first_name + " " + patient.last_name}</td>
                 <td>{patient.NISS}</td>
                 <td>{patient.NIF}</td>
-                <td>AAAAAA</td>
+                <td>{patient.location.name}</td>
                 <td className='table-icons'>
                     <OverlayTrigger placement="top" overlay={tooltip1}>
                         <FontAwesomeIcon icon={faUser} />

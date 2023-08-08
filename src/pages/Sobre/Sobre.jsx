@@ -1,5 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { motion } from "framer-motion";
 import "./Sobre.css";
 import { Form, Button, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,9 +12,9 @@ const Sobre = () => {
     return (
         <>
             <Header />
-            <Container>
+            <Container className='container'>
                 <h1>Sobre</h1>
-                <span>É muito importante identificar a condição física do sénior para que ele tenha
+                <span className='sobre-text'>É muito importante identificar a condição física do sénior para que ele tenha
                     uma vida autónoma e funcional. Para tal, a estação de avaliação CAPACITA baseia-se
                     na bateria de Fullerton, que é amplamente usada nesta área, permitindo automatizar
                     o processo de recolha de dados dos exercícios físicos aplicados ao utente. O sistema

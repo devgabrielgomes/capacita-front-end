@@ -81,7 +81,7 @@ const Utentes = () => {
         <>
             <Row>
                 <Col>
-                    <h1>Utentes</h1>
+                    <h2>Utentes</h2>
                 </Col>
                 <Col className='add-patient-btn'>
                     <Button variant="primary" onClick={() => { window.location.href = '/area_trabalho/utentes/add'; }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Utente</Button>{' '}
@@ -101,9 +101,9 @@ const Utentes = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {patientsData !== undefined && patientsData.length > 0 && patientsData.map(patient => (
+                    {patientsData != null && patientsData.length > 0 && patientsData.map((patient, key) => (
                         <>
-                            <UtentesItems key={patient.id} patient={patient} removeMovie={removePatient} />
+                            <UtentesItems key={key} patient={patient} removePatient={removePatient} />
                         </>
                     ))}
 

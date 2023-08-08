@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { motion } from "framer-motion";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Auth.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
@@ -74,28 +75,33 @@ export default function Auth() {
     return (
         <>
             <Header />
-
-            <Container className='auth'>
-                <Row className="justify-content-md-center">
-                    <Col md={6}>
-                        <h1 className='page-title'>Autenticação</h1>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Endereço de Email</Form.Label>
-                                <Form.Control type="email" placeholder="Introduza o seu email" value={email} onChange={e => setEmail(e.target.value)} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-                            </Form.Group>
-                            <Button className='login-button' variant="primary" type="submit">
-                                Login
-                            </Button>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-
+            <motion.div
+                className="wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            >
+                <Container className='auth'>
+                    <Row className="justify-content-md-center">
+                        <Col md={6}>
+                            <h1 className='page-title'>Autenticação</h1>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Endereço de Email</Form.Label>
+                                    <Form.Control type="email" placeholder="Introduza o seu email" value={email} onChange={e => setEmail(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                                </Form.Group>
+                                <Button className='login-button' variant="primary" type="submit">
+                                    Login
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </motion.div>
             <Footer />
             <TostifyToastContainer
                 position="top-right"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { motion } from "framer-motion";
 import "./AreaTrabalho.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +13,7 @@ import AnaliseEstatistica from '../../components/AnaliseEstatistica/AnaliseEstat
 import LivroVerde from '../../components/LivroVerde/LivroVerde';
 
 function AreaTrabalho() {
-    const [selectedCompoent, setSelectedComponent] = useState(<PerfilPessoal />)
+    const [selectedComponent, setSelectedComponent] = useState(<PerfilPessoal />)
     function handleClick(component) {
         setSelectedComponent(component)
     }
@@ -45,7 +46,7 @@ function AreaTrabalho() {
             <Header />
             <div className='area-trabalho'>
                 <Row className='area-trabalho-row'>
-                    <Col md={3} className='side-bar-col'>
+                    <Col md={2} className='side-bar-col'>
                         <div className='side-bar'>
                             <ul>
                                 {SideBarItems.map((val, key) => {
@@ -53,6 +54,7 @@ function AreaTrabalho() {
                                         <li
                                             className='sidebar-item'
                                             key={key}
+                                            id={val.link.type == selectedComponent.type ? "active" : ""}
                                             onClick={() => { handleClick(val.link) }}>
                                             <div className='sidebar-item-icon'>
                                                 {val.icon}
@@ -69,7 +71,7 @@ function AreaTrabalho() {
 
                     <Col md={8}>
                         <h1 className='title'>Área de trabalho</h1>
-                        {selectedCompoent}
+                        {selectedComponent}
                     </Col>
                 </Row>
             </div>

@@ -9,7 +9,7 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 const LivroVerde = () => {
     return (
         <>
-            <h1>LivroVerde</h1>
+            <h2>Livro Verde</h2>
         </>
     )
 }

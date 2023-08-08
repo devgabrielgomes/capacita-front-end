@@ -12,6 +12,7 @@
 .area-trabalho-row {
     width: 100%;
     margin: 0%;
+    height: 100%;
 }
 
 .side-bar-col {
@@ -20,6 +21,8 @@
 
 .title {
     margin-top: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .side-bar {
@@ -44,6 +47,10 @@
 
 .sidebar-item:hover {
     background-color: rgba(0, 0, 0, 0.555);
+}
+
+#active {
+    background-color: rgba(0, 0, 0, 0.671);
 }
 
 .sidebar-item-icon {

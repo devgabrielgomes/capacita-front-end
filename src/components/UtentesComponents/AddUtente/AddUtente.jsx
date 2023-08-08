@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, effectRan, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +10,25 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 const AddUtente = () => {
     const [selectedDate, setSelectedDate] = useState(null);
     const date = Date.now()
+    const [gendersData, setGendersData] = useState();
+    const effectRan = useRef(false)
+    useEffect(() => {
+        if (effectRan.current === false) {
+            const getGenders = async () => {
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+                const res = await fetch(API + 'genders', { headers })
+                const data = await res.json()
+                console.log(data)
+                setGendersData(data)
+            }
+            getGenders()
+
+            return () => {
+                effectRan.current = true
+            }
+        }
+    }, [])
+
 
 
     // function createHeights() {
@@ -33,9 +52,9 @@ const AddUtente = () => {
                     <Form.Control type="text" placeholder="Introduza o nome do utente" required />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="height">
+                <Form.Group className="mb-3 birthdate" controlId="birthdate">
                     <Form.Label>Data de nascimento</Form.Label>
-                    <DatePicker
+                    <DatePicker className="date-picker"
                         selected={selectedDate}
                         onChange={date => setSelectedDate(date)}
                         value={selectedDate}
@@ -44,19 +63,44 @@ const AddUtente = () => {
 
                 <Form.Group className="mb-3" controlId="height">
                     <Form.Label>Altura</Form.Label>
-                    {/* <Form.Control type="text" placeholder="Introduza a altura do utente" required /> */}
-                    <select className="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                    <Form.Control type="text" placeholder="Introduza a altura do utente" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="weight">
                     <Form.Label>Peso</Form.Label>
                     <Form.Control type="text" placeholder="Introduza o peso do utente" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Genero</Form.Label>
+                    <Form.Select>
+                        {gendersData && gendersData.map(obj => {
+                            <option value={obj.name} selected={obj.id}>{obj.name}</option>
+                        })}
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Lado dominante</Form.Label>
+                    <Form.Select>
+                        <option>Destro</option>
+                        <option>Esquerdino</option>
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="weight">
+                    <Form.Label>NIF</Form.Label>
+                    <Form.Control type="text" placeholder="Introduza o NIF do utente" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="weight">
+                    <Form.Label>NISS</Form.Label>
+                    <Form.Control type="text" placeholder="Introduza o NIF do utente" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="weight">
+                    <Form.Label>Morada</Form.Label>
+                    <Form.Control type="text" placeholder="Introduza a morada do utente" required />
                 </Form.Group>
 
 

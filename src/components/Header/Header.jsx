@@ -14,15 +14,15 @@ const Header = () => {
     const [userType, setUserType] = useState();
 
     useEffect(() => {
-        if (effectRan.current === false && sessionStorage.getItem('email') != null) {
+        if (effectRan.current === false && sessionStorage.getItem('token') != null) {
             setEmail(sessionStorage.getItem('email'));
             const getStaff = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(API + 'staff', { headers })
                 const data = await res.json()
-                data.forEach(user => {
-                    if (user.email == email) {
-                        setUserName(user.first_name + " " + user.last_name)
+                data.forEach(item => {
+                    if (item.user.email == sessionStorage.getItem('email')) {
+                        setUserName(item.first_name + " " + item.last_name)
                         getUserType(sessionStorage.getItem('email'))
                     }
                 });

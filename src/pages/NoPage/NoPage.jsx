@@ -1,5 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { motion } from "framer-motion";
 import "./NoPage.css";
 import { Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,8 +12,15 @@ const NoPage = () => {
     return (
         <>
             <Header />
-            <h1>Esta página não existe!</h1>
-            <Footer />
+            <motion.div
+                className="wrap"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            >
+                <h1>Esta página não existe!</h1>
+                <Footer />
+            </motion.div>
         </>
     )
 }
