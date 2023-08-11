@@ -2,12 +2,14 @@ import React, { useState, useEffect, effectRan, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./AddUtente.css";
-import { Form, Button, Container } from 'react-bootstrap';
+import "./EditUtente.css";
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from "react-router-dom";
 
-const AddUtente = () => {
+const EditUtente = () => {
+    const navigate = useNavigate();
     const [selectedDate, setSelectedDate] = useState(null);
     const date = Date.now()
     const [gendersData, setGendersData] = useState();
@@ -45,7 +47,14 @@ const AddUtente = () => {
 
     return (
         <>
-            <h2>Inserir Utente</h2>
+            <Row>
+                <Col>
+                    <h4>Editar Utente</h4>
+                </Col>
+                <Col className='patients-list-btn'>
+                    <Button variant="secondary" onClick={() => { navigate('/work_area/patients/list') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
+                </Col>
+            </Row>
             <Form>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Nome</Form.Label>
@@ -113,4 +122,4 @@ const AddUtente = () => {
     )
 }
 
-export default AddUtente
+export default EditUtente

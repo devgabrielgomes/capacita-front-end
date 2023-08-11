@@ -11,7 +11,6 @@ import Footer from '../../components/Footer/Footer';
 const Sobre = () => {
     return (
         <>
-            <Header />
             <Container className='container'>
                 <h1>Sobre</h1>
                 <span className='sobre-text'>É muito importante identificar a condição física do sénior para que ele tenha
@@ -24,7 +23,6 @@ const Sobre = () => {
                     sistema é muito fácil de utilizar.
                 </span>
             </Container>
-            <Footer />
         </>
     )
 }

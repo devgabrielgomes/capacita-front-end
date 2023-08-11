@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./Utentes.css";
-import { Link } from "react-router-dom"
+import "./UtentesList.css";
+import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import UtentesItems from './UtentesItems/UtentesItems';
+import UtentesItems from './UtentesListItems/UtentesListItems';
 import axios from 'axios';
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
-import AddUtente from '../AddUtente/AddUtente';
 
-const Utentes = () => {
+const UtentesList = () => {
     const [patientsData, setPatientsData] = useState();
+    const navigate = useNavigate();
     // const effectRan = useRef(false)
     useEffect(() => {
         // if (effectRan.current === false) {
@@ -84,7 +84,7 @@ const Utentes = () => {
                     <h2>Utentes</h2>
                 </Col>
                 <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { window.location.href = '/area_trabalho/utentes/add'; }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Utente</Button>{' '}
+                    <Button variant="primary" onClick={() => { navigate('/work_area/patients/add') }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Utente</Button>{' '}
                 </Col>
             </Row>
 
@@ -101,13 +101,11 @@ const Utentes = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {patientsData != null && patientsData.length > 0 && patientsData.map((patient, key) => (
-                        <>
+                    {patientsData != null && patientsData.length > 0 && patientsData.map((patient, key) => {
+                        return (
                             <UtentesItems key={key} patient={patient} removePatient={removePatient} />
-                        </>
-                    ))}
-
-
+                        )
+                    })}
                 </tbody>
             </table>
             <TostifyToastContainer
@@ -126,4 +124,4 @@ const Utentes = () => {
     )
 }
 
-export default Utentes
+export default UtentesList

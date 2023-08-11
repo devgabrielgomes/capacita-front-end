@@ -8,8 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 
 export default function Auth() {
     const [email, setEmail] = useState("");
@@ -52,7 +50,7 @@ export default function Auth() {
                 if (data.access_token) {
                     sessionStorage.setItem('token', data.access_token);
                     sessionStorage.setItem('email', email);
-                    window.location.href = '/area_trabalho'
+                    window.location.href = '/work_area/personal_profile'
                 } else {
                     toastError(`As credenciais estão incorretas!`)
                     resetForm()
@@ -74,12 +72,11 @@ export default function Auth() {
 
     return (
         <>
-            <Header />
             <motion.div
                 className="wrap"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.8 } }}
+                exit={{ opacity: 0, transition: { duration: 2 } }}
             >
                 <Container className='auth'>
                     <Row className="justify-content-md-center">
@@ -102,7 +99,6 @@ export default function Auth() {
                     </Row>
                 </Container>
             </motion.div>
-            <Footer />
             <TostifyToastContainer
                 position="top-right"
                 autoClose={5000}

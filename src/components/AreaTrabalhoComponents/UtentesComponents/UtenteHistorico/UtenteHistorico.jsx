@@ -1,18 +1,16 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./TestesRealizados.css";
+import "./UtenteHistorico.css";
 import { Form, Button, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 
-const TestesRealizados = () => {
+const UtenteHistorico = () => {
     return (
         <>
-            <h2>TestesRealizados</h2>
+            <h2>Utente Historico</h2>
         </>
     )
 }
 
-export default TestesRealizados
+export default UtenteHistorico

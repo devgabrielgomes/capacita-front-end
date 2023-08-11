@@ -7,20 +7,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
 const PerfilPessoal = () => {
-
     const effectRan = useRef(false)
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         if (effectRan.current === false && sessionStorage.getItem('token')) {
             const getStaff = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(API + 'staff', { headers })
+                const res = await fetch(`${API}staff${PT}`, { headers })
                 const data = await res.json()
-                console.log(data)
-                setName(data[0].first_name + " " + data[0].last_name)
-                setEmail(data[0].user.email)
+                data.forEach(item => {
+                    if (item.user.email == sessionStorage.getItem('email')) {
+                        setUserData(item)
+                    }
+                });
             }
             getStaff()
 
@@ -38,14 +38,14 @@ const PerfilPessoal = () => {
             </Row>
             <Row>
                 <Col md={3}>
-                    <img src='src\assets\user.jpg' class="rounded float-left" alt="user image" width='300px'></img>
+                    <img src='/src/assets/user.jpg' className="rounded float-left" alt="user image" width='300px'></img>
                 </Col>
                 <Col>
-                    <h3>Bem-vindo, <b>{name}!</b></h3>
+                    <h3>Bem-vindo, <b>{userData.first_name} {userData.last_name}!</b></h3>
                     <hr></hr>
                     <h2>Informações Pessoais</h2>
-                    <p><b>Nome:</b> {name}</p>
-                    <p><b>Email:</b> {email}</p>
+                    <p><b>Nome:</b> {userData.first_name} {userData.last_name}</p>
+                    <p><b>Email:</b> {sessionStorage.getItem('email')}</p>
                     <hr></hr>
                 </Col>
             </Row>

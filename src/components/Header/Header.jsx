@@ -62,10 +62,10 @@ const Header = () => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link className='nav-link' as={Link} to="/home">Página Inicial</Nav.Link>
-                            <Nav.Link className='nav-link' as={Link} to="/contatos">Contatos</Nav.Link>
-                            <Nav.Link className='nav-link' as={Link} to="/sobre">Sobre</Nav.Link>
+                            <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
+                            <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
                             {email != null &&
-                                <Nav.Link className='nav-link' as={Link} to="/area_trabalho">Area de Trabalho</Nav.Link>
+                                <Nav.Link className='nav-link' as={Link} to="/work_area/personal_profile">Area de Trabalho</Nav.Link>
                             }
                         </Nav>
                         <Nav>

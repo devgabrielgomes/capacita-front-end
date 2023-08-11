@@ -50,7 +50,6 @@ const Contatos = () => {
 
     return (
         <>
-            <Header />
             <motion.div
                 className="wrap"
                 initial={{ opacity: 0 }}
@@ -81,7 +80,6 @@ const Contatos = () => {
                         </Col>
                     </Row>
                 </Container>
-                <Footer />
             </motion.div>
             <TostifyToastContainer
                 position="top-right"

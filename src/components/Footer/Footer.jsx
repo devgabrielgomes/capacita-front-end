@@ -12,7 +12,7 @@ const Footer = () => {
                 <Row md={12}>
                     <hr></hr>
                     <div className='mx-auto'>
-                        <Image className='img-fluid capacita-slogan' src='src\assets\capacita_logo_slogan.png' alt='Capacita Logo Slogan' />
+                        <Image className='img-fluid capacita-slogan' src='/src/assets/capacita_logo_slogan.png' alt='Capacita Logo Slogan' />
                     </div>
                 </Row>
                 <Row className="d-flex justify-content-center">

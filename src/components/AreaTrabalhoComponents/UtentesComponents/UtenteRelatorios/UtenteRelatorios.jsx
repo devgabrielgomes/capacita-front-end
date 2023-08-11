@@ -1,18 +1,16 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./Medicacao.css";
+import "./UtenteRelatorios.css";
 import { Form, Button, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 
-const Medicacao = () => {
+const UtenteRelatorios = () => {
     return (
         <>
-            <h2>Add Utente</h2>
+            <h2>Utente Relatorios</h2>
         </>
     )
 }
 
-export default Medicacao
+export default UtenteRelatorios

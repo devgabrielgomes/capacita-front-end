@@ -1,6 +1,6 @@
 .page-title {
     text-align: center;
-    margin-top: 80px;
+    margin-top: 60px;
     margin-bottom: 70px;
 }
 
@@ -13,11 +13,14 @@
 }
 
 .project-info-image {
-    margin-bottom: 20px;
     transition: transform .3s;
 }
 
 .project-info-image:hover {
     transform: scale(1.1);
-    
+
+}
+
+.project-info-content {
+    margin-bottom: 40px;
 }
