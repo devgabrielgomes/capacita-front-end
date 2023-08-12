@@ -13,6 +13,8 @@ const UtentePrescricoes = () => {
     const effectRan = useRef(false)
     const [patientPrescriptionsData, setPatientPrescriptionsData] = useState({});
     const [staffData, setStaffData] = useState({});
+    const [exerciseTypesData, setExerciseTypesData] = useState({});
+    const [selectedComponent, setSelectedComponent] = useState()
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -38,8 +40,17 @@ const UtentePrescricoes = () => {
                 setStaffData(data)
             }
 
+            const getExerciseTypes = async () => {
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+                const res = await fetch(`${API}exerciseTypes${PT}`, { headers })
+                const data = await res.json()
+                console.log(data)
+                setExerciseTypesData(data)
+            }
+
             getGenders()
             getStaffData()
+            getExerciseTypes()
 
             return () => {
                 effectRan.current = true
@@ -58,9 +69,10 @@ const UtentePrescricoes = () => {
                 </Col>
             </Row>
             <Row>
+
                 {patientPrescriptionsData.length > 0 && patientPrescriptionsData.map((val, key) => {
                     return (
-                        <UtentePrescricoesItems key={key} prescription={val} staffData={staffData} />
+                        <UtentePrescricoesItems key={key} prescription={val} staffData={staffData} exerciseTypesData={exerciseTypesData} />
                     )
                 })}
             </Row>

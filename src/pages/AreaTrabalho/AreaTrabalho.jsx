@@ -9,10 +9,6 @@ import { SideBarItems } from './AreaTrabalhoItems';
 
 function AreaTrabalho() {
     const navigate = useNavigate();
-    const [selectedComponent, setSelectedComponent] = useState(<PerfilPessoal />)
-    function handleClick(component) {
-        setSelectedComponent(component)
-    }
 
     return (
         <>
