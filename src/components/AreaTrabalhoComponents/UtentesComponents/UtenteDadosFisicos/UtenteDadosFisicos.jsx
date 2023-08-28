@@ -27,10 +27,11 @@ const UtenteDadosFisicos = () => {
             }
         }
     }, [])
+
     return (
         <>
             <Row>
-                <h2>Utente Dados Fisicos</h2>
+                <h2>Dados Físicos</h2>
                 <hr></hr>
             </Row>
             <Row>

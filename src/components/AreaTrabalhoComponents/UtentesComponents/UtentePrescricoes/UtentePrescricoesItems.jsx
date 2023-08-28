@@ -1,44 +1,98 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentePrescricoes.css";
 import DatePicker from "react-datepicker";
-import { Form, Button, Container, Row, Table } from 'react-bootstrap';
+import { Form, Button, Container, Row, Table, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faXmark, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
+import moment from "moment";
+import { ToastContainer, toast } from 'react-toastify';
 
-const UtentePrescricoesItems = ({ prescription, staffData, exerciseTypesData }) => {
-    const date = Date.now()
-    const [selectedDate, setSelectedDate] = useState(null);
+const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPrescriptionsData }) => {
     const [editing, setEditing] = useState(false)
-    const [exerciseType, setExerciseType] = useState(1)
-    const exerTypeSelect = document.getElementById('select-exe-type');
+    const effectRan = useRef(false)
 
-    const UtentePrescricoesItemsView = ({ prescription, staffData, exerciseTypesData }) => {
+    /**
+         * Display a success toast with a specific message
+         * @param message
+         */
+    function toastSuccess(message) {
+        toast.success(`${message}`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
+    /**
+     * Display an error toast with a specific message
+     * @param message
+     */
+    function toastError(message) {
+        toast.error(`${message}`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
+    const UtentePrescricoesItemsView = ({ prescription, staffData }) => {
         return (
             <>
-                <p><b>Autor:</b> {prescription.user.id}</p>
-                <Button variant="warning" onClick={() => handleComponentClick()}>Editar</Button>{' '}
-                <Table striped bordered>
+                <Row className='top-row'>
+                    <Col md={6} className='info-span'><span><b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
+
+                    <Col md={6} className='edit-btn-col'>
+                        <Button className='edit-btn' variant="warning" onClick={() => setEditing(true)}>
+                            <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
+                        </Button>{' '}
+                    </Col>
+                </Row>
+                <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>
                             <th>Tipo de Prescrição</th>
-                            <th>Exercícios</th>
+                            <th>Exercício</th>
+                            <th>Atributos do exercício</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>{prescription.exercise.type.name}</td>
+                            <td>{prescription.exercise.name}</td>
                             <td>
-                                {prescription.exercise.attributes.length > 0 && prescription.exercise.attributes.map((val, key) => {
+                                {prescription.exercise.attributes && prescription.exercise.attributes.map((val, key) => {
                                     return (
-                                        <span key={key}>{val.name}<br /></span>
+                                        <span id={val.id} key={key}>{val.name}<br /></span>
                                     )
                                 })}
                             </td>
                         </tr>
                         <tr>
                             <td colSpan={3}>
-                                <b>Observações: </b>{prescription.exercise.description}
+                                <b>Descrição: </b>{prescription.exercise.description}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={3}>
+                                <b>Observações: </b>{prescription.observation}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={3}>
+                                <b>Medicação: </b>{prescription.medicine}
                             </td>
                         </tr>
                     </tbody>
@@ -47,69 +101,157 @@ const UtentePrescricoesItems = ({ prescription, staffData, exerciseTypesData }) 
         )
     }
 
-    const UtentePrescricoesItemsEdit = ({ prescription, staffData, exerciseTypesData }) => {
+    const UtentePrescricoesItemsEdit = ({ prescription, exercisesData, getPrescriptionsData }) => {
+        const [medicine, setMedicine] = useState(prescription.medicine);
+        const [observation, setObservation] = useState(prescription.observation);
+        const [exerciseId, setExerciseId] = useState(prescription.exercise.id);
+        const [initialDate, setInitialDate] = useState();
+        const [finalDate, setFinalDate] = useState();
+
+        useEffect(() => {
+            getDates();
+        });
+
+        const getDates = () => {
+            if (prescription.period && prescription.period.length == 23) {
+                const prescriptionSplit = prescription.period.split(' ');
+                setInitialDate(moment(prescriptionSplit[0], 'YYYY/MM/DD').toDate())
+                setFinalDate(moment(prescriptionSplit[2], 'YYYY/MM/DD').toDate())
+            }
+        }
+
+        /**
+         * Execute all the put requests needed to edit a prescription in the system
+         * @param e
+         * @returns {Promise<void>}
+         */
+        const postForm = async (e) => {
+            e.preventDefault()
+            await editPrescription()
+        }
+
+        const editPrescription = async (e) => {
+            const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a " + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
+            let prescriptionData = {
+                "patient_id": prescription.patient.id,
+                "exercise_id": exerciseId,
+                "medicine": medicine,
+                "observation": observation,
+                "period": period
+            }
+
+            const headers = {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            };
+
+            axios.put(`${API}prescriptions/${prescription.id}`, prescriptionData, { headers })
+                .then((response) => {
+                    toastSuccess(`You just edited the prescription number "${prescription.id}" from your system!`);
+                    setEditing(false);
+                    getPrescriptionsData();
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    toastError(`Unable to edit the prescription number "${prescription.id}" from your system!`)
+                })
+        }
+
         return (
             <>
-                <p><b>Autor:</b> {prescription.user.id}</p>
-                <Table striped bordered>
+                <Row className='top-row'>
+                    <Col className='info-span'><span><b>Autor:</b> {prescription.user.id}</span></Col>
+                </Row>
+                <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>
-                            <th>Tipo de Prescrição</th>
-                            {exerciseType == 1 ? <th>Data de realização</th> : <th>Exercícios</th>}
+                            <th>Exercício</th>
+                            <th>Período</th>
+                            <th>Medicação</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <Form.Select id="select-exe-type" onChange={() => handleExerciseTypeChange()}>
-                                    <option value={exerciseTypesData[0].id}>{exerciseTypesData[0].name}</option>
-                                    <option value={exerciseTypesData[1].id}>{exerciseTypesData[1].name}</option>
-                                </Form.Select>
+                                <Form>
+                                    <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
+                                        {(exercisesData && exercisesData.map((val, key) => {
+                                            return (
+                                                <option key={key} value={val.id}>{val.name}</option>
+                                            )
+                                        })
+                                        )}
+                                    </Form.Select>
+                                </Form>
                             </td>
-                            <td> {exerciseType == 1 ?
-                                <DatePicker className="date-picker"
-                                    selected={selectedDate}
-                                    onChange={date => setSelectedDate(date)}
-                                    value={selectedDate}
+                            <td>
+                                <div className='initial-date-container'>
+                                    <span className='date-string'>Data Inicial:</span>
+                                    <DatePicker className="date-picker"
+                                        dateFormat="yyyy-MM-dd"
+                                        selected={initialDate}
+                                        value={initialDate}
+                                        onChange={initialDate => { setInitialDate(initialDate) }}
+                                    />
+                                </div>
+                                <div>
+                                    <span className='date-string-2'>Data Final:</span>
+                                    <DatePicker className="date-picker"
+                                        dateFormat="yyyy-MM-dd"
+                                        selected={finalDate}
+                                        value={finalDate}
+                                        onChange={finalDate => { setFinalDate(finalDate) }}
+                                    />
+                                </div>
+                            </td>
+                            <td>
+                                <b>Medicação: </b>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={2}
+                                    id="medicine"
+                                    value={medicine}
+                                    onChange={(event) => { setMedicine(event.target.value) }}
                                 />
-                                :
-                                (prescription.exercise.attributes.length > 0 && prescription.exercise.attributes.map((val, key) => {
-                                    return (
-                                        <span key={key}>{val.name}<br /></span>
-                                    )
-                                })
-                                )}
                             </td>
                         </tr>
                         <tr>
                             <td colSpan={3}>
-                                <b>Observações: </b>{prescription.exercise.description}
+                                <b>Observações: </b>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={2}
+                                    value={observation}
+                                    onChange={(event) => { setObservation(event.target.value) }}
+                                />
                             </td>
                         </tr>
                     </tbody>
                 </Table>
-                <Button variant="danger" onClick={() => handleComponentClick()}>Cancelar</Button>{' '}
-                <Button variant="success" onClick={() => handleComponentClick()}>Publicar</Button>{' '}
+                <div className='btn-container'>
+                    <Button className='change-btn' variant="danger" onClick={() => setEditing(false)}>
+                        <FontAwesomeIcon className='icon' icon={faXmark} /> Cancelar
+                    </Button>{' '}
+                    <Button className='change-btn' variant="success" onClick={postForm}>
+                        <FontAwesomeIcon className='icon' icon={faFloppyDisk} /> Publicar
+                    </Button>{' '}
+                </div>
             </>
         )
     }
 
-    function handleComponentClick() {
-        (editing == false) ? setEditing(true) : setEditing(false);
-    }
 
-    function handleExerciseTypeChange() {
-        (exerciseType == 1) ? setExerciseType(0) : setExerciseType(1);
-        // setExerciseType(exerTypeSelect.options[exerTypeSelect.selectedIndex].value);
-    }
 
     return (
         <>
             {editing ?
-                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exerciseTypesData={exerciseTypesData} />
+                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData} getPrescriptionsData={getPrescriptionsData} />
                 :
-                <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} exerciseTypesData={exerciseTypesData} />
+                <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} exercisesData={exercisesData} />
             }
+
         </>
     )
 }

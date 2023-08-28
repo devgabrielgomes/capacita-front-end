@@ -1,41 +1,48 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./UtentesList.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
+import "./Instituicoes.css";
+import { Link, Outlet, useNavigate } from "react-router-dom"
+import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import UtentesItems from './UtentesListItems/UtentesListItems';
-import axios from 'axios';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import InstituicoesItems from './InstituicoesItems';
+import axios from 'axios';
 
-const UtentesList = () => {
-    const [patientsData, setPatientsData] = useState();
+const Instituicoes = () => {
     const navigate = useNavigate();
+    const effectRan = useRef(false)
+    const [institutionsData, setInstitutionsData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        getPatients()
-    }, [])
-
-    const getPatients = async () => {
+    const getInstitutions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(API + 'patients', { headers })
+        const res = await fetch(`${API}institutions${PT}`, { headers })
         const data = await res.json()
-        setPatientsData(data)
+        console.log(data)
+        setInstitutionsData(data)
     }
 
-    function removePatient(id, patient_name) {
+    function removeInstitution(id, institutionName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}patients/${id}`, { headers })
+        axios.delete(`${API}institutions/${id}`, { headers })
             .then(() => {
-                getPatients()
-                toastSuccess(`O paciente "${patient_name}" foi removido com sucesso do sistema!`)
+                getInstitutions()
+                toastSuccess(`Instituição "${institutionName}" removida com sucesso do sistema!`)
             })
             .catch(({ response }) => {
-                toastError(`Não foi possível remover o paciente "${patient_name}" do sistema!`)
+                toastError(`Não foi possível remover a Instituição "${institutionName}" do sistema!`)
             })
     }
+
+    useEffect(() => {
+        if (effectRan.current === false && sessionStorage.getItem('token')) {
+            getInstitutions()
+            return () => {
+                effectRan.current = true
+            }
+        }
+    }, [])
 
     /**
      * Display a success toast with a specific message
@@ -71,23 +78,21 @@ const UtentesList = () => {
         });
     }
 
+
     return (
         <>
             <Row>
                 <Col>
-                    <h2>Utentes</h2>
+                    <h2>Instituições</h2>
                 </Col>
                 <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { navigate('/work_area/patients/add') }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Utente</Button>{' '}
+                    <Button variant="primary" onClick={() => { navigate('/work_area/institutions/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Instituição</Button>{' '}
                 </Col>
             </Row>
-
             <input
                 type="search"
                 className="form-control search"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Introduza um utente ou instituição"
+                placeholder="Introduza uma instituição"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
@@ -96,28 +101,26 @@ const UtentesList = () => {
                     <tr>
                         <th scope="col">Nº</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">NIF</th>
-                        <th scope="col">NISS</th>
-                        <th scope="col">Instituição</th>
+                        <th scope="col">Localização</th>
+                        <th scope="col">Morada</th>
+                        <th scope="col">Região</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {patientsData && patientsData.map((patient, key) => {
+                    {institutionsData && institutionsData.map((institution, key) => {
                         if (searchTerm === "") {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            return <InstituicoesItems key={key} institution={institution} removeInstitution={removeInstitution} />
                         } else if (
-                            patient.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NIF.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NISS.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.location.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            institution.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            institution.location.region.name.toLowerCase().includes(searchTerm.toLowerCase())
                         ) {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            return <InstituicoesItems key={key} institution={institution} removeInstitution={removeInstitution} />
                         }
                     })}
                 </tbody>
             </table>
+            <Outlet />
             <TostifyToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -134,4 +137,4 @@ const UtentesList = () => {
     )
 }
 
-export default UtentesList
+export default Instituicoes

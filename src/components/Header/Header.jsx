@@ -22,6 +22,7 @@ const Header = () => {
                 const data = await res.json()
                 data.forEach(item => {
                     if (item.user.email == sessionStorage.getItem('email')) {
+                        sessionStorage.setItem('id', item.user.id);
                         setUserName(item.first_name + " " + item.last_name)
                         getUserType(sessionStorage.getItem('email'))
                     }

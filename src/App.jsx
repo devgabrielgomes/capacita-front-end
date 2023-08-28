@@ -27,9 +27,13 @@ import AnaliseEstatistica from "./components/AreaTrabalhoComponents/AnaliseEstat
 import PerfilPessoal from "./components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal";
 import Utente from "./components/AreaTrabalhoComponents/UtentesComponents/Utente/Utente";
 import UtentesList from "./components/AreaTrabalhoComponents/UtentesComponents/UtentesList/UtentesList";
+import TecnicosEF from "./components/AreaTrabalhoComponents/TecnicosEF/TecnicosEF";
+import Instituicoes from "./components/AreaTrabalhoComponents/Instituicoes/Instituicoes";
+import AddInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/AddInstituicao/AddInstituicao";
 
 export default function App() {
   const isAuthenticated = sessionStorage.getItem('token') ? true : false;
+  const isAdmin = sessionStorage.getItem('email') == "admin@gmail.com" ? true : false;
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
@@ -41,6 +45,12 @@ export default function App() {
           <Route path="green_book" element={isAuthenticated ? <LivroVerde /> : <Auth />} />
           <Route path="statistics" element={isAuthenticated ? <AnaliseEstatistica /> : <Auth />} />
           <Route path="personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
+
+          <Route path="technics_ef" element={isAdmin ? <TecnicosEF /> : <Auth />} />
+          <Route path="institutions" element={isAdmin ? <Instituicoes /> : <Auth />} >
+            <Route path="add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
+          </Route>
+
           <Route path="patients" element={isAuthenticated ? <Utentes /> : <Auth />} >
             <Route path="list" element={isAuthenticated ? <UtentesList /> : <Auth />} />
             <Route path="add" element={isAuthenticated ? <AddUtente /> : <Auth />} />

@@ -5,10 +5,17 @@ import { motion } from "framer-motion";
 import "./AreaTrabalho.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import PerfilPessoal from '../../components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal';
-import { SideBarItems } from './AreaTrabalhoItems';
+import { SideBarAdminItems, SideBarItems } from './AreaTrabalhoItems';
 
 function AreaTrabalho() {
+    const isAdmin = sessionStorage.getItem('email') == "admin@gmail.com" ? true : false;
     const navigate = useNavigate();
+    var SideBarFinalItems = null;
+    if (isAdmin) {
+        SideBarFinalItems = SideBarAdminItems;
+    } else {
+        SideBarFinalItems = SideBarItems;
+    }
 
     return (
         <>
@@ -17,7 +24,7 @@ function AreaTrabalho() {
                     <Col md={2} className='side-bar-col'>
                         <div className='side-bar'>
                             <ul>
-                                {SideBarItems.map((val, key) => {
+                                {SideBarFinalItems.map((val, key) => {
                                     return (
                                         <li
                                             className='sidebar-item'

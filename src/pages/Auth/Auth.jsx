@@ -6,7 +6,7 @@ import "./Auth.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Auth() {
@@ -47,6 +47,7 @@ export default function Auth() {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data.access_token) {
                     sessionStorage.setItem('token', data.access_token);
                     sessionStorage.setItem('email', email);
@@ -99,7 +100,7 @@ export default function Auth() {
                     </Row>
                 </Container>
             </motion.div>
-            <TostifyToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}

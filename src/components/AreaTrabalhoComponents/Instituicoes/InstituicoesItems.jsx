@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./UtentesListItems.css";
+import "./InstituicoesItems.css";
 import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPenToSquare, faUserXmark } from '@fortawesome/free-solid-svg-icons'
 
-const UtentesItems = ({ patient, removePatient }) => {
+const InstituicoesItems = ({ institution, removeInstitution }) => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
     const handleCloseModal = () => setShowModal(false);
@@ -16,30 +16,30 @@ const UtentesItems = ({ patient, removePatient }) => {
 
     const tooltip1 = (
         <Tooltip id="tooltip">
-            <strong>Informações Utente</strong>
+            <strong>Informações Instituição</strong>
         </Tooltip>
     );
 
     const tooltip2 = (
         <Tooltip id="tooltip">
-            <strong>Editar Utente</strong>
+            <strong>Editar Instituição</strong>
         </Tooltip>
     );
 
     const tooltip3 = (
         <Tooltip id="tooltip">
-            <strong>Remover Utente</strong>
+            <strong>Remover Instituição</strong>
         </Tooltip>
     );
 
     return (
         <>
             <tr>
-                <th scope="row">{patient.id}</th>
-                <td>{patient.first_name + " " + patient.last_name}</td>
-                <td>{patient.NIF}</td>
-                <td>{patient.NISS}</td>
-                <td>{patient.location.name}</td>
+                <th scope="row">{institution.id}</th>
+                <td>{institution.name}</td>
+                <td>{institution.location.name}</td>
+                <td>{institution.location.address}</td>
+                <td>{institution.location.region.name}</td>
                 <td className='table-icons'>
                     <OverlayTrigger placement="top" overlay={tooltip1}>
                         <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/calendar`); }} />
@@ -54,14 +54,14 @@ const UtentesItems = ({ patient, removePatient }) => {
             </tr>
             <Modal className="my-modal" centered show={showModal} onHide={handleCloseModal} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Remover Utente</Modal.Title>
+                    <Modal.Title>Remover Instituição</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>{`Tem a certeza de que quer remover "${patient.first_name + " " + patient.last_name}" da lista de utentes?`}</Modal.Body>
+                <Modal.Body>{`Tem a certeza de que quer remover a instituição "${institution.name}" do sistema?`}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
                         No
                     </Button>
-                    <Button variant="btn btn-danger" onClick={() => removePatient(patient.id, (patient.first_name + " " + patient.last_name))}>
+                    <Button variant="btn btn-danger" onClick={() => removeInstitution(institution.id, institution.name)}>
                         Yes
                     </Button>
                 </Modal.Footer>
@@ -70,4 +70,4 @@ const UtentesItems = ({ patient, removePatient }) => {
     )
 }
 
-export default UtentesItems
+export default InstituicoesItems

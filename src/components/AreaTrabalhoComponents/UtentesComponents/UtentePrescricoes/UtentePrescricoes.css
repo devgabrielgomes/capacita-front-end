@@ -1,0 +1,49 @@
+.prescriptions-table {
+    margin-bottom: 5px;
+}
+
+.btn-container {
+    text-align: right;
+}
+
+.change-btn {
+    width: 150px;
+    margin-left: 10px;
+    padding-left: 0px;
+}
+
+.edit-btn-col {
+    text-align: right;
+}
+
+.edit-btn {
+    padding-left: 0px;
+}
+
+.initial-date-container {
+    margin-bottom: 10px;
+}
+
+.date-string {
+    margin-right: 10px;
+}
+
+.date-string-2 {
+    margin-right: 15px;
+}
+
+.hr {
+    margin-top: 30px;
+    width: 100%;
+    border-top: 3px dashed #000000;
+}
+
+.info-span {
+    margin: auto;
+    margin-bottom: 3px;
+    margin-top: 10px;
+}
+
+.top-row {
+    margin-bottom: 3px;
+}

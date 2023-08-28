@@ -1,41 +1,47 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./UtentesList.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
+import "./TecnicosEF.css";
+import { Link } from "react-router-dom"
+import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import UtentesItems from './UtentesListItems/UtentesListItems';
-import axios from 'axios';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import TecnicosEFItems from './TecnicosEFItems';
+import axios from 'axios';
 
-const UtentesList = () => {
-    const [patientsData, setPatientsData] = useState();
-    const navigate = useNavigate();
+const TecnicosEF = () => {
+    const effectRan = useRef(false)
+    const [staffData, setStaffData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        getPatients()
-    }, [])
-
-    const getPatients = async () => {
+    const getStaff = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(API + 'patients', { headers })
+        const res = await fetch(`${API}staff${PT}`, { headers })
         const data = await res.json()
-        setPatientsData(data)
+        console.log(data)
+        setStaffData(data)
     }
 
-    function removePatient(id, patient_name) {
+    function removeTechnician(id, technicianName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}patients/${id}`, { headers })
+        axios.delete(`${API}staff/${id}`, { headers })
             .then(() => {
-                getPatients()
-                toastSuccess(`O paciente "${patient_name}" foi removido com sucesso do sistema!`)
+                getStaff()
+                toastSuccess(`Técnico "${technicianName}" removido com sucesso do sistema!`)
             })
             .catch(({ response }) => {
-                toastError(`Não foi possível remover o paciente "${patient_name}" do sistema!`)
+                toastError(`Não foi possível remover o Técnico "${technicianName}" do sistema!`)
             })
     }
+
+    useEffect(() => {
+        if (effectRan.current === false && sessionStorage.getItem('token')) {
+            getStaff()
+            return () => {
+                effectRan.current = true
+            }
+        }
+    }, [])
 
     /**
      * Display a success toast with a specific message
@@ -71,23 +77,18 @@ const UtentesList = () => {
         });
     }
 
+
     return (
         <>
             <Row>
-                <Col>
-                    <h2>Utentes</h2>
-                </Col>
-                <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { navigate('/work_area/patients/add') }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Utente</Button>{' '}
-                </Col>
+                <h2>Técnicos de EF</h2>
             </Row>
-
             <input
                 type="search"
                 className="form-control search"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                placeholder="Introduza um utente ou instituição"
+                placeholder="Introduza um membro da staff"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
@@ -96,24 +97,21 @@ const UtentesList = () => {
                     <tr>
                         <th scope="col">Nº</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">NIF</th>
-                        <th scope="col">NISS</th>
                         <th scope="col">Instituição</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Data de Nascimento</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {patientsData && patientsData.map((patient, key) => {
+                    {staffData && staffData.map((staff, key) => {
                         if (searchTerm === "") {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
                         } else if (
-                            patient.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NIF.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NISS.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.location.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            staff.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            staff.last_name.toLowerCase().includes(searchTerm.toLowerCase())
                         ) {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
                         }
                     })}
                 </tbody>
@@ -134,4 +132,4 @@ const UtentesList = () => {
     )
 }
 
-export default UtentesList
+export default TecnicosEF
