@@ -29,7 +29,7 @@ const AddUtente = () => {
     const [email, setEmail] = useState("");
     const [rightHanded, setRightHanded] = useState(0);
     const [gender, setGender] = useState(1);
-    const [locationId, setLocationId] = useState(0);
+    const [locationId, setLocationId] = useState(1);
     const [aidTypeId, setAidTypeId] = useState(1);
 
     const [picture, setPicture] = useState({});
@@ -76,7 +76,7 @@ const AddUtente = () => {
     const postForm = async (e) => {
         e.preventDefault()
         await postPatient()
-        navigate("/work_area/patients/list")
+        navigate("/work_area/patients")
     }
 
     /**
@@ -168,7 +168,7 @@ const AddUtente = () => {
                     <h4>Inserir Utente</h4>
                 </Col>
                 <Col className='patients-list-btn'>
-                    <Button variant="secondary" onClick={() => { navigate('/work_area/patients/list') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
+                    <Button variant="secondary" onClick={() => { navigate('/work_area/patients') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
                 </Col>
             </Row>
             <Form>

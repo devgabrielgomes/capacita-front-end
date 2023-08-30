@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./PerfilPessoal.css";
 import { Link } from "react-router-dom"
-import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Nav, Row, Col, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
@@ -33,14 +33,15 @@ const PerfilPessoal = () => {
 
     return (
         <div className='perfil-pessoal'>
+
             <Row>
                 <h2>Perfil Pessoal</h2>
             </Row>
             <Row>
-                <Col md={3}>
-                    <img src='/src/assets/user.jpg' className="rounded float-left" alt="user image" width='300px'></img>
+                <Col md={4} lg={4} xl={4}>
+                    <Image className='img-fluid project-info-image rounded float-left' src="/src/assets/user.jpg" alt="user image" width={300} />
                 </Col>
-                <Col>
+                <Col md={8} lg={8} xl={8}>
                     <h3>Bem-vindo, <b>{userData.first_name} {userData.last_name}!</b></h3>
                     <hr></hr>
                     <h2>Informações Pessoais</h2>

@@ -30,6 +30,11 @@ import UtentesList from "./components/AreaTrabalhoComponents/UtentesComponents/U
 import TecnicosEF from "./components/AreaTrabalhoComponents/TecnicosEF/TecnicosEF";
 import Instituicoes from "./components/AreaTrabalhoComponents/Instituicoes/Instituicoes";
 import AddInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/AddInstituicao/AddInstituicao";
+import EditInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/EditInstituicao/EditInstituicao";
+import Instituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/Instituicao/Instituicao";
+import TecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/TecnicoEF/TecnicoEF";
+import EditTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/EditTecnicoEF/EditTecnicoEF";
+import AddTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/AddTecnicoEF/AddTecnicoEF";
 
 export default function App() {
   const isAuthenticated = sessionStorage.getItem('token') ? true : false;
@@ -47,24 +52,26 @@ export default function App() {
           <Route path="personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
 
           <Route path="technics_ef" element={isAdmin ? <TecnicosEF /> : <Auth />} />
-          <Route path="institutions" element={isAdmin ? <Instituicoes /> : <Auth />} >
-            <Route path="add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
-          </Route>
+          <Route path="technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
+          <Route path="technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
+          <Route path="technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
+          <Route path="institutions" element={isAdmin ? <Instituicoes /> : <Auth />} />
+          <Route path="institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
+          <Route path="institutions/add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
+          <Route path="institutions/:id/edit" element={isAuthenticated ? <EditInstituicao /> : <Auth />} />
 
-          <Route path="patients" element={isAuthenticated ? <Utentes /> : <Auth />} >
-            <Route path="list" element={isAuthenticated ? <UtentesList /> : <Auth />} />
-            <Route path="add" element={isAuthenticated ? <AddUtente /> : <Auth />} />
-            <Route path=":id/edit" element={isAuthenticated ? <EditUtente /> : <Auth />} />
-            <Route path=":id" element={isAuthenticated ? <Utente /> : <Auth />}>
-              <Route path="calendar" element={isAuthenticated ? <UtenteCalendario /> : <Auth />} />
-              <Route path="history" element={isAuthenticated ? <UtenteHistorico /> : <Auth />} />
-              <Route path="medication" element={isAuthenticated ? <UtenteMedicacao /> : <Auth />} />
-              <Route path="physical_data" element={isAuthenticated ? <UtenteDadosFisicos /> : <Auth />} />
-              <Route path="tests_performed" element={isAuthenticated ? <UtenteTestes /> : <Auth />} />
-              <Route path="reports" element={isAuthenticated ? <UtenteRelatorios /> : <Auth />} />
-              <Route path="prescriptions" element={isAuthenticated ? <UtentePrescricoes /> : <Auth />} />
-              <Route path="analysis" element={isAuthenticated ? <UtenteAnalise /> : <Auth />} />
-            </Route>
+          <Route path="patients" element={isAuthenticated ? <UtentesList /> : <Auth />} />
+          <Route path="patients/add" element={isAuthenticated ? <AddUtente /> : <Auth />} />
+          <Route path="patients/:id/edit" element={isAuthenticated ? <EditUtente /> : <Auth />} />
+          <Route path="patients/:id" element={isAuthenticated ? <Utente /> : <Auth />}>
+            <Route path="calendar" element={isAuthenticated ? <UtenteCalendario /> : <Auth />} />
+            <Route path="history" element={isAuthenticated ? <UtenteHistorico /> : <Auth />} />
+            <Route path="medication" element={isAuthenticated ? <UtenteMedicacao /> : <Auth />} />
+            <Route path="physical_data" element={isAuthenticated ? <UtenteDadosFisicos /> : <Auth />} />
+            <Route path="tests_performed" element={isAuthenticated ? <UtenteTestes /> : <Auth />} />
+            <Route path="reports" element={isAuthenticated ? <UtenteRelatorios /> : <Auth />} />
+            <Route path="prescriptions" element={isAuthenticated ? <UtentePrescricoes /> : <Auth />} />
+            <Route path="analysis" element={isAuthenticated ? <UtenteAnalise /> : <Auth />} />
           </Route>
         </Route>
         <Route path="auth" element={isAuthenticated ? <AreaTrabalho /> : <Auth />} />

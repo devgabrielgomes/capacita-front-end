@@ -86,7 +86,6 @@ const Header = () => {
                                     </Nav.Link>
                                 </div>
                             }
-
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -236,7 +236,7 @@ const UtentePrescricoes = () => {
                     <h2>Prescricões</h2>
                 </Col>
                 <Col className='patients-list-btn'>
-                    {!adding ? <Button variant="secondary" onClick={() => setAdding(true)}><FontAwesomeIcon icon={faCalendarPlus} /> Adicionar Prescrição</Button> : ""}
+                    {!adding ? <Button variant="primary" onClick={() => setAdding(true)}><FontAwesomeIcon icon={faCalendarPlus} /> Adicionar Prescrição</Button> : ""}
                 </Col>
             </Row>
             <Row>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, effectRan, useRef } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./AddInstituicao.css";
+import "./AddTecnicoEF.css";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -10,15 +10,18 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AddInstituicao = () => {
+const AddTecnicoEF = () => {
     const navigate = useNavigate();
     const effectRan = useRef(false)
     const [locationsData, setLocationsData] = useState([]);
     const [regionsData, setRegionsData] = useState([]);
     const [addingLocation, setAddingLocation] = useState(false);
 
-    const [name, setName] = useState("");
-    const [locationId, setLocationId] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [birthdate, setBirthdate] = useState();
+    const [userId, setUserId] = useState(1);
+    const [locationId, setLocationId] = useState(1);
 
     const [locationName, setLocationName] = useState("");
     const [locationAddress, setLocationAddress] = useState("");
@@ -50,17 +53,17 @@ const AddInstituicao = () => {
         }
     }, [])
 
-    const postInstitutionForm = async (e) => {
+    const postTechnicForm = async (e) => {
         e.preventDefault()
-        await postInstitution()
-        navigate("/work_area/institutions")
+        await postTechnic()
+        navigate("/work_area/technics_ef")
     }
 
     const postLocationForm = async (e) => {
         e.preventDefault()
         await postLocation()
         getLocations()
-        navigate('/work_area/institutions/add')
+        navigate('/work_area/technics_ef/add')
     }
 
     /**
@@ -69,21 +72,21 @@ const AddInstituicao = () => {
      * @param e
      * @returns {Promise<void>}
      */
-    const postInstitution = async (e) => {
-        let institutionData = { 'name': name, 'location_id': locationId }
+    const postTechnic = async (e) => {
+        let technicData = { 'first_name': firstName, 'last_name': lastName, 'birthdate': birthdate.toISOString().slice(0, 10).replace(/-/g, "-"), 'location_id': locationId }
         const headers = {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}institutions`, institutionData, { headers })
+        axios.post(`${API}staff`, technicData, { headers })
             .then((response) => {
-                toastSuccess(`A Instituição "${name}" foi adicionada com sucesso ao sistema!`);
+                toastSuccess(`O Técnico "${name}" foi adicionado com sucesso ao sistema!`);
             })
             .catch(function (error) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-                toastError(`Não foi possível adicionar a Instituição "${name}" ao sistema!`)
+                toastError(`Não foi possível adicionar o Técnico "${name}" ao sistema!`)
             })
     }
 
@@ -152,11 +155,11 @@ const AddInstituicao = () => {
                 {!addingLocation ?
                     <>
                         <Col xs='4' md='4' lg='4'>
-                            <h4>Inserir Instituição</h4>
+                            <h4>Inserir Técnico de EF</h4>
                         </Col>
                         <Col xs='8' md='8' lg='8' className='top-buttons'>
                             <Button className='add-location-btn' variant="primary" onClick={() => { setAddingLocation(true) }}><FontAwesomeIcon icon={faPlus} /> Adicionar localização</Button>
-                            <Button variant="secondary" onClick={() => { navigate('/work_area/institutions') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>
+                            <Button variant="secondary" onClick={() => { navigate('/work_area/technics_ef') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>
                         </Col>
                     </>
                     :
@@ -203,30 +206,35 @@ const AddInstituicao = () => {
                         </Form.Group>
 
                         <Button variant="primary" type="submit" onClick={postLocationForm}>
-                            Inserir Instituição
+                            Inserir Localização
                         </Button>
                     </Form>
                 </>
                 :
                 <Form>
-                    <Form.Group className="mb-3" controlId="name">
+                    <Form.Group className="mb-3" controlId="firstName">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control type="text" placeholder="Introduza o nome da instituição" value={name} onChange={(event) => { setName(event.target.value) }} required />
+                        <Form.Control type="text" placeholder="Introduza o nome" value={firstName} onChange={(event) => { setFirstName(event.target.value) }} required />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="aid_type_id">
-                        <Form.Label>Localização</Form.Label>
-                        <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }}>
-                            {locationsData.map((val, key) => {
-                                return (
-                                    <option key={key} value={val.id}>{val.name}</option>
-                                )
-                            })}
-                        </Form.Select>
+                    <Form.Group className="mb-3" controlId="lastName">
+                        <Form.Label>Morada</Form.Label>
+                        <Form.Control type="text" placeholder="Introduza o apelido" value={lastName} onChange={(event) => { setLastName(event.target.value) }} required />
                     </Form.Group>
 
-                    <Button variant="success" type="submit" onClick={postInstitutionForm}>
-                        Inserir Instituição
+                    <Form.Group className="mb-3 birthdate" controlId="birthdate">
+                        <Form.Label>Data de nascimento</Form.Label>
+                        <DatePicker className="date-picker"
+                            dateFormat="yyyy-MM-dd"
+                            selected={birthdate}
+                            value={birthdate}
+                            onChange={birthdate => { setBirthdate(birthdate) }}
+                        />
+                        <small id="emailHelp" className="form-text text-muted">Formato da Data: YYYY-MM-DD</small>
+                    </Form.Group>
+
+                    <Button variant="success" type="submit" onClick={postTechnicForm}>
+                        Inserir Técnico de EF
                     </Button>
                 </Form>
             }
@@ -249,4 +257,4 @@ const AddInstituicao = () => {
     )
 }
 
-export default AddInstituicao
+export default AddTecnicoEF

@@ -11,6 +11,13 @@
     color: rgba(0, 193, 201, 0.699);
 }
 
+.nav-link.active {
+    color: #f30404;
+}
+
+.me-auto {
+    text-align: center;
+}
 
 #navbar-container {
     margin: 0%;

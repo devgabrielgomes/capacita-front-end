@@ -53,11 +53,10 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
             <>
                 <Row className='top-row'>
                     <Col md={6} className='info-span'><span><b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
-
                     <Col md={6} className='edit-btn-col'>
                         <Button className='edit-btn' variant="warning" onClick={() => setEditing(true)}>
                             <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
-                        </Button>{' '}
+                        </Button>
                     </Col>
                 </Row>
                 <Table className='prescriptions-table' bordered>
@@ -108,10 +107,6 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
         const [initialDate, setInitialDate] = useState();
         const [finalDate, setFinalDate] = useState();
 
-        useEffect(() => {
-            getDates();
-        });
-
         const getDates = () => {
             if (prescription.period && prescription.period.length == 23) {
                 const prescriptionSplit = prescription.period.split(' ');
@@ -119,6 +114,16 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                 setFinalDate(moment(prescriptionSplit[2], 'YYYY/MM/DD').toDate())
             }
         }
+
+        useEffect(() => {
+            if (effectRan.current === false) {
+                getDates()
+
+                return () => {
+                    effectRan.current = true
+                }
+            }
+        }, [])
 
         /**
          * Execute all the put requests needed to edit a prescription in the system
@@ -161,9 +166,6 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
 
         return (
             <>
-                <Row className='top-row'>
-                    <Col className='info-span'><span><b>Autor:</b> {prescription.user.id}</span></Col>
-                </Row>
                 <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>

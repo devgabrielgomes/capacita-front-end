@@ -21,7 +21,7 @@ function AreaTrabalho() {
         <>
             <div className='area-trabalho'>
                 <Row className='area-trabalho-row'>
-                    <Col md={2} className='side-bar-col'>
+                    <Col md={4} lg={4} xl={3} xxl={2} className='side-bar-col'>
                         <div className='side-bar'>
                             <ul>
                                 {SideBarFinalItems.map((val, key) => {
@@ -29,7 +29,7 @@ function AreaTrabalho() {
                                         <li
                                             className='sidebar-item'
                                             key={key}
-                                            id={window.location.pathname == val.link ? "active" : ""}
+                                            id={window.location.pathname.includes(val.link) ? "active" : ""}
                                             onClick={() => { navigate(val.link); }}>
                                             <div className='sidebar-item-icon'>
                                                 {val.icon}
@@ -44,7 +44,7 @@ function AreaTrabalho() {
                         </div>
                     </Col>
 
-                    <Col md={10}>
+                    <Col md={7} lg={7} xl={8} xxl={9}>
                         <h1 className='title'>Área de trabalho</h1>
                         <Outlet />
                     </Col>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./TecnicosEF.css";
-import { Link } from "react-router-dom"
-import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import { Link, useNavigate } from "react-router-dom"
+import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
 import TecnicosEFItems from './TecnicosEFItems';
 import axios from 'axios';
 
 const TecnicosEF = () => {
+    const navigate = useNavigate();
     const effectRan = useRef(false)
     const [staffData, setStaffData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +19,6 @@ const TecnicosEF = () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff${PT}`, { headers })
         const data = await res.json()
-        console.log(data)
         setStaffData(data)
     }
 
@@ -81,13 +81,16 @@ const TecnicosEF = () => {
     return (
         <>
             <Row>
-                <h2>Técnicos de EF</h2>
+                <Col>
+                    <h2>Técnicos de EF</h2>
+                </Col>
+                <Col className='add-patient-btn'>
+                    <Button variant="primary" onClick={() => { navigate('/work_area/technics_ef/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Técnico de EF</Button>
+                </Col>
             </Row>
             <input
                 type="search"
                 className="form-control search"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
                 placeholder="Introduza um membro da staff"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />

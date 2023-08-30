@@ -1,16 +1,19 @@
-import React, { useState, useEffect, effectRan, useRef } from "react";
+import React, { useState, useEffect, effectRan, useRef, require } from "react";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./AddInstituicao.css";
+import "./EditInstituicao.css";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
-const AddInstituicao = () => {
+const EditInstituicao = () => {
+    let params = useParams();
+    let institutionId = params.id;
     const navigate = useNavigate();
     const effectRan = useRef(false)
     const [locationsData, setLocationsData] = useState([]);
@@ -18,7 +21,7 @@ const AddInstituicao = () => {
     const [addingLocation, setAddingLocation] = useState(false);
 
     const [name, setName] = useState("");
-    const [locationId, setLocationId] = useState("");
+    const [locationId, setLocationId] = useState(1);
 
     const [locationName, setLocationName] = useState("");
     const [locationAddress, setLocationAddress] = useState("");
@@ -39,8 +42,18 @@ const AddInstituicao = () => {
         setRegionsData(data)
     }
 
+    const getInstitutionData = async () => {
+        const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+        const res = await fetch(`${API}institutions/${institutionId}${PT}`, { headers })
+        const data = await res.json()
+        console.log(data)
+        setName(data.name)
+        setLocationId(data.location.id)
+    }
+
     useEffect(() => {
         if (effectRan.current === false) {
+            getInstitutionData()
             getLocations()
             getRegions()
 
@@ -50,9 +63,14 @@ const AddInstituicao = () => {
         }
     }, [])
 
-    const postInstitutionForm = async (e) => {
+    /**
+         * Execute all the put requests needed to edit a patient in the system
+         * @param e
+         * @returns {Promise<void>}
+         */
+    const putInstitutionForm = async (e) => {
         e.preventDefault()
-        await postInstitution()
+        await editInstitutions()
         navigate("/work_area/institutions")
     }
 
@@ -60,30 +78,26 @@ const AddInstituicao = () => {
         e.preventDefault()
         await postLocation()
         getLocations()
-        navigate('/work_area/institutions/add')
     }
 
-    /**
-     * POST request to add new institution
-     * @async
-     * @param e
-     * @returns {Promise<void>}
-     */
-    const postInstitution = async (e) => {
+
+    const editInstitutions = async (e) => {
         let institutionData = { 'name': name, 'location_id': locationId }
+
         const headers = {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}institutions`, institutionData, { headers })
+
+        axios.put(`${API}institutions/${institutionId}`, institutionData, { headers })
             .then((response) => {
-                toastSuccess(`A Instituição "${name}" foi adicionada com sucesso ao sistema!`);
+                toastSuccess(`A Instituição "${name}" foi editada com sucesso!`);
             })
             .catch(function (error) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-                toastError(`Não foi possível adicionar a Instituição "${name}" ao sistema!`)
+                toastError(`Não foi possível editar a Instituição "${name}" !`)
             })
     }
 
@@ -152,17 +166,16 @@ const AddInstituicao = () => {
                 {!addingLocation ?
                     <>
                         <Col xs='4' md='4' lg='4'>
-                            <h4>Inserir Instituição</h4>
+                            <h4>Editar Instituição</h4>
                         </Col>
                         <Col xs='8' md='8' lg='8' className='top-buttons'>
                             <Button className='add-location-btn' variant="primary" onClick={() => { setAddingLocation(true) }}><FontAwesomeIcon icon={faPlus} /> Adicionar localização</Button>
-                            <Button variant="secondary" onClick={() => { navigate('/work_area/institutions') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>
+                            <Button variant="secondary" onClick={() => { navigate('/work_area/institutions') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista de Instituições</Button>
                         </Col>
                     </>
                     :
                     ""
                 }
-
             </Row>
 
             {addingLocation ?
@@ -203,7 +216,7 @@ const AddInstituicao = () => {
                         </Form.Group>
 
                         <Button variant="primary" type="submit" onClick={postLocationForm}>
-                            Inserir Instituição
+                            Inserir Localização
                         </Button>
                     </Form>
                 </>
@@ -214,7 +227,7 @@ const AddInstituicao = () => {
                         <Form.Control type="text" placeholder="Introduza o nome da instituição" value={name} onChange={(event) => { setName(event.target.value) }} required />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="aid_type_id">
+                    <Form.Group className="mb-3" controlId="locationId">
                         <Form.Label>Localização</Form.Label>
                         <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }}>
                             {locationsData.map((val, key) => {
@@ -225,14 +238,11 @@ const AddInstituicao = () => {
                         </Form.Select>
                     </Form.Group>
 
-                    <Button variant="success" type="submit" onClick={postInstitutionForm}>
-                        Inserir Instituição
+                    <Button variant="success" type="submit" onClick={putInstitutionForm}>
+                        Guardar Alterações
                     </Button>
                 </Form>
             }
-
-
-
             <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -249,4 +259,4 @@ const AddInstituicao = () => {
     )
 }
 
-export default AddInstituicao
+export default EditInstituicao

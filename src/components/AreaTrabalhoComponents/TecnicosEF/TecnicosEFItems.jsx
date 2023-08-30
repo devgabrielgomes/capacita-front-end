@@ -42,10 +42,10 @@ const TecnicosEFItems = ({ staff, removeTechnician }) => {
                 <td>{staff.birthdate}</td>
                 <td className='table-icons'>
                     <OverlayTrigger placement="top" overlay={tooltip1}>
-                        <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/calendar`); }} />
+                        <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/technics_ef/${staff.id}`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip2}>
-                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/patients/${patient.id}/edit`); }} />
+                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/technics_ef/${staff.id}/edit`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip3}>
                         <FontAwesomeIcon className='icon' onClick={handleShowModal} icon={faUserXmark} style={{ color: "#c70000", }} />

@@ -4,7 +4,7 @@ import "./InstituicoesItems.css";
 import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPenToSquare, faUserXmark } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faBuilding, faBuildingCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 const InstituicoesItems = ({ institution, removeInstitution }) => {
     const navigate = useNavigate();
@@ -42,13 +42,13 @@ const InstituicoesItems = ({ institution, removeInstitution }) => {
                 <td>{institution.location.region.name}</td>
                 <td className='table-icons'>
                     <OverlayTrigger placement="top" overlay={tooltip1}>
-                        <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/calendar`); }} />
+                        <FontAwesomeIcon icon={faBuilding} onClick={() => { navigate(`/work_area/institutions/${institution.id}`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip2}>
-                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/patients/${patient.id}/edit`); }} />
+                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/institutions/${institution.id}/edit`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip3}>
-                        <FontAwesomeIcon className='icon' onClick={handleShowModal} icon={faUserXmark} style={{ color: "#c70000", }} />
+                        <FontAwesomeIcon className='icon' onClick={handleShowModal} icon={faBuildingCircleXmark} style={{ color: "#c70000", }} />
                     </OverlayTrigger>
                 </td>
             </tr>

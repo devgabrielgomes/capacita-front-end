@@ -51,7 +51,7 @@ const EditUtente = () => {
     const postForm = async (e) => {
         e.preventDefault()
         await editPatient()
-        navigate("/work_area/patients/list")
+        navigate("/work_area/patients")
     }
 
     const editPatient = async (e) => {
@@ -78,9 +78,6 @@ const EditUtente = () => {
         axios.put(`${API}patients/${patientId}`, finalPatientData, { headers })
             .then((response) => {
                 toastSuccess(`O utente "${firstName} ${lastName}" foi editado com sucesso!`);
-                console.log(response.data);
-                console.log(response.status);
-                console.log(response.headers);
             })
             .catch(function (error) {
                 console.log(error.response.data);
@@ -97,11 +94,9 @@ const EditUtente = () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
                 const data = await res.json()
-                console.log(data)
                 setFirstName(data.first_name)
                 setLastName(data.last_name)
-                const myDate = moment(data.birthdate, 'YYYY-MM-DD').toDate();
-                setBirthdate(myDate)
+                setBirthdate(moment(data.birthdate, 'YYYY-MM-DD').toDate())
                 setHeight(data.height)
                 setWeight(data.weight)
                 setGender(data.gender)
@@ -147,17 +142,6 @@ const EditUtente = () => {
         }
     }, [])
 
-
-    /**
-     * Stop the execution for a certain amount of time
-     * @param ms
-     * @returns {Promise<unknown>}
-     */
-    function wait(ms) {
-        return new Promise((resolve) => { setTimeout(resolve, ms) });
-    }
-
-
     /**
      * Display a success toast with a specific message
      * @param message
@@ -199,7 +183,7 @@ const EditUtente = () => {
                     <h4>Editar Utente</h4>
                 </Col>
                 <Col className='patients-list-btn'>
-                    <Button variant="secondary" onClick={() => { navigate('/work_area/patients/list') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
+                    <Button variant="secondary" onClick={() => { navigate('/work_area/patients') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
                 </Col>
             </Row>
             <Form>

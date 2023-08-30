@@ -19,7 +19,6 @@ const Instituicoes = () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}institutions${PT}`, { headers })
         const data = await res.json()
-        console.log(data)
         setInstitutionsData(data)
     }
 
@@ -120,7 +119,6 @@ const Instituicoes = () => {
                     })}
                 </tbody>
             </table>
-            <Outlet />
             <TostifyToastContainer
                 position="top-right"
                 autoClose={5000}

@@ -37,7 +37,7 @@ export const SideBarAdminItems = [
     {
         title: "Utentes",
         icon: <FontAwesomeIcon icon={faUsers} />,
-        link: '/work_area/patients/list'
+        link: '/work_area/patients'
     },
     {
         title: "Técnicos de EF",
