@@ -9,7 +9,6 @@ import { faRightToBracket, faUser, faRightFromBracket } from '@fortawesome/free-
 const Header = () => {
     const effectRan = useRef(false)
     const [email, setEmail] = useState();
-    const [staffData, setStaffData] = useState();
     const [userName, setUserName] = useState();
     const [userType, setUserType] = useState();
 

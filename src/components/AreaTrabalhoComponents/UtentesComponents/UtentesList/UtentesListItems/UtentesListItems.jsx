@@ -42,7 +42,7 @@ const UtentesItems = ({ patient, removePatient }) => {
                 <td>{patient.location.name}</td>
                 <td className='table-icons'>
                     <OverlayTrigger placement="top" overlay={tooltip1}>
-                        <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/calendar`); }} />
+                        <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/prescriptions`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip2}>
                         <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/patients/${patient.id}/edit`); }} />

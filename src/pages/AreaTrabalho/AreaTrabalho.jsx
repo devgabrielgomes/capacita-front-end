@@ -44,8 +44,7 @@ function AreaTrabalho() {
                         </div>
                     </Col>
 
-                    <Col md={7} lg={7} xl={8} xxl={9}>
-                        <h1 className='title'>Área de trabalho</h1>
+                    <Col className='outlet' md={7} lg={7} xl={8} xxl={9}>
                         <Outlet />
                     </Col>
                 </Row>

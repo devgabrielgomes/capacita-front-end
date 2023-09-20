@@ -1,23 +1,15 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { motion } from "framer-motion";
 import "./NoPage.css";
-import { Form, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import { Container, Image } from 'react-bootstrap';
 
 const NoPage = () => {
     return (
         <>
-            <motion.div
-                className="wrap"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.8 } }}
-            >
-            </motion.div>
+            <Container>
+                <h1>A seguinte página não existe!</h1>
+                <Image className='img-fluid rounded' src="/src/assets/no-results.png" alt="work image" width={500} />
+            </Container>
         </>
     )
 }

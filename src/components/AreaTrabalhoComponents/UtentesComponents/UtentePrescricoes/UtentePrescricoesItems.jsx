@@ -52,7 +52,7 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
         return (
             <>
                 <Row className='top-row'>
-                    <Col md={6} className='info-span'><span><b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
+                    <Col md={6} className='info-span'><span><b>Número:</b> {prescription.id} | <b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
                     <Col md={6} className='edit-btn-col'>
                         <Button className='edit-btn' variant="warning" onClick={() => setEditing(true)}>
                             <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
@@ -87,11 +87,6 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                         <tr>
                             <td colSpan={3}>
                                 <b>Observações: </b>{prescription.observation}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={3}>
-                                <b>Medicação: </b>{prescription.medicine}
                             </td>
                         </tr>
                     </tbody>
@@ -247,14 +242,14 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
 
 
     return (
-        <>
+        <div id={prescription.patient.id}>
             {editing ?
                 <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData} getPrescriptionsData={getPrescriptionsData} />
                 :
                 <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} exercisesData={exercisesData} />
             }
 
-        </>
+        </div>
     )
 }
 

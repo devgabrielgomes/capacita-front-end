@@ -90,15 +90,8 @@ export default function App() {
 const Root = () => {
   return (
     <>
-      <div>
-        <Header />
-      </div>
-      <div>
-        <Outlet />
-      </div>
-      {/* <div>
-        <Footer />
-      </div> */}
+      <Header />
+      <Outlet />
     </>
   )
 }

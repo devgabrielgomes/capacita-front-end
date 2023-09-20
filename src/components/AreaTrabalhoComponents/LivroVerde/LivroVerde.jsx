@@ -1,15 +1,15 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./LivroVerde.css";
-import { Link } from "react-router-dom"
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { Image } from 'react-bootstrap';
 
 const LivroVerde = () => {
     return (
         <>
             <h2>Livro Verde</h2>
+            <br />
+            <h4>A seguinte secção ainda não foi implentada!</h4>
+            <Image className='img-fluid rounded' src="/src/assets/work-in-progress.png" alt="work image" width={300} />
         </>
     )
 }
