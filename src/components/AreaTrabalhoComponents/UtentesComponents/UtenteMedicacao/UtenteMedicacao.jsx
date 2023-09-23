@@ -16,7 +16,7 @@ const UtenteMedicacao = () => {
 
     const getMedicationsData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}prescriptions${PT}`, { headers })
+        const res = await fetch(`${API}prescriptions/${PT}`, { headers })
         const data = await res.json()
         const patientPrescriptions = [];
         data.forEach(el => {
@@ -24,7 +24,6 @@ const UtenteMedicacao = () => {
                 patientPrescriptions.push(el)
             }
         });
-        console.log(patientPrescriptions)
         setPatientMedicationData(patientPrescriptions)
     }
 
@@ -53,10 +52,10 @@ const UtenteMedicacao = () => {
 
                         <Row className='top-row'>
                             <Col md={6} className='info-span'>
-                                <span><b>Número:</b> {val.id} | <b>Autor:</b> {staffData[val.user.id - 1].first_name} {staffData[val.user.id - 1].last_name} | <b>Período:</b> {val.period}</span>
+                                <span><b>Autor:</b> {staffData[val.user.id - 1].first_name} {staffData[val.user.id - 1].last_name} | <b>Período:</b> {val.period}</span>
                             </Col>
                             <Col md={6} className='edit-btn-col'>
-                                <Button className='edit-btn' variant="warning" onClick={() => navigate(`/work_area/patients/${val.patient.id}/prescriptions#${val.id}`)}>
+                                <Button className='edit-btn' variant="warning" onClick={() => navigate(`/work_area/patients/${val.patient.id}/prescriptions`)}>
                                     <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
                                 </Button>
                             </Col>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./InstituicoesItems.css";
+import "./InstituicoesListItems.css";
 import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -59,10 +59,10 @@ const InstituicoesItems = ({ institution, removeInstitution }) => {
                 <Modal.Body>{`Tem a certeza de que quer remover a instituição "${institution.name}" do sistema?`}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        No
+                        Sim
                     </Button>
                     <Button variant="btn btn-danger" onClick={() => removeInstitution(institution.id, institution.name)}>
-                        Yes
+                        Não
                     </Button>
                 </Modal.Footer>
             </Modal>

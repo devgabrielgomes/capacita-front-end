@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./TecnicosEFItems.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom"
+import { OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPenToSquare, faUserXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,8 +11,6 @@ const TecnicosEFItems = ({ staff, removeTechnician }) => {
     const [showModal, setShowModal] = useState(false)
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
-    const [show, setShow] = useState(false);
-
 
     const tooltip1 = (
         <Tooltip id="tooltip">
@@ -59,10 +57,10 @@ const TecnicosEFItems = ({ staff, removeTechnician }) => {
                 <Modal.Body>{`Tem a certeza de que quer remover o técnico "${staff.first_name + " " + staff.last_name}" do sistema?`}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        No
+                        Não
                     </Button>
                     <Button variant="btn btn-danger" onClick={() => removeTechnician(staff.id, (staff.first_name + " " + staff.last_name))}>
-                        Yes
+                        Sim
                     </Button>
                 </Modal.Footer>
             </Modal>

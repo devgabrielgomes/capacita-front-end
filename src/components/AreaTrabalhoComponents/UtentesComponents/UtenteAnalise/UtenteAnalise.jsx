@@ -2,9 +2,7 @@ import { React, useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtenteAnalise.css";
-import { Form, Button, Container, Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 const UtenteAnalise = () => {
@@ -56,13 +54,7 @@ const UtenteAnalise = () => {
 
     return (
         <>
-            <h2>Análise</h2>
             <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th colSpan={3}>{patientData.first_name} {patientData.last_name}</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <td>

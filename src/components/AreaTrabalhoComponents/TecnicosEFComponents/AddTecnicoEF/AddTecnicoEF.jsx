@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Work from "../../../../pages/NoPage/Work";
 
 const AddTecnicoEF = () => {
     const navigate = useNavigate();
@@ -211,32 +212,33 @@ const AddTecnicoEF = () => {
                     </Form>
                 </>
                 :
-                <Form>
-                    <Form.Group className="mb-3" controlId="firstName">
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control type="text" placeholder="Introduza o nome" value={firstName} onChange={(event) => { setFirstName(event.target.value) }} required />
-                    </Form.Group>
+                <Work />
+                // <Form>
+                //     <Form.Group className="mb-3" controlId="firstName">
+                //         <Form.Label>Nome</Form.Label>
+                //         <Form.Control type="text" placeholder="Introduza o nome" value={firstName} onChange={(event) => { setFirstName(event.target.value) }} required />
+                //     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="lastName">
-                        <Form.Label>Morada</Form.Label>
-                        <Form.Control type="text" placeholder="Introduza o apelido" value={lastName} onChange={(event) => { setLastName(event.target.value) }} required />
-                    </Form.Group>
+                //     <Form.Group className="mb-3" controlId="lastName">
+                //         <Form.Label>Morada</Form.Label>
+                //         <Form.Control type="text" placeholder="Introduza o apelido" value={lastName} onChange={(event) => { setLastName(event.target.value) }} required />
+                //     </Form.Group>
 
-                    <Form.Group className="mb-3 birthdate" controlId="birthdate">
-                        <Form.Label>Data de nascimento</Form.Label>
-                        <DatePicker className="date-picker"
-                            dateFormat="yyyy-MM-dd"
-                            selected={birthdate}
-                            value={birthdate}
-                            onChange={birthdate => { setBirthdate(birthdate) }}
-                        />
-                        <small id="emailHelp" className="form-text text-muted">Formato da Data: YYYY-MM-DD</small>
-                    </Form.Group>
+                //     <Form.Group className="mb-3 birthdate" controlId="birthdate">
+                //         <Form.Label>Data de nascimento</Form.Label>
+                //         <DatePicker className="date-picker"
+                //             dateFormat="yyyy-MM-dd"
+                //             selected={birthdate}
+                //             value={birthdate}
+                //             onChange={birthdate => { setBirthdate(birthdate) }}
+                //         />
+                //         <small id="emailHelp" className="form-text text-muted">Formato da Data: YYYY-MM-DD</small>
+                //     </Form.Group>
 
-                    <Button variant="success" type="submit" onClick={postTechnicForm}>
-                        Inserir Técnico de EF
-                    </Button>
-                </Form>
+                //     <Button variant="success" type="submit" onClick={postTechnicForm}>
+                //         Inserir Técnico de EF
+                //     </Button>
+                // </Form>
             }
 
 

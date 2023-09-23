@@ -1,6 +1,4 @@
-import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet } from "react-router-dom";
-import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Home from "./pages/Home/Home";
@@ -9,7 +7,6 @@ import Contatos from "./pages/Contatos/Contatos";
 import Auth from "./pages/Auth/Auth";
 import AreaTrabalho from "./pages/AreaTrabalho/AreaTrabalho";
 import NoPage from "./pages/NoPage/NoPage";
-import Utentes from "./components/AreaTrabalhoComponents/UtentesComponents/Utentes/Utentes";
 import AddUtente from "./components/AreaTrabalhoComponents/UtentesComponents/AddUtente/AddUtente";
 import EditUtente from "./components/AreaTrabalhoComponents/UtentesComponents/EditUtente/EditUtente";
 import UtenteCalendario from "./components/AreaTrabalhoComponents/UtentesComponents/UtenteCalendario/UtenteCalendario";
@@ -21,14 +18,13 @@ import UtenteRelatorios from "./components/AreaTrabalhoComponents/UtentesCompone
 import UtentePrescricoes from "./components/AreaTrabalhoComponents/UtentesComponents/UtentePrescricoes/UtentePrescricoes";
 import UtenteAnalise from "./components/AreaTrabalhoComponents/UtentesComponents/UtenteAnalise/UtenteAnalise";
 import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 import LivroVerde from "./components/AreaTrabalhoComponents/LivroVerde/LivroVerde";
 import AnaliseEstatistica from "./components/AreaTrabalhoComponents/AnaliseEstatistica/AnaliseEstatistica";
 import PerfilPessoal from "./components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal";
 import Utente from "./components/AreaTrabalhoComponents/UtentesComponents/Utente/Utente";
 import UtentesList from "./components/AreaTrabalhoComponents/UtentesComponents/UtentesList/UtentesList";
-import TecnicosEF from "./components/AreaTrabalhoComponents/TecnicosEF/TecnicosEF";
-import Instituicoes from "./components/AreaTrabalhoComponents/Instituicoes/Instituicoes";
+import TecnicosEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/TecnicosEF/TecnicosEF";
+import InstituicoesList from "./components/AreaTrabalhoComponents/InstituicoesComponents/InstituicoesList/InstituicoesList";
 import AddInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/AddInstituicao/AddInstituicao";
 import EditInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/EditInstituicao/EditInstituicao";
 import Instituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/Instituicao/Instituicao";
@@ -55,7 +51,7 @@ export default function App() {
           <Route path="technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
           <Route path="technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
           <Route path="technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
-          <Route path="institutions" element={isAdmin ? <Instituicoes /> : <Auth />} />
+          <Route path="institutions" element={isAdmin ? <InstituicoesList /> : <Auth />} />
           <Route path="institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
           <Route path="institutions/add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
           <Route path="institutions/:id/edit" element={isAuthenticated ? <EditInstituicao /> : <Auth />} />

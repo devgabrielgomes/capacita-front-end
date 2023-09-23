@@ -4,13 +4,12 @@ import "./UtenteTestes.css";
 import { Form, Button, Container, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import Work from '../../../../pages/NoPage/Work';
 
 const UtenteTestes = () => {
     return (
         <>
-            <br />
-            <h2>A seguinte secção ainda não foi implentada!</h2>
-            <Image className='img-fluid rounded' src="/src/assets/work-in-progress.png" alt="work image" width={300} />
+            <Work />
         </>
     )
 }

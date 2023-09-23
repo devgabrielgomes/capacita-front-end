@@ -45,7 +45,7 @@ const UtentesItems = ({ patient, removePatient }) => {
                         <FontAwesomeIcon icon={faUser} onClick={() => { navigate(`/work_area/patients/${patient.id}/prescriptions`); }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip2}>
-                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/patients/${patient.id}/edit`); }} />
+                        <FontAwesomeIcon className='icon' icon={faPenToSquare} style={{ color: "#f08000", }} onClick={() => { navigate(`/work_area/patients/${patient.id}/edit`) }} />
                     </OverlayTrigger>
                     <OverlayTrigger placement="top" overlay={tooltip3}>
                         <FontAwesomeIcon className='icon' onClick={handleShowModal} icon={faUserXmark} style={{ color: "#c70000", }} />
@@ -59,10 +59,10 @@ const UtentesItems = ({ patient, removePatient }) => {
                 <Modal.Body>{`Tem a certeza de que quer remover "${patient.first_name + " " + patient.last_name}" da lista de utentes?`}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        No
+                        Não
                     </Button>
                     <Button variant="btn btn-danger" onClick={() => removePatient(patient.id, (patient.first_name + " " + patient.last_name))}>
-                        Yes
+                        Sim
                     </Button>
                 </Modal.Footer>
             </Modal>

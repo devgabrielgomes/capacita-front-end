@@ -10,7 +10,7 @@ import axios from 'axios';
 import moment from "moment";
 import { ToastContainer, toast } from 'react-toastify';
 
-const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPrescriptionsData }) => {
+const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerciseTypeData, getPrescriptionsData }) => {
     const [editing, setEditing] = useState(false)
     const effectRan = useRef(false)
 
@@ -49,10 +49,11 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
     }
 
     const UtentePrescricoesItemsView = ({ prescription, staffData }) => {
+        const [exerciseTypeId, setExerciseTypeId] = useState(prescription.exercise.type.id);
         return (
             <>
                 <Row className='top-row'>
-                    <Col md={6} className='info-span'><span><b>Número:</b> {prescription.id} | <b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
+                    <Col md={6} className='info-span'><span><b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
                     <Col md={6} className='edit-btn-col'>
                         <Button className='edit-btn' variant="warning" onClick={() => setEditing(true)}>
                             <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
@@ -63,21 +64,36 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                     <thead>
                         <tr>
                             <th>Tipo de Prescrição</th>
-                            <th>Exercício</th>
-                            <th>Atributos do exercício</th>
+                            {exerciseTypeId == 1 ?
+                                <>
+                                    <th>Exercício</th>
+                                    <th>Atributos do exercício</th>
+                                </>
+                                :
+                                <th>Exercícios a realizar</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>{prescription.exercise.type.name}</td>
-                            <td>{prescription.exercise.name}</td>
-                            <td>
-                                {prescription.exercise.attributes && prescription.exercise.attributes.map((val, key) => {
-                                    return (
-                                        <span id={val.id} key={key}>{val.name}<br /></span>
-                                    )
-                                })}
-                            </td>
+                            {exerciseTypeId == 1 ?
+                                <>
+                                    <td>{prescription.exercise.name}</td>
+                                    <td>
+                                        {prescription.exercise.attributes && prescription.exercise.attributes.map((val, key) => {
+                                            return (
+                                                <span id={val.id} key={key}>{val.name}<br /></span>
+                                            )
+                                        })}
+                                    </td>
+                                </>
+                                :
+                                <td>
+                                    {prescription.observation}
+                                </td>
+                            }
+
                         </tr>
                         <tr>
                             <td colSpan={3}>
@@ -85,9 +101,12 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                             </td>
                         </tr>
                         <tr>
-                            <td colSpan={3}>
-                                <b>Observações: </b>{prescription.observation}
-                            </td>
+                            {exerciseTypeId == 1 &&
+                                <td colSpan={3}>
+                                    <b>Observações: </b>
+                                    {prescription.observation}
+                                </td>
+                            }
                         </tr>
                     </tbody>
                 </Table>
@@ -95,10 +114,11 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
         )
     }
 
-    const UtentePrescricoesItemsEdit = ({ prescription, exercisesData, getPrescriptionsData }) => {
+    const UtentePrescricoesItemsEdit = ({ prescription, exercisesData, exerciseTypeData, getPrescriptionsData }) => {
         const [medicine, setMedicine] = useState(prescription.medicine);
         const [observation, setObservation] = useState(prescription.observation);
         const [exerciseId, setExerciseId] = useState(prescription.exercise.id);
+        const [exerciseTypeId, setExerciseTypeId] = useState(prescription.exercise.type.id);
         const [initialDate, setInitialDate] = useState();
         const [finalDate, setFinalDate] = useState();
 
@@ -131,10 +151,15 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
         }
 
         const editPrescription = async (e) => {
+            var newExerciseID = exerciseId;
+            if (exerciseTypeId == 2) {
+                newExerciseID = 8;
+            }
+
             const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a " + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
             let prescriptionData = {
                 "patient_id": prescription.patient.id,
-                "exercise_id": exerciseId,
+                "exercise_id": newExerciseID,
                 "medicine": medicine,
                 "observation": observation,
                 "period": period
@@ -164,8 +189,10 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                 <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>
-                            <th>Exercício</th>
-                            <th>Período</th>
+                            <th>Tipo de Exercício</th>
+                            {exerciseTypeId == 1 &&
+                                <th>Exercício</th>
+                            }
                             <th>Medicação</th>
                         </tr>
                     </thead>
@@ -173,16 +200,29 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                         <tr>
                             <td>
                                 <Form>
-                                    <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
-                                        {(exercisesData && exercisesData.map((val, key) => {
+                                    <Form.Select id="select-exe-type" value={exerciseTypeId} onChange={(event) => { setExerciseTypeId(event.target.value) }}>
+                                        {(exerciseTypeData && exerciseTypeData.map((val, key) => {
                                             return (
                                                 <option key={key} value={val.id}>{val.name}</option>
                                             )
-                                        })
-                                        )}
+                                        }))}
                                     </Form.Select>
                                 </Form>
                             </td>
+                            {exerciseTypeId == 1 &&
+                                <td>
+                                    <Form>
+                                        <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
+                                            {exercisesData && exercisesData.map((val, key) => {
+                                                return (
+                                                    <option key={key} value={val.id}>{val.name}</option>
+                                                )
+
+                                            })}
+                                        </Form.Select>
+                                    </Form>
+                                </td>
+                            }
                             <td>
                                 <div className='initial-date-container'>
                                     <span className='date-string'>Data Inicial:</span>
@@ -203,8 +243,19 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                                     />
                                 </div>
                             </td>
+                        </tr>
+                    </tbody>
+                </Table>
+                <Table className='prescriptions-table' bordered>
+                    <thead>
+                        <tr>
+                            <th>Medicação</th>
+                            <th colSpan={2}>{exerciseTypeId == 1 ? "Observações" : "Exercícios a realizar"}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
                             <td>
-                                <b>Medicação: </b>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -213,10 +264,7 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                                     onChange={(event) => { setMedicine(event.target.value) }}
                                 />
                             </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={3}>
-                                <b>Observações: </b>
+                            <td colSpan={2}>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -230,25 +278,22 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, getPre
                 <div className='btn-container'>
                     <Button className='change-btn' variant="danger" onClick={() => setEditing(false)}>
                         <FontAwesomeIcon className='icon' icon={faXmark} /> Cancelar
-                    </Button>{' '}
+                    </Button>
                     <Button className='change-btn' variant="success" onClick={postForm}>
                         <FontAwesomeIcon className='icon' icon={faFloppyDisk} /> Publicar
-                    </Button>{' '}
+                    </Button>
                 </div>
             </>
         )
     }
 
-
-
     return (
-        <div id={prescription.patient.id}>
+        <div>
             {editing ?
-                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData} getPrescriptionsData={getPrescriptionsData} />
+                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData} exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
                 :
-                <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} exercisesData={exercisesData} />
+                <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} />
             }
-
         </div>
     )
 }

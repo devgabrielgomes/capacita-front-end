@@ -16,7 +16,7 @@ const UtentePrescricoes = () => {
     const effectRan = useRef(false)
     const [patientPrescriptionsData, setPatientPrescriptionsData] = useState([]);
     const [staffData, setStaffData] = useState([]);
-    const [exerciseTypesData, setExerciseTypesData] = useState([]);
+    const [exerciseTypeData, setExerciseTypeData] = useState([]);
     const [exercisesData, setExercisesData] = useState([]);
     const [adding, setAdding] = useState(false)
 
@@ -44,7 +44,7 @@ const UtentePrescricoes = () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}exerciseTypes${PT}`, { headers })
         const data = await res.json()
-        setExerciseTypesData(data)
+        setExerciseTypeData(data)
     }
 
     const getExercises = async () => {
@@ -104,7 +104,8 @@ const UtentePrescricoes = () => {
     const UtentePrescricoesItemsAdd = () => {
         const [medicine, setMedicine] = useState();
         const [observation, setObservation] = useState();
-        const [exerciseId, setExerciseId] = useState();
+        const [exerciseId, setExerciseId] = useState(1);
+        const [exerciseTypeId, setExerciseTypeId] = useState(1);
         const [initialDate, setInitialDate] = useState();
         const [finalDate, setFinalDate] = useState();
 
@@ -120,10 +121,14 @@ const UtentePrescricoes = () => {
 
         const addPrescription = async (e) => {
             const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a " + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
+            var newExerciseID = exerciseId;
+            if (exerciseTypeId == 2) {
+                newExerciseID = 8;
+            }
             let prescriptionData = {
                 "user_id": sessionStorage.getItem('id'),
                 "patient_id": patientId,
-                "exercise_id": exerciseId,
+                "exercise_id": newExerciseID,
                 "medicine": medicine,
                 "observation": observation,
                 "period": period
@@ -153,8 +158,8 @@ const UtentePrescricoes = () => {
                 <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>
-                            <th>Exercício</th>
-                            <th>Período</th>
+                            <th>Tipo de Exercício</th>
+                            {exerciseTypeId == 1 ? <th>Exercício</th> : ""}
                             <th>Medicação</th>
                         </tr>
                     </thead>
@@ -162,16 +167,32 @@ const UtentePrescricoes = () => {
                         <tr>
                             <td>
                                 <Form>
-                                    <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
-                                        {(exercisesData && exercisesData.map((val, key) => {
+                                    <Form.Select id="select-exe-type" value={exerciseTypeId} onChange={(event) => { setExerciseTypeId(event.target.value) }}>
+                                        {(exerciseTypeData && exerciseTypeData.map((val, key) => {
                                             return (
                                                 <option key={key} value={val.id}>{val.name}</option>
                                             )
-                                        })
-                                        )}
+                                        }))}
                                     </Form.Select>
                                 </Form>
                             </td>
+                            {exerciseTypeId == 1 ?
+                                <td>
+                                    <Form>
+                                        <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
+                                            {exercisesData && exercisesData.map((val, key) => {
+                                                return (
+                                                    <option key={key} value={val.id}>{val.name}</option>
+                                                )
+
+                                            })}
+
+                                        </Form.Select>
+                                    </Form>
+                                </td>
+                                :
+                                ""
+                            }
                             <td>
                                 <div className='initial-date-container'>
                                     <span className='date-string'>Data Inicial:</span>
@@ -192,8 +213,21 @@ const UtentePrescricoes = () => {
                                     />
                                 </div>
                             </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th>Medicação</th>
+                            {exerciseTypeId == 1 ?
+                                <th colSpan={2}>Observações</th>
+                                :
+                                <th colSpan={2}>Exercícios a realizar</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
                             <td>
-                                <b>Medicação: </b>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -202,10 +236,7 @@ const UtentePrescricoes = () => {
                                     onChange={(event) => { setMedicine(event.target.value) }}
                                 />
                             </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={3}>
-                                <b>Observações: </b>
+                            <td colSpan={2}>
                                 <Form.Control
                                     as="textarea"
                                     rows={2}
@@ -215,14 +246,14 @@ const UtentePrescricoes = () => {
                             </td>
                         </tr>
                     </tbody>
-                </Table>
+                </Table >
                 <div className='btn-container'>
                     <Button className='change-btn' variant="danger" onClick={() => setAdding(false)}>
                         <FontAwesomeIcon className='icon' icon={faXmark} /> Cancelar
-                    </Button>{' '}
+                    </Button>
                     <Button className='change-btn' variant="success" onClick={postForm}>
                         <FontAwesomeIcon className='icon' icon={faFloppyDisk} /> Adicionar
-                    </Button>{' '}
+                    </Button>
                 </div>
                 <hr className='hr'></hr>
             </>
@@ -232,10 +263,7 @@ const UtentePrescricoes = () => {
     return (
         <>
             <Row>
-                <Col>
-                    <h2>Prescricões</h2>
-                </Col>
-                <Col className='patients-list-btn'>
+                <Col className='prescription-add-btn'>
                     {!adding ? <Button variant="primary" onClick={() => setAdding(true)}><FontAwesomeIcon icon={faCalendarPlus} /> Adicionar Prescrição</Button> : ""}
                 </Col>
             </Row>
@@ -247,7 +275,7 @@ const UtentePrescricoes = () => {
                 {patientPrescriptionsData.length > 0 && patientPrescriptionsData.map((val, key) => {
                     return (
                         <div key={key}>
-                            <UtentePrescricoesItems prescription={val} staffData={staffData} exercisesData={exercisesData} getPrescriptionsData={getPrescriptionsData} />
+                            <UtentePrescricoesItems prescription={val} staffData={staffData} exercisesData={exercisesData} exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
                             <hr className='hr'></hr>
                         </div>
                     )

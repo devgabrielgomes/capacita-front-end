@@ -1,42 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./Instituicoes.css";
-import { Link, Outlet, useNavigate } from "react-router-dom"
+import "./TecnicosEF.css";
+import { Link, useNavigate } from "react-router-dom"
 import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
-import InstituicoesItems from './InstituicoesItems';
+import TecnicosEFItems from './TecnicosEFItems/TecnicosEFItems';
 import axios from 'axios';
 
-const Instituicoes = () => {
+const TecnicosEF = () => {
     const navigate = useNavigate();
     const effectRan = useRef(false)
-    const [institutionsData, setInstitutionsData] = useState();
+    const [staffData, setStaffData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const getInstitutions = async () => {
+    const getStaff = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}institutions${PT}`, { headers })
+        const res = await fetch(`${API}staff${PT}`, { headers })
         const data = await res.json()
-        setInstitutionsData(data)
+        setStaffData(data)
     }
 
-    function removeInstitution(id, institutionName) {
+    function removeTechnician(id, technicianName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}institutions/${id}`, { headers })
+        axios.delete(`${API}staff/${id}`, { headers })
             .then(() => {
-                getInstitutions()
-                toastSuccess(`Instituição "${institutionName}" removida com sucesso do sistema!`)
+                getStaff()
+                toastSuccess(`Técnico "${technicianName}" removido com sucesso do sistema!`)
             })
             .catch(({ response }) => {
-                toastError(`Não foi possível remover a Instituição "${institutionName}" do sistema!`)
+                toastError(`Não foi possível remover o Técnico "${technicianName}" do sistema!`)
             })
     }
 
     useEffect(() => {
         if (effectRan.current === false && sessionStorage.getItem('token')) {
-            getInstitutions()
+            getStaff()
             return () => {
                 effectRan.current = true
             }
@@ -82,16 +82,16 @@ const Instituicoes = () => {
         <>
             <Row>
                 <Col>
-                    <h2>Instituições</h2>
+                    <h2>Técnicos de EF</h2>
                 </Col>
                 <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { navigate('/work_area/institutions/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Instituição</Button>{' '}
+                    <Button variant="primary" onClick={() => { navigate('/work_area/technics_ef/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Técnico de EF</Button>
                 </Col>
             </Row>
             <input
                 type="search"
                 className="form-control search"
-                placeholder="Introduza uma instituição"
+                placeholder="Introduza um membro da staff"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
@@ -100,21 +100,21 @@ const Instituicoes = () => {
                     <tr>
                         <th scope="col">Nº</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Localização</th>
-                        <th scope="col">Morada</th>
-                        <th scope="col">Região</th>
+                        <th scope="col">Instituição</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Data de Nascimento</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {institutionsData && institutionsData.map((institution, key) => {
+                    {staffData && staffData.map((staff, key) => {
                         if (searchTerm === "") {
-                            return <InstituicoesItems key={key} institution={institution} removeInstitution={removeInstitution} />
+                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
                         } else if (
-                            institution.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            institution.location.region.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            staff.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            staff.last_name.toLowerCase().includes(searchTerm.toLowerCase())
                         ) {
-                            return <InstituicoesItems key={key} institution={institution} removeInstitution={removeInstitution} />
+                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
                         }
                     })}
                 </tbody>
@@ -135,4 +135,4 @@ const Instituicoes = () => {
     )
 }
 
-export default Instituicoes
+export default TecnicosEF

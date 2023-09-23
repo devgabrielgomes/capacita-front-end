@@ -203,7 +203,7 @@ const AddInstituicao = () => {
                         </Form.Group>
 
                         <Button variant="primary" type="submit" onClick={postLocationForm}>
-                            Inserir Instituição
+                            Inserir Localização
                         </Button>
                     </Form>
                 </>

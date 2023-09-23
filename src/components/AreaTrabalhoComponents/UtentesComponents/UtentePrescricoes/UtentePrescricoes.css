@@ -2,6 +2,12 @@
     margin-bottom: 5px;
 }
 
+.prescription-add-btn {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+
 .btn-container {
     text-align: right;
 }

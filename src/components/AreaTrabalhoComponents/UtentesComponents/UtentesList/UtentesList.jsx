@@ -11,11 +11,13 @@ import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
 
 const UtentesList = () => {
     const [patientsData, setPatientsData] = useState();
+    const [staffInstitution, setStaffInstitution] = useState("");
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getPatients()
+        getStaffInstitution()
     }, [])
 
     const getPatients = async () => {
@@ -24,6 +26,14 @@ const UtentesList = () => {
         const data = await res.json()
         setPatientsData(data)
     }
+
+    const getStaffInstitution = async () => {
+        const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+        const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+        const data = await res.json()
+        setStaffInstitution(data.location.name)
+    }
+
 
     function removePatient(id, patient_name) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
@@ -104,16 +114,32 @@ const UtentesList = () => {
                 </thead>
                 <tbody>
                     {patientsData && patientsData.map((patient, key) => {
-                        if (searchTerm === "") {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
-                        } else if (
-                            patient.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NIF.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.NISS.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            patient.location.name.toLowerCase().includes(searchTerm.toLowerCase())
-                        ) {
-                            return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                        if (sessionStorage.getItem('id') == 1) {
+                            if (searchTerm == "") {
+                                return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            } else if (
+                                patient.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                patient.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                patient.NIF.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                patient.NISS.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                patient.location.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            ) {
+                                return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                            }
+                        } else {
+                            if (patient.location.name.toLowerCase().includes(staffInstitution.toLowerCase())) {
+                                if (searchTerm == "") {
+                                    return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                                } else if (
+                                    patient.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    patient.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    patient.NIF.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    patient.NISS.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    patient.location.name.toLowerCase().includes(searchTerm.toLowerCase())
+                                ) {
+                                    return <UtentesItems key={key} patient={patient} removePatient={removePatient} />
+                                }
+                            }
                         }
                     })}
                 </tbody>

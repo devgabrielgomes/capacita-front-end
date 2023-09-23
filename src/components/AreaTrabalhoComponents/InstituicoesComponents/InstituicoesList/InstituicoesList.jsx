@@ -1,42 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./TecnicosEF.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
+import "./InstituicoesList.css";
+import { useNavigate } from "react-router-dom"
+import { Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
-import TecnicosEFItems from './TecnicosEFItems';
+import InstituicoesListItems from './InstituicoesListItems/InstituicoesListItems';
 import axios from 'axios';
 
-const TecnicosEF = () => {
+const InstituicoesList = () => {
     const navigate = useNavigate();
     const effectRan = useRef(false)
-    const [staffData, setStaffData] = useState();
+    const [institutionsData, setInstitutionsData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const getStaff = async () => {
+    const getInstitutions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}staff${PT}`, { headers })
+        const res = await fetch(`${API}institutions${PT}`, { headers })
         const data = await res.json()
-        setStaffData(data)
+        setInstitutionsData(data)
     }
 
-    function removeTechnician(id, technicianName) {
+    function removeInstitution(id, institutionName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}staff/${id}`, { headers })
+        axios.delete(`${API}institutions/${id}`, { headers })
             .then(() => {
-                getStaff()
-                toastSuccess(`Técnico "${technicianName}" removido com sucesso do sistema!`)
+                getInstitutions()
+                toastSuccess(`Instituição "${institutionName}" removida com sucesso do sistema!`)
             })
             .catch(({ response }) => {
-                toastError(`Não foi possível remover o Técnico "${technicianName}" do sistema!`)
+                toastError(`Não foi possível remover a Instituição "${institutionName}" do sistema!`)
             })
     }
 
     useEffect(() => {
         if (effectRan.current === false && sessionStorage.getItem('token')) {
-            getStaff()
+            getInstitutions()
             return () => {
                 effectRan.current = true
             }
@@ -82,16 +82,16 @@ const TecnicosEF = () => {
         <>
             <Row>
                 <Col>
-                    <h2>Técnicos de EF</h2>
+                    <h2>Instituições</h2>
                 </Col>
                 <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { navigate('/work_area/technics_ef/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Técnico de EF</Button>
+                    <Button variant="primary" onClick={() => { navigate('/work_area/institutions/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Instituição</Button>{' '}
                 </Col>
             </Row>
             <input
                 type="search"
                 className="form-control search"
-                placeholder="Introduza um membro da staff"
+                placeholder="Introduza uma instituição"
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
@@ -100,21 +100,21 @@ const TecnicosEF = () => {
                     <tr>
                         <th scope="col">Nº</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Instituição</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Data de Nascimento</th>
+                        <th scope="col">Localização</th>
+                        <th scope="col">Morada</th>
+                        <th scope="col">Região</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {staffData && staffData.map((staff, key) => {
+                    {institutionsData && institutionsData.map((institution, key) => {
                         if (searchTerm === "") {
-                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
+                            return <InstituicoesListItems key={key} institution={institution} removeInstitution={removeInstitution} />
                         } else if (
-                            staff.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            staff.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+                            institution.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            institution.location.region.name.toLowerCase().includes(searchTerm.toLowerCase())
                         ) {
-                            return <TecnicosEFItems key={key} staff={staff} removeTechnician={removeTechnician} />
+                            return <InstituicoesListItems key={key} institution={institution} removeInstitution={removeInstitution} />
                         }
                     })}
                 </tbody>
@@ -135,4 +135,4 @@ const TecnicosEF = () => {
     )
 }
 
-export default TecnicosEF
+export default InstituicoesList

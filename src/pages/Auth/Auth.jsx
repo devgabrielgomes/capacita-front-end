@@ -1,19 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Auth.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Auth() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [staffData, setStaffData] = useState();
-    const effectRan = useRef(false)
 
     /**
      * Display an error toast with a specific message
@@ -47,10 +42,19 @@ export default function Auth() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.access_token) {
                     sessionStorage.setItem('token', data.access_token);
                     sessionStorage.setItem('email', email);
+                    if (sessionStorage.getItem('email') == "admin@gmail.com") {
+                        sessionStorage.setItem('name', "Una Kuhic")
+                        sessionStorage.setItem('id', "1")
+                    } else if (sessionStorage.getItem('email') != "therapist@gmail.com") {
+                        sessionStorage.setItem('name', "Tatyana Anderson")
+                        sessionStorage.setItem('id', "2")
+                    } else {
+                        sessionStorage.setItem('name', "Mariane Jakubowski")
+                        sessionStorage.setItem('id', "3")
+                    }
                     window.location.href = '/work_area/personal_profile'
                 } else {
                     toastError(`As credenciais estão incorretas!`)

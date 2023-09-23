@@ -8,30 +8,14 @@ import { faRightToBracket, faUser, faRightFromBracket } from '@fortawesome/free-
 
 const Header = () => {
     const effectRan = useRef(false)
-    const [email, setEmail] = useState();
-    const [userName, setUserName] = useState();
     const [userType, setUserType] = useState();
 
     useEffect(() => {
-        if (effectRan.current === false && sessionStorage.getItem('token') != null) {
-            setEmail(sessionStorage.getItem('email'));
-            const getStaff = async () => {
-                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(API + 'staff', { headers })
-                const data = await res.json()
-                data.forEach(item => {
-                    if (item.user.email == sessionStorage.getItem('email')) {
-                        sessionStorage.setItem('id', item.user.id);
-                        setUserName(item.first_name + " " + item.last_name)
-                        getUserType(sessionStorage.getItem('email'))
-                    }
-                });
-            }
-            getStaff()
-
-            return () => {
-                effectRan.current = true
-            }
+        if (effectRan.current == false && sessionStorage.getItem('token') != null) {
+            getUserType(sessionStorage.getItem('email'))
+        }
+        return () => {
+            effectRan.current = true
         }
     }, [])
 
@@ -64,19 +48,19 @@ const Header = () => {
                             <Nav.Link className='nav-link' as={Link} to="/home">Página Inicial</Nav.Link>
                             <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
                             <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
-                            {email != null &&
+                            {sessionStorage.getItem('email') != null &&
                                 <Nav.Link className='nav-link' as={Link} to="/work_area/personal_profile">Area de Trabalho</Nav.Link>
                             }
                         </Nav>
                         <Nav>
-                            {email == null ?
-                                <Nav.Link className='nav-link' as={Link} to="/auth">
+                            {sessionStorage.getItem('email') == null ?
+                                <Nav.Link className='right-side' as={Link} to="/auth">
                                     <FontAwesomeIcon icon={faRightToBracket} /> Iniciar Sessão
                                 </Nav.Link>
                                 :
                                 <div className='right-side'>
                                     <div className='user-name'>
-                                        <FontAwesomeIcon icon={faUser} /> {userType} {userName}
+                                        <FontAwesomeIcon icon={faUser} /> {userType} {sessionStorage.getItem('name')}
                                     </div>
                                     <Nav.Link className='nav-link' id='logout-link' as={Link} onClick={() => { logout() }}>
                                         <Button variant="outline-danger">

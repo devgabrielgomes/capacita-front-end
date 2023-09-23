@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import Work from "../../../../pages/NoPage/Work";
 
 const EditTecnicoEF = () => {
     let params = useParams();
@@ -170,7 +171,7 @@ const EditTecnicoEF = () => {
                 {!addingLocation ?
                     <>
                         <Col xs='4' md='4' lg='4'>
-                            <h4>Editar Instituição</h4>
+                            <h4>Editar Técnico de EF</h4>
                         </Col>
                         <Col xs='8' md='8' lg='8' className='top-buttons'>
                             <Button className='add-location-btn' variant="primary" onClick={() => { setAddingLocation(true) }}><FontAwesomeIcon icon={faPlus} /> Adicionar localização</Button>
@@ -226,7 +227,8 @@ const EditTecnicoEF = () => {
                 </>
                 :
                 <Form>
-                    <Form.Group className="mb-3" controlId="firstName">
+                    <Work />
+                    {/* <Form.Group className="mb-3" controlId="firstName">
                         <Form.Label>Nome</Form.Label>
                         <Form.Control type="text" placeholder="Introduza o nome" value={firstName} onChange={(event) => { setFirstName(event.target.value) }} required />
                     </Form.Group>
@@ -249,7 +251,7 @@ const EditTecnicoEF = () => {
 
                     <Button variant="success" type="submit" onClick={putInstitutionForm}>
                         Guardar Alterações
-                    </Button>
+                    </Button> */}
                 </Form>
             }
             <ToastContainer

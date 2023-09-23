@@ -31,11 +31,6 @@ const UtenteDadosFisicos = () => {
     return (
         <>
             <Row>
-                <h2>Dados Físicos</h2>
-                <hr></hr>
-            </Row>
-            <Row>
-                <h3>Informações Pessoais</h3>
                 <p><b>Altura:</b> {patientData.height} cm</p>
                 <p><b>Peso:</b> {patientData.weight} kg</p>
                 <p><b>Lado Dominante:</b> {patientData.right_handed == 1 ? "Destro" : "Esquerdino"}</p>

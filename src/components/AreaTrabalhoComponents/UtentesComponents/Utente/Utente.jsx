@@ -20,13 +20,7 @@ const Utente = () => {
     }
 
     useEffect(() => {
-        if (effectRan.current === false) {
-            const getPatientData = async () => {
-                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
-                const data = await res.json()
-                setPatientData(data)
-            }
+        if (effectRan.current == false) {
             getPatientData()
         }
 
@@ -34,6 +28,13 @@ const Utente = () => {
             effectRan.current = true
         }
     }, [])
+
+    const getPatientData = async () => {
+        const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+        const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
+        const data = await res.json()
+        setPatientData(data)
+    }
 
     return (
         <>
@@ -47,7 +48,7 @@ const Utente = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <Image className='img-fluid project-info-image rounded float-left' src="/src/assets/user.jpg" alt="user image" width={300} />
+                    <Image className='img-fluid rounded float-left' src="/src/assets/user.jpg" alt="user image" width={300} />
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Informações Pessoais</h3>
@@ -58,17 +59,12 @@ const Utente = () => {
                     <p><b>Data de Nascimento:</b> {patientData.birthdate}</p>
                     <p><b>Género:</b> {patientData.gender}</p>
                     <hr></hr>
-                    {patientData.location &&
-                        <>
-                            <p><b>Nome da Instituição:</b> {patientData.location.name}</p>
-                            <p><b>Localização da Instituição:</b> {patientData.location.address}</p>
-                            <p><b>Região da Instituição:</b> {patientData.location.name}</p>
-                        </>
-                    }
+                    <p><b>Nome da Instituição:</b> {patientData.location && patientData.location.name}</p>
                 </Col>
             </Row >
 
             <Container className='patient-items-container'>
+                <h3>Opções do Utente</h3>
                 <Form.Select id='select-page' onChange={() => { getCurrentPage() }}>
                     <UtenteItems patientId={patientId} />
                 </Form.Select>

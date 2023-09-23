@@ -1,7 +1,3 @@
-import PerfilPessoal from '../../components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal';
-import Utentes from '../../components/AreaTrabalhoComponents/UtentesComponents/Utentes/Utentes';
-import AnaliseEstatistica from '../../components/AreaTrabalhoComponents/AnaliseEstatistica/AnaliseEstatistica';
-import LivroVerde from '../../components/AreaTrabalhoComponents/LivroVerde/LivroVerde';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faUsers, faChartColumn, faBook } from '@fortawesome/free-solid-svg-icons'
 
@@ -14,7 +10,7 @@ export const SideBarItems = [
     {
         title: "Utentes",
         icon: <FontAwesomeIcon icon={faUsers} />,
-        link: '/work_area/patients/list'
+        link: '/work_area/patients'
     },
     {
         title: "Análise Estatística",
