@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
     "@babel/helper-module-imports": "^7.22.5",
@@ -23,6 +23,7 @@
     "react-bootstrap": "^2.8.0",
     "react-datepicker": "^4.17.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
     "react-svg": "^16.1.19",
     "react-toastify": "^9.1.3",
     "vite-plugin-babel-macros": "^1.0.6"
@@ -35,7 +36,6 @@
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "react-router-dom": "^6.15.0",
     "vite": "^4.4.5"
   }
 }
