@@ -14,6 +14,7 @@
 
 .project-info-image {
     transition: transform .3s;
+    width: 350px;
 }
 
 .project-info-image:hover {

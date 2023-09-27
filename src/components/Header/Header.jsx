@@ -49,7 +49,7 @@ const Header = () => {
                             <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
                             <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
                             {sessionStorage.getItem('email') != null &&
-                                <Nav.Link className='nav-link' as={Link} to="/work_area/personal_profile">Area de Trabalho</Nav.Link>
+                                <Nav.Link className='nav-link' as={Link} to="/work_area/personal_profile">Área de Trabalho</Nav.Link>
                             }
                         </Nav>
                         <Nav>

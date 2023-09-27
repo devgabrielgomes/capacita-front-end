@@ -7,7 +7,7 @@ import Work from '../../../pages/NoPage/Work';
 const AnaliseEstatistica = () => {
     return (
         <>
-            <h2>Analise Estatistica</h2>
+            <h2>Análise Estatística</h2>
             <Work />
         </>
     )
