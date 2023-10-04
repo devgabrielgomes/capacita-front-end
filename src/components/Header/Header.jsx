@@ -46,11 +46,11 @@ const Header = () => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link className='nav-link' as={Link} to="/home">Página Inicial</Nav.Link>
-                            <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
-                            <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
                             {sessionStorage.getItem('email') != null &&
                                 <Nav.Link className='nav-link' as={Link} to="/work_area/personal_profile">Área de Trabalho</Nav.Link>
                             }
+                            <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
+                            <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
                         </Nav>
                         <Nav>
                             {sessionStorage.getItem('email') == null ?
@@ -60,7 +60,7 @@ const Header = () => {
                                 :
                                 <div className='right-side'>
                                     <div className='user-name'>
-                                        <FontAwesomeIcon icon={faUser} /> {userType} {sessionStorage.getItem('name')}
+                                        <FontAwesomeIcon icon={faUser} /> <b>{userType}</b> {sessionStorage.getItem('name')}
                                     </div>
                                     <Nav.Link className='nav-link' id='logout-link' as={Link} onClick={() => { logout() }}>
                                         <Button variant="outline-danger">

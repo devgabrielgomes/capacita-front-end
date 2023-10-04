@@ -158,9 +158,9 @@ const UtentePrescricoes = () => {
                 <Table className='prescriptions-table' bordered>
                     <thead>
                         <tr>
-                            <th>Tipo de Exercício</th>
+                            <th>Tipo de Prescrição</th>
                             {exerciseTypeId == 1 ? <th>Exercício</th> : ""}
-                            <th>Medicação</th>
+                            <th>Período</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -1,31 +1,31 @@
-import React, { useState, useEffect, effectRan, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./AddUtente.css";
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import moment from 'moment';
 
 const AddUtente = () => {
     const navigate = useNavigate();
     const [gendersData, setGendersData] = useState([]);
     const [locationsData, setLocationsData] = useState([]);
     const [aidTypesData, setAidTypesData] = useState([]);
+    const [staffInstitutionName, setStaffInstitutionName] = useState("");
     const effectRan = useRef(false)
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [birthdate, setBirthdate] = useState();
-    const [nif, setNif] = useState("");
-    const [niss, setNiss] = useState("");
-    const [weight, setWeight] = useState();
-    const [height, setHeight] = useState();
+    const [nif, setNif] = useState(0);
+    const [niss, setNiss] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState(0);
     const [email, setEmail] = useState("");
     const [rightHanded, setRightHanded] = useState(0);
     const [gender, setGender] = useState(1);
@@ -63,9 +63,18 @@ const AddUtente = () => {
                 setAidTypesData(data)
             }
 
+            const getStaffInstitution = async () => {
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+                const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+                const data = await res.json()
+                setLocationId(data.location.id)
+                setStaffInstitutionName(data.location.name)
+            }
+
             getGenders()
             getLocations()
             getAidTypes()
+            getStaffInstitution()
 
             return () => {
                 effectRan.current = true
@@ -190,17 +199,19 @@ const AddUtente = () => {
                         value={birthdate}
                         onChange={birthdate => { setBirthdate(birthdate) }}
                     />
-                    <small id="emailHelp" className="form-text text-muted">Formato da Data: YYYY-MM-DD</small>
+                    <small id="emailHelp" className="form-text text-muted">Formato da Data: AAAA-MM-DD</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="height">
                     <Form.Label>Altura</Form.Label>
-                    <Form.Control type="number" placeholder="Introduza a altura do utente em cm" value={height} onChange={(event) => { setHeight(event.target.value) }} required />
+                    <Form.Control type="number" placeholder="Introduza a altura do utente" value={height} onChange={(event) => { setHeight(event.target.value) }} required />
+                    <small id="heightHelp" className="form-text text-muted">Unidade da Altura: cm</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="weight">
                     <Form.Label>Peso</Form.Label>
                     <Form.Control type="number" placeholder="Introduza o peso do utente" value={weight} onChange={(event) => { setWeight(event.target.value) }} required />
+                    <small id="weightHelp" className="form-text text-muted">Unidade do Peso: kg</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="gender_id">
@@ -223,7 +234,7 @@ const AddUtente = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="aid_type_id">
-                    <Form.Label>Tipo de Ajuda</Form.Label>
+                    <Form.Label>Tipo de ajuda</Form.Label>
                     <Form.Select value={aidTypeId} onChange={(event) => { setAidTypeId(event.target.value) }}>
                         {aidTypesData.map((val, key) => {
                             return (
@@ -245,14 +256,22 @@ const AddUtente = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="location_id">
-                    <Form.Label>Lar</Form.Label>
-                    <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }} >
-                        {locationsData.map((val, key) => {
-                            return (
-                                <option key={key} value={val.id}>{val.name}</option>
-                            )
-                        })}
-                    </Form.Select>
+                    {sessionStorage.getItem('id') == 1 ?
+                        <>
+                            <Form.Label>Lar</Form.Label>
+                            <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }} >
+                                {locationsData.map((val, key) => {
+                                    return (
+                                        <option key={key} value={val.id}>{val.name}</option>
+                                    )
+                                })}
+                            </Form.Select>
+                        </>
+                        :
+                        <>
+                            <Form.Label>Lar: {staffInstitutionName}</Form.Label>
+                        </>
+                    }
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="email">
@@ -269,7 +288,7 @@ const AddUtente = () => {
                 <Button variant="primary" type="submit" onClick={postForm}>
                     Inserir Utente
                 </Button>
-            </Form>
+            </Form >
 
             <ToastContainer
                 position="top-right"

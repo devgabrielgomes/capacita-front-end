@@ -84,7 +84,7 @@ const InstituicoesList = () => {
                 <Col>
                     <h2>Instituições</h2>
                 </Col>
-                <Col className='add-patient-btn'>
+                <Col className='add-institution-btn'>
                     <Button variant="primary" onClick={() => { navigate('/work_area/institutions/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Instituição</Button>{' '}
                 </Col>
             </Row>

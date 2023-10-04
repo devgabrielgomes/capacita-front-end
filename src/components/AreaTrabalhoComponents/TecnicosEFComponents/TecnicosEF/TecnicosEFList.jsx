@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./TecnicosEF.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
+import "./TecnicosEFList.css";
+import { useNavigate } from "react-router-dom"
+import { Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
 import TecnicosEFItems from './TecnicosEFItems/TecnicosEFItems';
 import axios from 'axios';
 
-const TecnicosEF = () => {
+const TecnicosEFList = () => {
     const navigate = useNavigate();
     const effectRan = useRef(false)
     const [staffData, setStaffData] = useState();
@@ -135,4 +135,4 @@ const TecnicosEF = () => {
     )
 }
 
-export default TecnicosEF
+export default TecnicosEFList

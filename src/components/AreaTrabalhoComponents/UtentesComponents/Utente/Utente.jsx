@@ -48,7 +48,7 @@ const Utente = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <Image className='img-fluid rounded float-left' src="/src/assets/user.jpg" alt="user image" width={300} />
+                    <a href="https://www.flaticon.com"><Image className='img-fluid float-left' src="/src/assets/user.png" alt="user image" width={280} /></a>
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Informações Pessoais</h3>

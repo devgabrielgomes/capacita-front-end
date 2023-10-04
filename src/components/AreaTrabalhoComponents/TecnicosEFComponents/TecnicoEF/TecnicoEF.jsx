@@ -42,7 +42,7 @@ const TecnicoEF = () => {
             </Row>
             <Row>
                 <Col md={3}>
-                    <img src='/src/assets/pt.png' className="rounded float-left" alt="user image" width='300px'></img>
+                    <a href="https://www.flaticon.com"><img src='/src/assets/pt.png' className="img-fluid float-left" alt="user image" width='280px'></img></a>
                 </Col>
                 <Col>
                     <h3>Informações</h3>

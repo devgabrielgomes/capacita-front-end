@@ -31,7 +31,7 @@ const PerfilPessoal = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <Image className='img-fluid rounded float-left' src="/src/assets/user.jpg" alt="user image" width={300} />
+                    <Image className='img-fluid float-left' src="/src/assets/user.png" alt="user image" width={280} />
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Bem-vindo <b>{sessionStorage.getItem('name')}!</b></h3>

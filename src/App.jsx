@@ -23,12 +23,12 @@ import AnaliseEstatistica from "./components/AreaTrabalhoComponents/AnaliseEstat
 import PerfilPessoal from "./components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal";
 import Utente from "./components/AreaTrabalhoComponents/UtentesComponents/Utente/Utente";
 import UtentesList from "./components/AreaTrabalhoComponents/UtentesComponents/UtentesList/UtentesList";
-import TecnicosEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/TecnicosEF/TecnicosEF";
 import InstituicoesList from "./components/AreaTrabalhoComponents/InstituicoesComponents/InstituicoesList/InstituicoesList";
 import AddInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/AddInstituicao/AddInstituicao";
 import EditInstituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/EditInstituicao/EditInstituicao";
 import Instituicao from "./components/AreaTrabalhoComponents/InstituicoesComponents/Instituicao/Instituicao";
 import TecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/TecnicoEF/TecnicoEF";
+import TecnicosEFList from "./components/AreaTrabalhoComponents/TecnicosEFComponents/TecnicosEF/TecnicosEFList";
 import EditTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/EditTecnicoEF/EditTecnicoEF";
 import AddTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/AddTecnicoEF/AddTecnicoEF";
 
@@ -43,11 +43,10 @@ export default function App() {
         <Route path="/about" element={<Sobre />} />
         <Route path="/contacts" element={<Contatos />} />
         <Route path="/work_area" element={isAuthenticated ? <AreaTrabalho /> : <Auth />} >
+          <Route path="personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
           <Route path="green_book" element={isAuthenticated ? <LivroVerde /> : <Auth />} />
           <Route path="statistics" element={isAuthenticated ? <AnaliseEstatistica /> : <Auth />} />
-          <Route path="personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
-
-          <Route path="technics_ef" element={isAdmin ? <TecnicosEF /> : <Auth />} />
+          <Route path="technics_ef" element={isAdmin ? <TecnicosEFList /> : <Auth />} />
           <Route path="technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
           <Route path="technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
           <Route path="technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
@@ -55,7 +54,6 @@ export default function App() {
           <Route path="institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
           <Route path="institutions/add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
           <Route path="institutions/:id/edit" element={isAuthenticated ? <EditInstituicao /> : <Auth />} />
-
           <Route path="patients" element={isAuthenticated ? <UtentesList /> : <Auth />} />
           <Route path="patients/add" element={isAuthenticated ? <AddUtente /> : <Auth />} />
           <Route path="patients/:id/edit" element={isAuthenticated ? <EditUtente /> : <Auth />} />

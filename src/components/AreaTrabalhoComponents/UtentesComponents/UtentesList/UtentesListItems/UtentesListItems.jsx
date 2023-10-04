@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, OverlayTrigger, Tooltip, Modal, Button } from '
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPenToSquare, faUserXmark } from '@fortawesome/free-solid-svg-icons'
 
-const UtentesItems = ({ patient, removePatient }) => {
+const UtentesItems = ({ patient, removePatient, staffType }) => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
     const handleCloseModal = () => setShowModal(false);

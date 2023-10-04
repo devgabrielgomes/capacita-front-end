@@ -20,6 +20,7 @@ const EditUtente = () => {
     const [locationsData, setLocationsData] = useState([]);
     const [aidTypesData, setAidTypesData] = useState([]);
     const [patientData, setPatientData] = useState([]);
+    const [staffInstitutionName, setStaffInstitutionName] = useState("");
     const effectRan = useRef(false)
 
     const [firstName, setFirstName] = useState("");
@@ -27,8 +28,8 @@ const EditUtente = () => {
     const [birthdate, setBirthdate] = useState();
     const [nif, setNif] = useState("");
     const [niss, setNiss] = useState("");
-    const [weight, setWeight] = useState();
-    const [height, setHeight] = useState();
+    const [weight, setWeight] = useState(0);
+    const [height, setHeight] = useState(0);
     const [email, setEmail] = useState("");
     const [rightHanded, setRightHanded] = useState(0);
     const [gender, setGender] = useState(1);
@@ -131,10 +132,18 @@ const EditUtente = () => {
                 setAidTypesData(data)
             }
 
+            const getStaffInstitution = async () => {
+                const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
+                const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+                const data = await res.json()
+                setStaffInstitutionName(data.location.name)
+            }
+
             getGenders()
             getLocations()
             getAidTypes()
             getPatientData()
+            getStaffInstitution()
 
             return () => {
                 effectRan.current = true
@@ -205,17 +214,19 @@ const EditUtente = () => {
                         value={birthdate}
                         onChange={birthdate => { setBirthdate(birthdate) }}
                     />
-                    <small id="emailHelp" className="form-text text-muted">Formato da Data: YYYY-MM-DD</small>
+                    <small id="emailHelp" className="form-text text-muted">Formato da Data: AAAA-MM-DD</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="height">
                     <Form.Label>Altura</Form.Label>
-                    <Form.Control type="number" placeholder="Introduza a altura do utente em cm" value={height} onChange={(event) => { setHeight(event.target.value) }} required />
+                    <Form.Control type="number" placeholder="Introduza a altura do utente" value={height} onChange={(event) => { setHeight(event.target.value) }} required />
+                    <small id="heightHelp" className="form-text text-muted">Unidade da Altura: cm</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="weight">
                     <Form.Label>Peso</Form.Label>
                     <Form.Control type="number" placeholder="Introduza o peso do utente" value={weight} onChange={(event) => { setWeight(event.target.value) }} required />
+                    <small id="weightHelp" className="form-text text-muted">Unidade do Peso: kg</small>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="gender_id">
@@ -260,14 +271,22 @@ const EditUtente = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="location_id">
-                    <Form.Label>Lar</Form.Label>
-                    <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }} >
-                        {locationsData.map((val, key) => {
-                            return (
-                                <option key={key} value={val.id}>{val.name}</option>
-                            )
-                        })}
-                    </Form.Select>
+                    {sessionStorage.getItem('id') == 1 ?
+                        <>
+                            <Form.Label>Lar</Form.Label>
+                            <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }} >
+                                {locationsData.map((val, key) => {
+                                    return (
+                                        <option key={key} value={val.id}>{val.name}</option>
+                                    )
+                                })}
+                            </Form.Select>
+                        </>
+                        :
+                        <>
+                            <Form.Label>Lar: {staffInstitutionName}</Form.Label>
+                        </>
+                    }
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="email">

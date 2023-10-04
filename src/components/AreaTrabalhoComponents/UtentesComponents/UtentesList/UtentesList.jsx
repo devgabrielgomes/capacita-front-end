@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentesList.css";
-import { Link, useNavigate } from "react-router-dom"
-import { Navbar, Container, Nav, Button, Row, Col } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom"
+import { Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import UtentesItems from './UtentesListItems/UtentesListItems';
