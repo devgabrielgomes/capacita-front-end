@@ -4,7 +4,7 @@ import "./TecnicosEFList.css";
 import { useNavigate } from "react-router-dom"
 import { Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
 import TecnicosEFItems from './TecnicosEFItems/TecnicosEFItems';
 import axios from 'axios';
@@ -85,7 +85,7 @@ const TecnicosEFList = () => {
                     <h2>Técnicos de EF</h2>
                 </Col>
                 <Col className='add-patient-btn'>
-                    <Button variant="primary" onClick={() => { navigate('/work_area/technics_ef/add') }}><FontAwesomeIcon icon={faPlus} /> Adicionar Técnico de EF</Button>
+                    <Button variant="primary" onClick={() => { navigate('/work_area/technics_ef/add') }}><FontAwesomeIcon icon={faUserPlus} /> Adicionar Técnico de EF</Button>
                 </Col>
             </Row>
             <input

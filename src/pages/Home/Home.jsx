@@ -22,17 +22,17 @@ const Home = () => {
                         </Row>
                         <Row className="justify-content-center">
                             <Col className='project-info-content' xs={9} md={4}>
-                                <a href="https://www.flaticon.com"><Image className='img-fluid project-info-image' src="src\assets\fundamentos_icon.png" alt="Fundamentos" /></a>
+                                <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid project-info-image' src="src\assets\fundamentos_icon.png" alt="Fundamentos" /></a>
                                 <h3>Fundamentos</h3>
                                 <span>Projeto no âmbito do Laboratório LabSi do Instituto Politécnico de Beja </span>
                             </Col>
                             <Col className='project-info-content' xs={9} md={4}>
-                                <a href="https://www.flaticon.com"><Image className='img-fluid project-info-image' src="src\assets\metodologia_icon.png" alt="Metedologia" /></a>
+                                <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid project-info-image' src="src\assets\metodologia_icon.png" alt="Metedologia" /></a>
                                 <h3>Metedologia</h3>
                                 <span>Aplicação e Estudo de métricas baseadas em exercícios da Bateria de Fullerton</span>
                             </Col>
                             <Col className='project-info-content' xs={9} md={4}>
-                                <a href="https://www.flaticon.com"><Image className='img-fluid project-info-image' src="src\assets\objetivo_icon.png" alt="Objetivo" /></a>
+                                <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid project-info-image' src="src\assets\objetivo_icon.png" alt="Objetivo" /></a>
                                 <h3>Objetivo</h3>
                                 <span>Melhoria da condição física dos Idosos</span>
                             </Col>

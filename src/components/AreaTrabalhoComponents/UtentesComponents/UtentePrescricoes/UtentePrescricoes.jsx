@@ -120,7 +120,8 @@ const UtentePrescricoes = () => {
         }
 
         const addPrescription = async (e) => {
-            const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a " + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
+            const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a "
+                + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
             var newExerciseID = exerciseId;
             if (exerciseTypeId == 2) {
                 newExerciseID = 8;
@@ -167,7 +168,8 @@ const UtentePrescricoes = () => {
                         <tr>
                             <td>
                                 <Form>
-                                    <Form.Select id="select-exe-type" value={exerciseTypeId} onChange={(event) => { setExerciseTypeId(event.target.value) }}>
+                                    <Form.Select id="select-exe-type" value={exerciseTypeId}
+                                        onChange={(event) => { setExerciseTypeId(event.target.value) }}>
                                         {(exerciseTypeData && exerciseTypeData.map((val, key) => {
                                             return (
                                                 <option key={key} value={val.id}>{val.name}</option>
@@ -179,14 +181,14 @@ const UtentePrescricoes = () => {
                             {exerciseTypeId == 1 ?
                                 <td>
                                     <Form>
-                                        <Form.Select id="select-exe" value={exerciseId} onChange={(event) => { setExerciseId(event.target.value) }}>
+                                        <Form.Select id="select-exe" value={exerciseId}
+                                            onChange={(event) => { setExerciseId(event.target.value) }}>
                                             {exercisesData && exercisesData.map((val, key) => {
                                                 return (
                                                     <option key={key} value={val.id}>{val.name}</option>
                                                 )
 
                                             })}
-
                                         </Form.Select>
                                     </Form>
                                 </td>
@@ -264,7 +266,11 @@ const UtentePrescricoes = () => {
         <>
             <Row>
                 <Col className='prescription-add-btn'>
-                    {!adding ? <Button variant="primary" onClick={() => setAdding(true)}><FontAwesomeIcon icon={faCalendarPlus} /> Adicionar Prescrição</Button> : ""}
+                    {!adding ?
+                        <Button variant="primary" onClick={() => setAdding(true)}>
+                            <FontAwesomeIcon icon={faCalendarPlus} /> Adicionar Prescrição
+                        </Button>
+                        : ""}
                 </Col>
             </Row>
             <Row>
@@ -275,7 +281,8 @@ const UtentePrescricoes = () => {
                 {patientPrescriptionsData.length > 0 && patientPrescriptionsData.map((val, key) => {
                     return (
                         <div key={key}>
-                            <UtentePrescricoesItems prescription={val} staffData={staffData} exercisesData={exercisesData} exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
+                            <UtentePrescricoesItems prescription={val} staffData={staffData} exercisesData={exercisesData}
+                                exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
                             <hr className='hr'></hr>
                         </div>
                     )

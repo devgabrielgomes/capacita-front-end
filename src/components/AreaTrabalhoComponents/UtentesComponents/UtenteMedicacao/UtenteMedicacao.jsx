@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtenteMedicacao.css";
-import { Form, Button, Container, Table, Row, Col } from 'react-bootstrap';
+import { Button, Table, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -52,10 +52,14 @@ const UtenteMedicacao = () => {
 
                         <Row className='top-row'>
                             <Col md={6} className='info-span'>
-                                <span><b>Autor:</b> {staffData[val.user.id - 1].first_name} {staffData[val.user.id - 1].last_name} | <b>Período:</b> {val.period}</span>
+                                <span>
+                                    <b>Autor:</b> {staffData[val.user.id - 1].first_name + ' '}
+                                    {staffData[val.user.id - 1].last_name} | <b>Período:</b> {val.period}
+                                </span>
                             </Col>
                             <Col md={6} className='edit-btn-col'>
-                                <Button className='edit-btn' variant="warning" onClick={() => navigate(`/work_area/patients/${val.patient.id}/prescriptions`)}>
+                                <Button className='edit-btn' variant="warning"
+                                    onClick={() => navigate(`/work_area/patients/${val.patient.id}/prescriptions`)}>
                                     <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
                                 </Button>
                             </Col>
@@ -79,9 +83,6 @@ const UtenteMedicacao = () => {
                     </div>
                 )
             })}
-
-
-
         </>
     )
 }

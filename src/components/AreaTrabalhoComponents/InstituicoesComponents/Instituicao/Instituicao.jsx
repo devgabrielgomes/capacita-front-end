@@ -42,7 +42,7 @@ const Instituicao = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <a href="https://www.flaticon.com"><img src='/src/assets/building.png' className="img-fluid float-left" alt="user image" width='280px'></img></a>
+                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><img src='/src/assets/building.png' className="img-fluid float-left" alt="user image" width='280px'></img></a>
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Informações</h3>

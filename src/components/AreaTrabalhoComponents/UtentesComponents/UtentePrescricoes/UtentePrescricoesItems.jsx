@@ -53,7 +53,12 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
         return (
             <>
                 <Row className='top-row'>
-                    <Col md={6} className='info-span'><span><b>Autor:</b> {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} | <b>Período:</b> {prescription.period}</span></Col>
+                    <Col md={6} className='info-span'>
+                        <span><b>Autor: </b>
+                            {staffData[prescription.user.id - 1].first_name} {staffData[prescription.user.id - 1].last_name} |
+                            <b> Período:</b> {prescription.period}
+                        </span>
+                    </Col>
                     <Col md={6} className='edit-btn-col'>
                         <Button className='edit-btn' variant="warning" onClick={() => setEditing(true)}>
                             <FontAwesomeIcon className='icon' icon={faPenToSquare} /> Editar
@@ -156,7 +161,8 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
                 newExerciseID = 8;
             }
 
-            const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a " + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
+            const period = initialDate.toISOString().slice(0, 10).replace(/-/g, "-") + " a "
+                + finalDate.toISOString().slice(0, 10).replace(/-/g, "-");
             let prescriptionData = {
                 "patient_id": prescription.patient.id,
                 "exercise_id": newExerciseID,
@@ -290,7 +296,8 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
     return (
         <div>
             {editing ?
-                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData} exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
+                <UtentePrescricoesItemsEdit prescription={prescription} staffData={staffData} exercisesData={exercisesData}
+                    exerciseTypeData={exerciseTypeData} getPrescriptionsData={getPrescriptionsData} />
                 :
                 <UtentePrescricoesItemsView prescription={prescription} staffData={staffData} />
             }
