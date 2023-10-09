@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentePrescricoes.css";
 import UtentePrescricoesItems from './UtentePrescricoesItems';
-import { Form, Button, Container, Row, Col, Table } from 'react-bootstrap';
+import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarPlus, faXmark, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom';
@@ -20,6 +20,10 @@ const UtentePrescricoes = () => {
     const [exercisesData, setExercisesData] = useState([]);
     const [adding, setAdding] = useState(false)
 
+    /**
+     * GET request to set prescriptions data
+     * @returns {Promise<void>}
+     */
     const getPrescriptionsData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}prescriptions${PT}`, { headers })
@@ -33,6 +37,10 @@ const UtentePrescricoes = () => {
         setPatientPrescriptionsData(patientPrescriptions)
     }
 
+    /**
+     * GET request to set staff data
+     * @returns {Promise<void>}
+     */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff${PT}`, { headers })
@@ -40,6 +48,10 @@ const UtentePrescricoes = () => {
         setStaffData(data)
     }
 
+    /**
+     * GET request to set exercises types data
+     * @returns {Promise<void>}
+     */
     const getExerciseTypes = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}exerciseTypes${PT}`, { headers })
@@ -47,6 +59,10 @@ const UtentePrescricoes = () => {
         setExerciseTypeData(data)
     }
 
+    /**
+     * GET request to set exercises data
+     * @returns {Promise<void>}
+     */
     const getExercises = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}exercises${PT}`, { headers })

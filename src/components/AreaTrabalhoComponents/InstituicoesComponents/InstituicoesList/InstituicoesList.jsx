@@ -15,6 +15,10 @@ const InstituicoesList = () => {
     const [institutionsData, setInstitutionsData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
+    /**
+     * GET request to set institution data
+     * @returns {Promise<void>}
+     */
     const getInstitutions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}institutions${PT}`, { headers })
@@ -22,6 +26,10 @@ const InstituicoesList = () => {
         setInstitutionsData(data)
     }
 
+    /**
+     * DEL request to remove institution
+     * @returns {Promise<void>}
+     */
     function removeInstitution(id, institutionName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         axios.delete(`${API}institutions/${id}`, { headers })

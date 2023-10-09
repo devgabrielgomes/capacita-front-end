@@ -17,6 +17,10 @@ const PerfilPessoal = () => {
         }
     }, [])
 
+    /**
+     * GET request to set staff data
+     * @returns {Promise<void>}
+     */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff/${sessionStorage.getItem('id')}${PT}`, { headers })

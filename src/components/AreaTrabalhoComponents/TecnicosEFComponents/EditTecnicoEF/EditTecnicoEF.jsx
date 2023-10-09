@@ -1,5 +1,4 @@
-import React, { useState, useEffect, effectRan, useRef, require } from "react";
-import DatePicker from "react-datepicker";
+import React, { useState, useEffect, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./EditTecnicoEF.css";
@@ -32,7 +31,10 @@ const EditTecnicoEF = () => {
     const [locationPostcode, setLocationPostcode] = useState("");
     const [locationRegionId, setLocationRegionId] = useState(1);
 
-
+    /**
+     * GET request to set locations data
+     * @returns {Promise<void>}
+     */
     const getLocations = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}locations${PT}`, { headers })
@@ -40,6 +42,10 @@ const EditTecnicoEF = () => {
         setLocationsData(data)
     }
 
+    /**
+     * GET request to set regions data
+     * @returns {Promise<void>}
+     */
     const getRegions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}regions${PT}`, { headers })
@@ -47,11 +53,14 @@ const EditTecnicoEF = () => {
         setRegionsData(data)
     }
 
+    /**
+     * GET request to set institution data
+     * @returns {Promise<void>}
+     */
     const getInstitutionData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}institutions/${institutionId}${PT}`, { headers })
         const data = await res.json()
-        console.log(data)
         setName(data.name)
         setLocationId(data.location.id)
     }
@@ -69,23 +78,33 @@ const EditTecnicoEF = () => {
     }, [])
 
     /**
-         * Execute all the put requests needed to edit a patient in the system
-         * @param e
-         * @returns {Promise<void>}
-         */
+     * Function executed on post institution form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const putInstitutionForm = async (e) => {
         e.preventDefault()
         await editInstitutions()
         navigate("/work_area/institutions")
     }
 
+    /**
+     * Function executed on post location form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postLocationForm = async (e) => {
         e.preventDefault()
         await postLocation()
         getLocations()
     }
 
-
+    /**
+     * PUT request to add edit an institution
+     * @async
+     * @param e
+     * @returns {Promise<void>}
+     */
     const editInstitutions = async (e) => {
         let institutionData = { 'name': name, 'location_id': locationId }
 

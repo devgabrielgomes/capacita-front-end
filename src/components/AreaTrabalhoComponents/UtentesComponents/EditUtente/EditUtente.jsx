@@ -37,6 +37,10 @@ const EditUtente = () => {
     const [aidTypeId, setAidTypeId] = useState(1);
     const [picture, setPicture] = useState({});
 
+    /**
+     * Set a picture file
+     * @param e
+     */
     const uploadPicture = (e) => {
         setPicture({
             picturePreview: URL.createObjectURL(e.target.files[0]),
@@ -45,16 +49,22 @@ const EditUtente = () => {
     }
 
     /**
-         * Execute all the put requests needed to edit a patient in the system
-         * @param e
-         * @returns {Promise<void>}
-         */
+     * Function executed on post patient form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postForm = async (e) => {
         e.preventDefault()
         await editPatient()
         navigate("/work_area/patients")
     }
 
+    /**
+     * PUT request to edit a patient
+     * @async
+     * @param e
+     * @returns {Promise<void>}
+     */
     const editPatient = async (e) => {
         const finalPatientData = new FormData()
         finalPatientData.append('first_name', firstName)
@@ -111,6 +121,10 @@ const EditUtente = () => {
                 setPatientData(data)
             }
 
+            /**
+             * GET request to set genders data
+             * @returns {Promise<void>}
+             */
             const getGenders = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}genders${PT}`, { headers })
@@ -118,6 +132,10 @@ const EditUtente = () => {
                 setGendersData(data)
             }
 
+            /**
+             * GET request to set locations data
+             * @returns {Promise<void>}
+             */
             const getLocations = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}locations${PT}`, { headers })
@@ -125,6 +143,10 @@ const EditUtente = () => {
                 setLocationsData(data)
             }
 
+            /**
+             * GET request to set aid types data
+             * @returns {Promise<void>}
+             */
             const getAidTypes = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}aidTypes${PT}`, { headers })
@@ -132,6 +154,10 @@ const EditUtente = () => {
                 setAidTypesData(data)
             }
 
+            /**
+             * GET request to set staff institution data
+             * @returns {Promise<void>}
+             */
             const getStaffInstitution = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })

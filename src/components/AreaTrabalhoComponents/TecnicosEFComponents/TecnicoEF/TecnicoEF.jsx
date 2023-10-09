@@ -1,8 +1,8 @@
 import { React, useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./TecnicoEF.css";
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Button, Row, Col } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +13,10 @@ const TecnicoEF = () => {
     const effectRan = useRef(false)
     const [staffData, setStaffData] = useState([]);
 
+    /**
+     * GET request to set staff data
+     * @returns {Promise<void>}
+     */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff/${staffId}${PT}`, { headers })

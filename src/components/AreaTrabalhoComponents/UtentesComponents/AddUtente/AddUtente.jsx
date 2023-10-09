@@ -33,6 +33,11 @@ const AddUtente = () => {
     const [aidTypeId, setAidTypeId] = useState(1);
 
     const [picture, setPicture] = useState({});
+
+    /**
+     * Set a picture file
+     * @param e
+     */
     const uploadPicture = (e) => {
         setPicture({
             picturePreview: URL.createObjectURL(e.target.files[0]),
@@ -42,6 +47,10 @@ const AddUtente = () => {
 
     useEffect(() => {
         if (effectRan.current === false) {
+            /**
+             * GET request to set genders data
+             * @returns {Promise<void>}
+             */
             const getGenders = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}genders${PT}`, { headers })
@@ -49,6 +58,10 @@ const AddUtente = () => {
                 setGendersData(data)
             }
 
+            /**
+             * GET request to set locations data
+             * @returns {Promise<void>}
+             */
             const getLocations = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}locations${PT}`, { headers })
@@ -56,6 +69,10 @@ const AddUtente = () => {
                 setLocationsData(data)
             }
 
+            /**
+             * GET request to set aid types data
+             * @returns {Promise<void>}
+             */
             const getAidTypes = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}aidTypes${PT}`, { headers })
@@ -63,6 +80,10 @@ const AddUtente = () => {
                 setAidTypesData(data)
             }
 
+            /**
+             * GET request to set staff institution data
+             * @returns {Promise<void>}
+             */
             const getStaffInstitution = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
@@ -82,6 +103,11 @@ const AddUtente = () => {
         }
     }, [])
 
+    /**
+     * Function executed on post patient form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postForm = async (e) => {
         e.preventDefault()
         await postPatient()
@@ -125,16 +151,6 @@ const AddUtente = () => {
                 toastError(`Não foi possível adicionar o paciente "${firstName} ${lastName}" ao sistema!`)
             })
     }
-
-    /**
-     * Stop the execution for a certain amount of time
-     * @param ms
-     * @returns {Promise<unknown>}
-     */
-    function wait(ms) {
-        return new Promise((resolve) => { setTimeout(resolve, ms) });
-    }
-
 
     /**
      * Display a success toast with a specific message

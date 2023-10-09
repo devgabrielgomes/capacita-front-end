@@ -1,5 +1,4 @@
-import React, { useState, useEffect, effectRan, useRef, require } from "react";
-import DatePicker from "react-datepicker";
+import React, { useState, useEffect, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./EditInstituicao.css";
@@ -28,6 +27,10 @@ const EditInstituicao = () => {
     const [locationPostcode, setLocationPostcode] = useState("");
     const [locationRegionId, setLocationRegionId] = useState(1);
 
+    /**
+     * GET request to set locations data
+     * @returns {Promise<void>}
+     */
     const getLocations = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}locations${PT}`, { headers })
@@ -35,6 +38,10 @@ const EditInstituicao = () => {
         setLocationsData(data)
     }
 
+    /**
+     * GET request to set regions data
+     * @returns {Promise<void>}
+     */
     const getRegions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}regions${PT}`, { headers })
@@ -42,11 +49,14 @@ const EditInstituicao = () => {
         setRegionsData(data)
     }
 
+    /**
+     * GET request to set institution data
+     * @returns {Promise<void>}
+     */
     const getInstitutionData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}institutions/${institutionId}${PT}`, { headers })
         const data = await res.json()
-        console.log(data)
         setName(data.name)
         setLocationId(data.location.id)
     }
@@ -64,24 +74,34 @@ const EditInstituicao = () => {
     }, [])
 
     /**
-         * Execute all the put requests needed to edit a patient in the system
-         * @param e
-         * @returns {Promise<void>}
-         */
+     * Function executed on post institution form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const putInstitutionForm = async (e) => {
         e.preventDefault()
-        await editInstitutions()
+        await editInstitution()
         navigate("/work_area/institutions")
     }
 
+    /**
+     * Function executed on post location form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postLocationForm = async (e) => {
         e.preventDefault()
         await postLocation()
         getLocations()
     }
 
-
-    const editInstitutions = async (e) => {
+    /**
+     * PUT request to add edit an institution
+     * @async
+     * @param e
+     * @returns {Promise<void>}
+     */
+    const editInstitution = async (e) => {
         let institutionData = { 'name': name, 'location_id': locationId }
 
         const headers = {
@@ -124,7 +144,6 @@ const EditInstituicao = () => {
                 toastError(`Não foi possível adicionar a localização "${name}" ao sistema!`)
             })
     }
-
 
     /**
      * Display a success toast with a specific message

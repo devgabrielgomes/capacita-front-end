@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { motion } from "framer-motion";
 import "./AreaTrabalho.css";
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import PerfilPessoal from '../../components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal';
+import { Row, Col } from 'react-bootstrap';
 import { SideBarAdminItems, SideBarItems } from './AreaTrabalhoItems';
 
 function AreaTrabalho() {

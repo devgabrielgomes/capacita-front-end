@@ -14,6 +14,10 @@ const UtenteMedicacao = () => {
     const [patientMedicationData, setPatientMedicationData] = useState([]);
     const [staffData, setStaffData] = useState([]);
 
+    /**
+     * GET request to set medications data
+     * @returns {Promise<void>}
+     */
     const getMedicationsData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}prescriptions/${PT}`, { headers })
@@ -27,6 +31,10 @@ const UtenteMedicacao = () => {
         setPatientMedicationData(patientPrescriptions)
     }
 
+    /**
+     * GET request to set staff data
+     * @returns {Promise<void>}
+     */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff${PT}`, { headers })
@@ -44,6 +52,7 @@ const UtenteMedicacao = () => {
             }
         }
     }, [])
+
     return (
         <>
             {patientMedicationData.length > 0 && patientMedicationData.map((val, key) => {

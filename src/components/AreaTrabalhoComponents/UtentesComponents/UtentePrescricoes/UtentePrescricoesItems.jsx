@@ -1,23 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentePrescricoes.css";
 import DatePicker from "react-datepicker";
-import { Form, Button, Container, Row, Table, Col } from 'react-bootstrap';
+import { Form, Button, Row, Table, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faXmark, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import moment from "moment";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerciseTypeData, getPrescriptionsData }) => {
     const [editing, setEditing] = useState(false)
     const effectRan = useRef(false)
 
     /**
-         * Display a success toast with a specific message
-         * @param message
-         */
+     * Display a success toast with a specific message
+     * @param message
+     */
     function toastSuccess(message) {
         toast.success(`${message}`, {
             position: "top-right",

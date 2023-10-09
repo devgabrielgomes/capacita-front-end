@@ -1,12 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { motion } from "framer-motion";
 import "./Sobre.css";
-import { Form, Button, Container, Image, Row, Col } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import { Container, Image, Row } from 'react-bootstrap';
 
 const Sobre = () => {
     return (

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, effectRan, useRef } from "react";
-import DatePicker from "react-datepicker";
+import React, { useState, useEffect, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./AddTecnicoEF.css";
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -29,6 +28,10 @@ const AddTecnicoEF = () => {
     const [locationPostcode, setLocationPostcode] = useState("");
     const [locationRegionId, setLocationRegionId] = useState(1);
 
+    /**
+     * GET request to set locations data
+     * @returns {Promise<void>}
+     */
     const getLocations = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}locations${PT}`, { headers })
@@ -36,6 +39,10 @@ const AddTecnicoEF = () => {
         setLocationsData(data)
     }
 
+    /**
+     * GET request to set regions data
+     * @returns {Promise<void>}
+     */
     const getRegions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}regions${PT}`, { headers })
@@ -54,12 +61,23 @@ const AddTecnicoEF = () => {
         }
     }, [])
 
+
+    /**
+     * Function executed on post technic form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postTechnicForm = async (e) => {
         e.preventDefault()
         await postTechnic()
         navigate("/work_area/technics_ef")
     }
 
+    /**
+     * Function executed on post location form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postLocationForm = async (e) => {
         e.preventDefault()
         await postLocation()
@@ -68,7 +86,7 @@ const AddTecnicoEF = () => {
     }
 
     /**
-     * POST request to add new institution
+     * POST request to add new technic
      * @async
      * @param e
      * @returns {Promise<void>}

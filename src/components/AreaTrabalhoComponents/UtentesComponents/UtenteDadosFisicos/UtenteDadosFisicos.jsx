@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtenteDadosFisicos.css";
-import { Form, Button, Container, Row } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { Row } from 'react-bootstrap';
+
 import { useParams } from 'react-router-dom';
 const UtenteDadosFisicos = () => {
     let params = useParams();
@@ -13,6 +12,11 @@ const UtenteDadosFisicos = () => {
     const effectRan = useRef(false)
     useEffect(() => {
         if (effectRan.current === false) {
+
+            /**
+             * GET request to set patient data
+             * @returns {Promise<void>}
+             */
             const getPatientData = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
                 const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })

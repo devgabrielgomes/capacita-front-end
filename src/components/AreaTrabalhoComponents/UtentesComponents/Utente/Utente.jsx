@@ -29,6 +29,11 @@ const Utente = () => {
         }
     }, [])
 
+    /**
+     * GET request to set patient data
+     * @returns {Promise<void>}
+     */
+
     const getPatientData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })

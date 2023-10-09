@@ -20,12 +20,21 @@ const UtentesList = () => {
         getStaffInstitution()
     }, [])
 
+    /**
+     * GET request to set patients data
+     * @returns {Promise<void>}
+     */
     const getPatients = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(API + 'patients', { headers })
         const data = await res.json()
         setPatientsData(data)
     }
+
+    /**
+     * GET request to set staff institution data
+     * @returns {Promise<void>}
+     */
 
     const getStaffInstitution = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
@@ -34,7 +43,11 @@ const UtentesList = () => {
         setStaffInstitution(data.location.name)
     }
 
-
+    /**
+     * DELETE request to remove a patient
+     * @param id
+     * @param patient_name
+     */
     function removePatient(id, patient_name) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         axios.delete(`${API}patients/${id}`, { headers })

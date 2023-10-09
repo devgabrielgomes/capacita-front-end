@@ -15,6 +15,10 @@ const TecnicosEFList = () => {
     const [staffData, setStaffData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
 
+    /**
+     * GET request to set staff data
+     * @returns {Promise<void>}
+     */
     const getStaff = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}staff${PT}`, { headers })
@@ -22,6 +26,11 @@ const TecnicosEFList = () => {
         setStaffData(data)
     }
 
+    /**
+     * DELETE request to remove a technic
+     * @param id
+     * @param technicianName
+     */
     function removeTechnician(id, technicianName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         axios.delete(`${API}staff/${id}`, { headers })

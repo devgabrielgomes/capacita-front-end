@@ -27,11 +27,19 @@ export default function Auth() {
         });
     }
 
+    /**
+     * Function to reset form
+     */
     const resetForm = () => {
         setEmail("")
         setPassword("")
     }
 
+    /**
+     * POST request to make a login
+     * @param credentials
+     * @returns {Promise<any>}
+     */
     async function loginUser(credentials) {
         return fetch(API + 'login', {
             method: 'POST',
@@ -67,6 +75,11 @@ export default function Auth() {
             })
     }
 
+    /**
+     * Handle a submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const handleSubmit = async e => {
         e.preventDefault();
         await loginUser({
@@ -119,7 +132,3 @@ export default function Auth() {
         </>
     )
 }
-
-// Auth.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// };

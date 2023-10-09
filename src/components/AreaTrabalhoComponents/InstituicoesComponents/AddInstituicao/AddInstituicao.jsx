@@ -1,4 +1,4 @@
-import React, { useState, useEffect, effectRan, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./AddInstituicao.css";
@@ -25,6 +25,10 @@ const AddInstituicao = () => {
     const [locationPostcode, setLocationPostcode] = useState("");
     const [locationRegionId, setLocationRegionId] = useState(1);
 
+    /**
+     * GET request to set locations data
+     * @returns {Promise<void>}
+     */
     const getLocations = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}locations${PT}`, { headers })
@@ -32,6 +36,10 @@ const AddInstituicao = () => {
         setLocationsData(data)
     }
 
+    /**
+     * GET request to set regions data
+     * @returns {Promise<void>}
+     */
     const getRegions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}regions${PT}`, { headers })
@@ -50,12 +58,22 @@ const AddInstituicao = () => {
         }
     }, [])
 
+    /**
+     * Function executed on post institution form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postInstitutionForm = async (e) => {
         e.preventDefault()
         await postInstitution()
         navigate("/work_area/institutions")
     }
 
+    /**
+     * Function executed on post location form submit
+     * @param e
+     * @returns {Promise<void>}
+     */
     const postLocationForm = async (e) => {
         e.preventDefault()
         await postLocation()

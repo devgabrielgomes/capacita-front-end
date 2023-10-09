@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faMobileScreen } from '@fortawesome/free-solid-svg-icons'
 
-
 const Contatos = () => {
     return (
         <Container className='contatos-info'>

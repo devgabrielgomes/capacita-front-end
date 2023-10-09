@@ -13,6 +13,10 @@ const Instituicao = () => {
     const effectRan = useRef(false);
     const [institutionData, setInstitutionData] = useState([]);
 
+    /**
+     * GET request to set institution data
+     * @returns {Promise<void>}
+     */
     const getInstitutionData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
         const res = await fetch(`${API}institutions/${instituicaoId}${PT}`, { headers })
