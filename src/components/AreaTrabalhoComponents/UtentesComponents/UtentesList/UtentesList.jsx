@@ -26,7 +26,7 @@ const UtentesList = () => {
      */
     const getPatients = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(API + 'patients', { headers })
+        const res = await fetch(API_LINK + 'patients', { headers })
         const data = await res.json()
         setPatientsData(data)
     }
@@ -38,7 +38,7 @@ const UtentesList = () => {
 
     const getStaffInstitution = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+        const res = await fetch(API_LINK + 'staff/' + sessionStorage.getItem('id'), { headers })
         const data = await res.json()
         setStaffInstitution(data.location.name)
     }
@@ -50,7 +50,7 @@ const UtentesList = () => {
      */
     function removePatient(id, patient_name) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}patients/${id}`, { headers })
+        axios.delete(`${API_LINK}patients/${id}`, { headers })
             .then(() => {
                 getPatients()
                 toastSuccess(`O paciente "${patient_name}" foi removido com sucesso do sistema!`)

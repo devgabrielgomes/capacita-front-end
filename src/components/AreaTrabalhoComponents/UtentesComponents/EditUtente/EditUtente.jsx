@@ -86,7 +86,7 @@ const EditUtente = () => {
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
 
-        axios.put(`${API}patients/${patientId}`, finalPatientData, { headers })
+        axios.put(`${API_LINK}patients/${patientId}`, finalPatientData, { headers })
             .then((response) => {
                 toastSuccess(`O utente "${firstName} ${lastName}" foi editado com sucesso!`);
             })
@@ -103,7 +103,7 @@ const EditUtente = () => {
         if (effectRan.current === false) {
             const getPatientData = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
+                const res = await fetch(`${API_LINK}patients/${patientId}${PT}`, { headers })
                 const data = await res.json()
                 setFirstName(data.first_name)
                 setLastName(data.last_name)
@@ -127,7 +127,7 @@ const EditUtente = () => {
              */
             const getGenders = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}genders${PT}`, { headers })
+                const res = await fetch(`${API_LINK}genders${PT}`, { headers })
                 const data = await res.json()
                 setGendersData(data)
             }
@@ -138,7 +138,7 @@ const EditUtente = () => {
              */
             const getLocations = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}locations${PT}`, { headers })
+                const res = await fetch(`${API_LINK}locations${PT}`, { headers })
                 const data = await res.json()
                 setLocationsData(data)
             }
@@ -149,7 +149,7 @@ const EditUtente = () => {
              */
             const getAidTypes = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}aidTypes${PT}`, { headers })
+                const res = await fetch(`${API_LINK}aidTypes${PT}`, { headers })
                 const data = await res.json()
                 setAidTypesData(data)
             }
@@ -160,7 +160,7 @@ const EditUtente = () => {
              */
             const getStaffInstitution = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+                const res = await fetch(`${API_LINK}staff/${sessionStorage.getItem('id')}`, { headers })
                 const data = await res.json()
                 setStaffInstitutionName(data.location.name)
             }

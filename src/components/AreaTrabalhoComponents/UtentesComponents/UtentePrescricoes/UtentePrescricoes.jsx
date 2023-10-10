@@ -26,7 +26,7 @@ const UtentePrescricoes = () => {
      */
     const getPrescriptionsData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}prescriptions${PT}`, { headers })
+        const res = await fetch(`${API_LINK}prescriptions${PT}`, { headers })
         const data = await res.json()
         const patientPrescriptions = [];
         data.forEach(el => {
@@ -43,7 +43,7 @@ const UtentePrescricoes = () => {
      */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}staff${PT}`, { headers })
+        const res = await fetch(`${API_LINK}staff${PT}`, { headers })
         const data = await res.json()
         setStaffData(data)
     }
@@ -54,7 +54,7 @@ const UtentePrescricoes = () => {
      */
     const getExerciseTypes = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}exerciseTypes${PT}`, { headers })
+        const res = await fetch(`${API_LINK}exerciseTypes${PT}`, { headers })
         const data = await res.json()
         setExerciseTypeData(data)
     }
@@ -65,7 +65,7 @@ const UtentePrescricoes = () => {
      */
     const getExercises = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}exercises${PT}`, { headers })
+        const res = await fetch(`${API_LINK}exercises${PT}`, { headers })
         const data = await res.json()
         setExercisesData(data)
     }

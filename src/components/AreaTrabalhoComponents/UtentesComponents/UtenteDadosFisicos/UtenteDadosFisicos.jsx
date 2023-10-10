@@ -19,7 +19,7 @@ const UtenteDadosFisicos = () => {
              */
             const getPatientData = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
+                const res = await fetch(`${API_LINK}patients/${patientId}${PT}`, { headers })
                 const data = await res.json()
                 setPatientAidType(data.aid_type.name)
                 setPatientData(data)

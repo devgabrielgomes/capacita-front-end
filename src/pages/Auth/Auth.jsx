@@ -41,7 +41,7 @@ export default function Auth() {
      * @returns {Promise<any>}
      */
     async function loginUser(credentials) {
-        return fetch(API + 'login', {
+        return fetch(API_LINK + 'login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ const InstituicoesList = () => {
      */
     const getInstitutions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}institutions${PT}`, { headers })
+        const res = await fetch(`${API_LINK}institutions${PT}`, { headers })
         const data = await res.json()
         setInstitutionsData(data)
     }
@@ -32,7 +32,7 @@ const InstituicoesList = () => {
      */
     function removeInstitution(id, institutionName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}institutions/${id}`, { headers })
+        axios.delete(`${API_LINK}institutions/${id}`, { headers })
             .then(() => {
                 getInstitutions()
                 toastSuccess(`Instituição "${institutionName}" removida com sucesso do sistema!`)

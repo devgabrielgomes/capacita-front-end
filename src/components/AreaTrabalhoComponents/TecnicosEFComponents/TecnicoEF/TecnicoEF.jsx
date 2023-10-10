@@ -19,7 +19,7 @@ const TecnicoEF = () => {
      */
     const getStaffData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}staff/${staffId}${PT}`, { headers })
+        const res = await fetch(`${API_LINK}staff/${staffId}${PT}`, { headers })
         const data = await res.json()
         setStaffData(data)
     }

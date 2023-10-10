@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   define: {
-    API: JSON.stringify('https://labsi2.ipbeja.pt/capacita-api/api/'),
+    API_LINK: JSON.stringify('https://labsi2.ipbeja.pt/capacita-api/api/'),
     PT: JSON.stringify('/?set_locale=pt')
   }
 })

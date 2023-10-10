@@ -19,7 +19,7 @@ const Instituicao = () => {
      */
     const getInstitutionData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}institutions/${instituicaoId}${PT}`, { headers })
+        const res = await fetch(`${API_LINK}institutions/${instituicaoId}${PT}`, { headers })
         const data = await res.json()
         setInstitutionData(data)
     }

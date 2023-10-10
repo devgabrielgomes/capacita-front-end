@@ -36,7 +36,7 @@ const Utente = () => {
 
     const getPatientData = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}patients/${patientId}${PT}`, { headers })
+        const res = await fetch(`${API_LINK}patients/${patientId}${PT}`, { headers })
         const data = await res.json()
         setPatientData(data)
     }

@@ -34,7 +34,7 @@ const AddTecnicoEF = () => {
      */
     const getLocations = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}locations${PT}`, { headers })
+        const res = await fetch(`${API_LINK}locations${PT}`, { headers })
         const data = await res.json()
         setLocationsData(data)
     }
@@ -45,7 +45,7 @@ const AddTecnicoEF = () => {
      */
     const getRegions = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}regions${PT}`, { headers })
+        const res = await fetch(`${API_LINK}regions${PT}`, { headers })
         const data = await res.json()
         setRegionsData(data)
     }

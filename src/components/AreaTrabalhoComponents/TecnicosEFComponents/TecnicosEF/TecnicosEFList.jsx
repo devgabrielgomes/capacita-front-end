@@ -21,7 +21,7 @@ const TecnicosEFList = () => {
      */
     const getStaff = async () => {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        const res = await fetch(`${API}staff${PT}`, { headers })
+        const res = await fetch(`${API_LINK}staff${PT}`, { headers })
         const data = await res.json()
         setStaffData(data)
     }
@@ -33,7 +33,7 @@ const TecnicosEFList = () => {
      */
     function removeTechnician(id, technicianName) {
         const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-        axios.delete(`${API}staff/${id}`, { headers })
+        axios.delete(`${API_LINK}staff/${id}`, { headers })
             .then(() => {
                 getStaff()
                 toastSuccess(`Técnico "${technicianName}" removido com sucesso do sistema!`)

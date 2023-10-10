@@ -53,7 +53,7 @@ const AddUtente = () => {
              */
             const getGenders = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}genders${PT}`, { headers })
+                const res = await fetch(`${API_LINK}genders${PT}`, { headers })
                 const data = await res.json()
                 setGendersData(data)
             }
@@ -64,7 +64,7 @@ const AddUtente = () => {
              */
             const getLocations = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}locations${PT}`, { headers })
+                const res = await fetch(`${API_LINK}locations${PT}`, { headers })
                 const data = await res.json()
                 setLocationsData(data)
             }
@@ -75,7 +75,7 @@ const AddUtente = () => {
              */
             const getAidTypes = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(`${API}aidTypes${PT}`, { headers })
+                const res = await fetch(`${API_LINK}aidTypes${PT}`, { headers })
                 const data = await res.json()
                 setAidTypesData(data)
             }
@@ -86,7 +86,7 @@ const AddUtente = () => {
              */
             const getStaffInstitution = async () => {
                 const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') };
-                const res = await fetch(API + 'staff/' + sessionStorage.getItem('id'), { headers })
+                const res = await fetch(API_LINK + 'staff/' + sessionStorage.getItem('id'), { headers })
                 const data = await res.json()
                 setLocationId(data.location.id)
                 setStaffInstitutionName(data.location.name)
