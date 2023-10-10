@@ -5,6 +5,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import institutionIcon from '/src/assets/building.png';
 
 const Instituicao = () => {
     let params = useParams();
@@ -46,7 +47,7 @@ const Instituicao = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><img src='/src/assets/building.png' className="img-fluid float-left" alt="user image" width='280px'></img></a>
+                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><img src={institutionIcon} className="img-fluid float-left" alt="user image" width='280px'></img></a>
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Informações</h3>

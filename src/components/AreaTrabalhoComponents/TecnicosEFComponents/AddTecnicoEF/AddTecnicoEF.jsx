@@ -97,7 +97,7 @@ const AddTecnicoEF = () => {
             "Content-Type": "application/json",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}staff`, technicData, { headers })
+        axios.post(`${API_LINK}staff`, technicData, { headers })
             .then((response) => {
                 toastSuccess(`O Técnico "${name}" foi adicionado com sucesso ao sistema!`);
             })
@@ -121,7 +121,7 @@ const AddTecnicoEF = () => {
             "Content-Type": "multipart/form-data",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}locations`, locationData, { headers })
+        axios.post(`${API_LINK}locations`, locationData, { headers })
             .then((response) => {
                 toastSuccess(`A localização "${name}" foi adicionada com sucesso ao sistema!`);
             })

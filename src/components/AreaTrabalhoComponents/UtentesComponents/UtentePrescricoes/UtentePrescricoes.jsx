@@ -156,7 +156,7 @@ const UtentePrescricoes = () => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             };
 
-            axios.post(`${API}prescriptions`, prescriptionData, { headers })
+            axios.post(`${API_LINK}prescriptions`, prescriptionData, { headers })
                 .then((response) => {
                     setAdding(false)
                     getPrescriptionsData()

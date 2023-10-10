@@ -5,6 +5,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import technicIcon from '/src/assets/pt.png';
 
 const TecnicoEF = () => {
     let params = useParams();
@@ -46,7 +47,7 @@ const TecnicoEF = () => {
             </Row>
             <Row>
                 <Col md={3}>
-                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><img src='/src/assets/pt.png' className="img-fluid float-left" alt="user image" width='280px'></img></a>
+                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><img src={technicIcon} className="img-fluid float-left" alt="user image" width='280px'></img></a>
                 </Col>
                 <Col>
                     <h3>Informações</h3>

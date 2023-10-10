@@ -2,6 +2,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Sobre.css";
 import { Container, Image, Row } from 'react-bootstrap';
+import eldersSport from '/src/assets/sport.jpg';
 
 const Sobre = () => {
     return (
@@ -20,7 +21,7 @@ const Sobre = () => {
                     </span>
                 </Row>
                 <Row className='image-row'>
-                    <Image className='img-fluid rounded-5' src="src\assets\sport.jpg" alt="idosos" />
+                    <Image className='img-fluid rounded-5' src={eldersSport} alt="idosos" />
                 </Row>
             </Container>
         </>

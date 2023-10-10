@@ -113,7 +113,7 @@ const EditTecnicoEF = () => {
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
 
-        axios.put(`${API}institutions/${institutionId}`, institutionData, { headers })
+        axios.put(`${API_LINK}institutions/${institutionId}`, institutionData, { headers })
             .then((response) => {
                 toastSuccess(`A Instituição "${name}" foi editada com sucesso!`);
             })
@@ -137,7 +137,7 @@ const EditTecnicoEF = () => {
             "Content-Type": "multipart/form-data",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}locations`, locationData, { headers })
+        axios.post(`${API_LINK}locations`, locationData, { headers })
             .then((response) => {
                 toastSuccess(`A localização "${name}" foi adicionada com sucesso ao sistema!`);
             })

@@ -93,7 +93,7 @@ const AddInstituicao = () => {
             "Content-Type": "multipart/form-data",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}institutions`, institutionData, { headers })
+        axios.post(`${API_LINK}institutions`, institutionData, { headers })
             .then((response) => {
                 toastSuccess(`A Instituição "${name}" foi adicionada com sucesso ao sistema!`);
             })
@@ -117,7 +117,7 @@ const AddInstituicao = () => {
             "Content-Type": "multipart/form-data",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}locations`, locationData, { headers })
+        axios.post(`${API_LINK}locations`, locationData, { headers })
             .then((response) => {
                 toastSuccess(`A localização "${name}" foi adicionada com sucesso ao sistema!`);
             })

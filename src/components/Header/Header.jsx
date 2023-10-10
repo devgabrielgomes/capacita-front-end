@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import capacitaLogo from '/src/assets/capacita_logo.png';
 
 const Header = () => {
     const effectRan = useRef(false)
@@ -40,7 +41,7 @@ const Header = () => {
             <Navbar collapseOnSelect expand="lg" bg="dark" data-bs-theme="dark" id='navbar'>
                 <Container id='navbar-container'>
                     <Navbar.Brand href="/home">
-                        <img src='/src/assets/capacita_logo.png' alt="Capacita Logo" height="40px" />
+                        <img src={capacitaLogo} alt="Capacita Logo" height="40px" />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">

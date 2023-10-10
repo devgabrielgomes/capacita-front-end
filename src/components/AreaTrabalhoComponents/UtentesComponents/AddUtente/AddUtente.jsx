@@ -140,7 +140,7 @@ const AddUtente = () => {
             "Content-Type": "multipart/form-data",
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         };
-        axios.post(`${API}patients`, finalPatientData, { headers })
+        axios.post(`${API_LINK}patients`, finalPatientData, { headers })
             .then((response) => {
                 toastSuccess(`O paciente "${firstName} ${lastName}" foi adicionado com sucesso ao sistema!`);
             })

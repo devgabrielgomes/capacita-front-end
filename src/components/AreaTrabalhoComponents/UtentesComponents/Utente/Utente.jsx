@@ -6,6 +6,7 @@ import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import patientIcon from '/src/assets/user.png';
 
 const Utente = () => {
     let params = useParams();
@@ -53,7 +54,7 @@ const Utente = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid float-left' src="/src/assets/user.png" alt="user image" width={280} /></a>
+                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid float-left' src={patientIcon} alt="user image" width={280} /></a>
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Informações Pessoais</h3>

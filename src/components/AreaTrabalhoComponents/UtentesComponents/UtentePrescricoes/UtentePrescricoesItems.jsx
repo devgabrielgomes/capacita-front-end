@@ -175,7 +175,7 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             };
 
-            axios.put(`${API}prescriptions/${prescription.id}`, prescriptionData, { headers })
+            axios.put(`${API_LINK}prescriptions/${prescription.id}`, prescriptionData, { headers })
                 .then((response) => {
                     toastSuccess(`You just edited the prescription number "${prescription.id}" from your system!`);
                     setEditing(false);

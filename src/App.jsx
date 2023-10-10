@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import Home from "./pages/Home/Home";
+import Home from "/src/pages/Home/Home";
 import Sobre from "./pages/Sobre/Sobre";
 import Contatos from "./pages/Contatos/Contatos";
 import Auth from "./pages/Auth/Auth";
-import AreaTrabalho from "./pages/AreaTrabalho/AreaTrabalho";
+import AreaTrabalho from "/src/pages/AreaTrabalho/AreaTrabalho";
 import NoPage from "./pages/NoPage/NoPage";
 import AddUtente from "./components/AreaTrabalhoComponents/UtentesComponents/AddUtente/AddUtente";
 import EditUtente from "./components/AreaTrabalhoComponents/UtentesComponents/EditUtente/EditUtente";
@@ -20,7 +20,7 @@ import UtenteAnalise from "./components/AreaTrabalhoComponents/UtentesComponents
 import Header from "./components/Header/Header";
 import LivroVerde from "./components/AreaTrabalhoComponents/LivroVerde/LivroVerde";
 import AnaliseEstatistica from "./components/AreaTrabalhoComponents/AnaliseEstatistica/AnaliseEstatistica";
-import PerfilPessoal from "./components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal";
+import PerfilPessoal from "/src/components/AreaTrabalhoComponents/PerfilPessoal/PerfilPessoal";
 import Utente from "./components/AreaTrabalhoComponents/UtentesComponents/Utente/Utente";
 import UtentesList from "./components/AreaTrabalhoComponents/UtentesComponents/UtentesList/UtentesList";
 import InstituicoesList from "./components/AreaTrabalhoComponents/InstituicoesComponents/InstituicoesList/InstituicoesList";
@@ -43,7 +43,7 @@ export default function App() {
         <Route path="/about" element={<Sobre />} />
         <Route path="/contacts" element={<Contatos />} />
         <Route path="/work_area" element={isAuthenticated ? <AreaTrabalho /> : <Auth />} >
-          <Route path="personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
+          <Route path="/work_area/personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
           <Route path="green_book" element={isAuthenticated ? <LivroVerde /> : <Auth />} />
           <Route path="statistics" element={isAuthenticated ? <AnaliseEstatistica /> : <Auth />} />
           <Route path="technics_ef" element={isAdmin ? <TecnicosEFList /> : <Auth />} />

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./PerfilPessoal.css";
 import { Row, Col, Image } from 'react-bootstrap';
+import userIcon from '/src/assets/user.png';
 
 
 const PerfilPessoal = () => {
@@ -35,7 +36,7 @@ const PerfilPessoal = () => {
             </Row>
             <Row>
                 <Col md={4} lg={4} xl={4}>
-                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid float-left' src="/src/assets/user.png" alt="user image" width={280} /></a>
+                    <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid float-left' src={userIcon} alt="user image" width={280} /></a>
                 </Col>
                 <Col md={8} lg={8} xl={8}>
                     <h3>Bem-vindo <b>{sessionStorage.getItem('name')}!</b></h3>
