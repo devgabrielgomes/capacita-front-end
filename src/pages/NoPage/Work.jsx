@@ -9,7 +9,7 @@ const Work = () => {
             <Container>
                 <br />
                 <h4>A seguinte secção ainda não foi implementada!</h4>
-                <a href="https://www.flaticon.com/free-icons/pending" title="pending icons"><Image className='img-fluid rounded' src={workImage} alt="work image" width={300} /></a>
+                <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid rounded' src={workImage} alt="work image" width={300} /></a>
             </Container>
         </>
     )

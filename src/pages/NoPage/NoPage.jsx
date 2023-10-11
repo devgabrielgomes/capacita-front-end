@@ -8,7 +8,7 @@ const NoPage = () => {
         <>
             <Container>
                 <h1>A seguinte página não existe!</h1>
-                <Image className='img-fluid rounded' src={noResults} alt="work image" width={500} />
+                <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><Image className='img-fluid rounded' src={noResults} alt="work image" width={500} /></a>
             </Container>
         </>
     )

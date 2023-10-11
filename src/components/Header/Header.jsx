@@ -40,9 +40,11 @@ const Header = () => {
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" data-bs-theme="dark" id='navbar'>
                 <Container id='navbar-container'>
-                    <Navbar.Brand href="/home">
-                        <img src={capacitaLogo} alt="Capacita Logo" height="40px" />
-                    </Navbar.Brand>
+                    <Nav.Link className='nav-link' as={Link} to="/home">
+                        <Navbar.Brand>
+                            <img src={capacitaLogo} alt="Capacita Logo" height="40px" />
+                        </Navbar.Brand>
+                    </Nav.Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -73,7 +75,7 @@ const Header = () => {
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
+            </Navbar >
         </>
     )
 }
