@@ -8,7 +8,7 @@ import { faCalendarPlus, faXmark, faFloppyDisk } from '@fortawesome/free-solid-s
 import { useParams } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const UtentePrescricoes = () => {
     let params = useParams();
@@ -160,13 +160,14 @@ const UtentePrescricoes = () => {
                 .then((response) => {
                     setAdding(false)
                     getPrescriptionsData()
-                    toastSuccess(`You just add a prescription to your system!`);
+                    toastSuccess(`A prescrição foi adicionada com sucesso ao sistema!`);
+
                 })
                 .catch(function (error) {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                    toastError(`Unable to add this prescription to your system!`)
+                    toastSuccess(`Não foi possível adicionar a prescrição ao sistema!`);
                 })
         }
 
@@ -304,18 +305,6 @@ const UtentePrescricoes = () => {
                     )
                 })}
             </Row>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

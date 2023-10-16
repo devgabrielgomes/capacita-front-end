@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import InstituicoesListItems from './InstituicoesListItems/InstituicoesListItems';
 import axios from 'axios';
 
@@ -127,18 +127,6 @@ const InstituicoesList = () => {
                     })}
                 </tbody>
             </table>
-            <TostifyToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

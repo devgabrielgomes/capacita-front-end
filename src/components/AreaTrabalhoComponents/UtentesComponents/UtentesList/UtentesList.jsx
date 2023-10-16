@@ -7,7 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import UtentesItems from './UtentesListItems/UtentesListItems';
 import axios from 'axios';
-import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+const [showModal, setShowModal] = useState(false)
+const handleCloseModal = () => setShowModal(false);
+const handleShowModal = () => setShowModal(true);
 
 const UtentesList = () => {
     const [patientsData, setPatientsData] = useState();
@@ -53,6 +56,7 @@ const UtentesList = () => {
         axios.delete(`${API_LINK}patients/${id}`, { headers })
             .then(() => {
                 getPatients()
+                handleCloseModal()
                 toastSuccess(`O paciente "${patient_name}" foi removido com sucesso do sistema!`)
             })
             .catch(({ response }) => {
@@ -157,18 +161,6 @@ const UtentesList = () => {
                     })}
                 </tbody>
             </table>
-            <TostifyToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

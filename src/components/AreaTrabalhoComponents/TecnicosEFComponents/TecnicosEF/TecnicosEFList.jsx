@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import { ToastContainer as TostifyToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import TecnicosEFItems from './TecnicosEFItems/TecnicosEFItems';
 import axios from 'axios';
 
@@ -128,18 +128,6 @@ const TecnicosEFList = () => {
                     })}
                 </tbody>
             </table>
-            <TostifyToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

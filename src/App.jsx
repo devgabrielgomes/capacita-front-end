@@ -1,4 +1,6 @@
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Home from "/src/pages/Home/Home";
@@ -33,7 +35,7 @@ import EditTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFCompone
 import AddTecnicoEF from "./components/AreaTrabalhoComponents/TecnicosEFComponents/AddTecnicoEF/AddTecnicoEF";
 
 export default function App() {
-  const isAuthenticated = sessionStorage.getItem('token') ? true : false;
+  const isAuth = sessionStorage.getItem('token') ? true : false;
   const isAdmin = sessionStorage.getItem('email') == "admin@gmail.com" ? true : false;
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -42,33 +44,33 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<Sobre />} />
         <Route path="/contacts" element={<Contatos />} />
-        <Route path="/work_area" element={isAuthenticated ? <AreaTrabalho /> : <Auth />} >
-          <Route path="/work_area/personal_profile" element={isAuthenticated ? <PerfilPessoal /> : <Auth />} />
-          <Route path="green_book" element={isAuthenticated ? <LivroVerde /> : <Auth />} />
-          <Route path="statistics" element={isAuthenticated ? <AnaliseEstatistica /> : <Auth />} />
+        <Route path="/work_area" element={isAuth ? <AreaTrabalho /> : <Auth />} >
+          <Route path="/work_area/personal_profile" element={isAuth ? <PerfilPessoal /> : <Auth />} />
+          <Route path="green_book" element={isAuth ? <LivroVerde /> : <Auth />} />
+          <Route path="statistics" element={isAuth ? <AnaliseEstatistica /> : <Auth />} />
           <Route path="technics_ef" element={isAdmin ? <TecnicosEFList /> : <Auth />} />
           <Route path="technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
           <Route path="technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
           <Route path="technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
           <Route path="institutions" element={isAdmin ? <InstituicoesList /> : <Auth />} />
           <Route path="institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
-          <Route path="institutions/add" element={isAuthenticated ? <AddInstituicao /> : <Auth />} />
-          <Route path="institutions/:id/edit" element={isAuthenticated ? <EditInstituicao /> : <Auth />} />
-          <Route path="patients" element={isAuthenticated ? <UtentesList /> : <Auth />} />
-          <Route path="patients/add" element={isAuthenticated ? <AddUtente /> : <Auth />} />
-          <Route path="patients/:id/edit" element={isAuthenticated ? <EditUtente /> : <Auth />} />
-          <Route path="patients/:id" element={isAuthenticated ? <Utente /> : <Auth />}>
-            <Route path="calendar" element={isAuthenticated ? <UtenteCalendario /> : <Auth />} />
-            <Route path="history" element={isAuthenticated ? <UtenteHistorico /> : <Auth />} />
-            <Route path="medication" element={isAuthenticated ? <UtenteMedicacao /> : <Auth />} />
-            <Route path="physical_data" element={isAuthenticated ? <UtenteDadosFisicos /> : <Auth />} />
-            <Route path="tests_performed" element={isAuthenticated ? <UtenteTestes /> : <Auth />} />
-            <Route path="reports" element={isAuthenticated ? <UtenteRelatorios /> : <Auth />} />
-            <Route path="prescriptions" element={isAuthenticated ? <UtentePrescricoes /> : <Auth />} />
-            <Route path="analysis" element={isAuthenticated ? <UtenteAnalise /> : <Auth />} />
+          <Route path="institutions/add" element={isAuth ? <AddInstituicao /> : <Auth />} />
+          <Route path="institutions/:id/edit" element={isAuth ? <EditInstituicao /> : <Auth />} />
+          <Route path="patients" element={isAuth ? <UtentesList /> : <Auth />} />
+          <Route path="patients/add" element={isAuth ? <AddUtente /> : <Auth />} />
+          <Route path="patients/:id/edit" element={isAuth ? <EditUtente /> : <Auth />} />
+          <Route path="patients/:id" element={isAuth ? <Utente /> : <Auth />}>
+            <Route path="calendar" element={isAuth ? <UtenteCalendario /> : <Auth />} />
+            <Route path="history" element={isAuth ? <UtenteHistorico /> : <Auth />} />
+            <Route path="medication" element={isAuth ? <UtenteMedicacao /> : <Auth />} />
+            <Route path="physical_data" element={isAuth ? <UtenteDadosFisicos /> : <Auth />} />
+            <Route path="tests_performed" element={isAuth ? <UtenteTestes /> : <Auth />} />
+            <Route path="reports" element={isAuth ? <UtenteRelatorios /> : <Auth />} />
+            <Route path="prescriptions" element={isAuth ? <UtentePrescricoes /> : <Auth />} />
+            <Route path="analysis" element={isAuth ? <UtenteAnalise /> : <Auth />} />
           </Route>
         </Route>
-        <Route path="auth" element={isAuthenticated ? <AreaTrabalho /> : <Auth />} />
+        <Route path="auth" element={isAuth ? <AreaTrabalho /> : <Auth />} />
         <Route path="*" element={<NoPage />} />
       </Route >
     )
@@ -77,6 +79,18 @@ export default function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   )
 }

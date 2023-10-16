@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import axios from "axios";
 
 const EditUtente = () => {
@@ -288,12 +287,12 @@ const EditUtente = () => {
 
                 <Form.Group className="mb-3" controlId="nif">
                     <Form.Label>NIF</Form.Label>
-                    <Form.Control type="text" placeholder="Introduza o NIF do utente" value={nif} onChange={(event) => { setNif(event.target.value) }} required />
+                    <Form.Control type="text" maxLength="9" placeholder="Introduza o NIF do utente" value={nif} onChange={(event) => { setNif(event.target.value) }} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="niss">
                     <Form.Label>NISS</Form.Label>
-                    <Form.Control type="text" placeholder="Introduza o NIF do utente" value={niss} onChange={(event) => { setNiss(event.target.value) }} required />
+                    <Form.Control type="text" maxLength="9" placeholder="Introduza o NIF do utente" value={niss} onChange={(event) => { setNiss(event.target.value) }} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="location_id">
@@ -332,18 +331,6 @@ const EditUtente = () => {
                     Editar Utente
                 </Button>
             </Form>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

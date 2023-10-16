@@ -177,7 +177,7 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
 
             axios.put(`${API_LINK}prescriptions/${prescription.id}`, prescriptionData, { headers })
                 .then((response) => {
-                    toastSuccess(`You just edited the prescription number "${prescription.id}" from your system!`);
+                    toastSuccess(`A prescrição número ${prescription.id} foi editada com sucesso!`);
                     setEditing(false);
                     getPrescriptionsData();
                 })
@@ -185,7 +185,7 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                    toastError(`Unable to edit the prescription number "${prescription.id}" from your system!`)
+                    toastError(`Não foi possível editar a prescrição número ${prescription.id}!`)
                 })
         }
 
@@ -222,7 +222,6 @@ const UtentePrescricoesItems = ({ prescription, staffData, exercisesData, exerci
                                                 return (
                                                     <option key={key} value={val.id}>{val.name}</option>
                                                 )
-
                                             })}
                                         </Form.Select>
                                     </Form>

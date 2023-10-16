@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Auth.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export default function Auth() {
     const [email, setEmail] = useState("");
@@ -66,12 +65,15 @@ export default function Auth() {
                         sessionStorage.setItem('id', "3")
                     }
                     // window.location.href = '/work_area/personal_profile'
-                    navigate("/");
-                    window.location.reload(false);
+                    // navigate("/");
+                    // window.location.reload(false);
                 } else {
                     toastError(`As credenciais estão incorretas!`)
                     resetForm()
                 }
+            })
+            .then((response) => {
+                navigate("/work_area/personal_profile");
             })
             .catch((e) => {
                 toastError(`As credenciais estão incorretas!`)
@@ -121,18 +123,6 @@ export default function Auth() {
                     </Row>
                 </Container>
             </motion.div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }

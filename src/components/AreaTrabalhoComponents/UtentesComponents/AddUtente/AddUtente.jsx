@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const AddUtente = () => {
     const navigate = useNavigate();
@@ -110,8 +109,7 @@ const AddUtente = () => {
      */
     const postForm = async (e) => {
         e.preventDefault()
-        await postPatient()
-        navigate("/work_area/patients")
+        postPatient()
     }
 
     /**
@@ -142,6 +140,7 @@ const AddUtente = () => {
         };
         axios.post(`${API_LINK}patients`, finalPatientData, { headers })
             .then((response) => {
+                navigate("/work_area/patients");
                 toastSuccess(`O paciente "${firstName} ${lastName}" foi adicionado com sucesso ao sistema!`);
             })
             .catch(function (error) {
@@ -196,7 +195,7 @@ const AddUtente = () => {
                     <Button variant="secondary" onClick={() => { navigate('/work_area/patients') }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar à lista</Button>{' '}
                 </Col>
             </Row>
-            <Form>
+            <Form onSubmit={postForm}>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Nome</Form.Label>
                     <Form.Control type="text" placeholder="Introduza o nome do utente" value={firstName} onChange={(event) => { setFirstName(event.target.value) }} required />
@@ -260,15 +259,14 @@ const AddUtente = () => {
                     </Form.Select>
                 </Form.Group>
 
-
                 <Form.Group className="mb-3" controlId="nif">
                     <Form.Label>NIF</Form.Label>
-                    <Form.Control type="text" placeholder="Introduza o NIF do utente" value={nif} onChange={(event) => { setNif(event.target.value) }} required />
+                    <Form.Control type="text" maxLength="9" placeholder="Introduza o NIF do utente" value={nif} onChange={(event) => { setNif(event.target.value) }} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="niss">
                     <Form.Label>NISS</Form.Label>
-                    <Form.Control type="text" placeholder="Introduza o NIF do utente" value={niss} onChange={(event) => { setNiss(event.target.value) }} required />
+                    <Form.Control type="text" maxLength="9" placeholder="Introduza o NIF do utente" value={niss} onChange={(event) => { setNiss(event.target.value) }} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="location_id">
@@ -301,23 +299,10 @@ const AddUtente = () => {
                     <input type="file" name="file" onChange={uploadPicture} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit" onClick={postForm}>
+                <Button variant="primary" type="submit">
                     Inserir Utente
                 </Button>
             </Form >
-
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </>
     )
 }
