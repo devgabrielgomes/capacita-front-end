@@ -79,8 +79,7 @@ const EditInstituicao = () => {
      */
     const putInstitutionForm = async (e) => {
         e.preventDefault()
-        await editInstitution()
-        navigate("/work_area/institutions")
+        editInstitution()
     }
 
     /**
@@ -90,8 +89,7 @@ const EditInstituicao = () => {
      */
     const postLocationForm = async (e) => {
         e.preventDefault()
-        await postLocation()
-        getLocations()
+        postLocation()
     }
 
     /**
@@ -110,6 +108,7 @@ const EditInstituicao = () => {
 
         axios.put(`${API_LINK}institutions/${institutionId}`, institutionData, { headers })
             .then((response) => {
+                navigate("/work_area/institutions")
                 toastSuccess(`A Instituição "${name}" foi editada com sucesso!`);
             })
             .catch(function (error) {
@@ -134,13 +133,14 @@ const EditInstituicao = () => {
         };
         axios.post(`${API_LINK}locations`, locationData, { headers })
             .then((response) => {
-                toastSuccess(`A localização "${name}" foi adicionada com sucesso ao sistema!`);
+                window.location.reload(false);
+                toastSuccess(`A localização "${locationName}" foi adicionada com sucesso ao sistema!`);
             })
             .catch(function (error) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-                toastError(`Não foi possível adicionar a localização "${name}" ao sistema!`)
+                toastError(`Não foi possível adicionar a localização "${locationName}" ao sistema!`)
             })
     }
 

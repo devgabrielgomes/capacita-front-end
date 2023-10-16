@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { motion } from "framer-motion";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Auth.css";
@@ -65,15 +65,11 @@ export default function Auth() {
                         sessionStorage.setItem('id', "3")
                     }
                     // window.location.href = '/work_area/personal_profile'
-                    // navigate("/");
-                    // window.location.reload(false);
                 } else {
                     toastError(`As credenciais estão incorretas!`)
                     resetForm()
                 }
-            })
-            .then((response) => {
-                navigate("/work_area/personal_profile");
+                window.location.href = '/';
             })
             .catch((e) => {
                 toastError(`As credenciais estão incorretas!`)

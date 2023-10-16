@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Header.css";
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +11,7 @@ import capacitaLogo from '/src/assets/capacita_logo.png';
 const Header = () => {
     const effectRan = useRef(false)
     const [userType, setUserType] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (effectRan.current == false && sessionStorage.getItem('token') != null) {
@@ -33,7 +35,7 @@ const Header = () => {
 
     function logout() {
         sessionStorage.clear()
-        window.location.href = '/home';
+        window.location.href = '/';
     }
 
     return (
@@ -67,7 +69,7 @@ const Header = () => {
                                     </div>
                                     <Nav.Link className='nav-link' id='logout-link' as={Link} onClick={() => { logout() }}>
                                         <Button variant="outline-danger">
-                                            <FontAwesomeIcon icon={faRightFromBracket} /> Terminar sessão
+                                            <FontAwesomeIcon icon={faRightFromBracket} /> Terminar Sessão
                                         </Button>
                                     </Nav.Link>
                                 </div>

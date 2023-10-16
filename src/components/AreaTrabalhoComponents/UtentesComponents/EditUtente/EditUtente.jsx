@@ -54,8 +54,7 @@ const EditUtente = () => {
      */
     const postForm = async (e) => {
         e.preventDefault()
-        await editPatient()
-        navigate("/work_area/patients")
+        editPatient()
     }
 
     /**
@@ -87,6 +86,7 @@ const EditUtente = () => {
 
         axios.put(`${API_LINK}patients/${patientId}`, finalPatientData, { headers })
             .then((response) => {
+                navigate("/work_area/patients")
                 toastSuccess(`O utente "${firstName} ${lastName}" foi editado com sucesso!`);
             })
             .catch(function (error) {

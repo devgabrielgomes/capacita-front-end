@@ -64,8 +64,7 @@ const AddInstituicao = () => {
      */
     const postInstitutionForm = async (e) => {
         e.preventDefault()
-        await postInstitution()
-        navigate("/work_area/institutions")
+        postInstitution()
     }
 
     /**
@@ -75,9 +74,7 @@ const AddInstituicao = () => {
      */
     const postLocationForm = async (e) => {
         e.preventDefault()
-        await postLocation()
-        getLocations()
-        navigate('/work_area/institutions/add')
+        postLocation()
     }
 
     /**
@@ -94,6 +91,7 @@ const AddInstituicao = () => {
         };
         axios.post(`${API_LINK}institutions`, institutionData, { headers })
             .then((response) => {
+                navigate("/work_area/institutions")
                 toastSuccess(`A Instituição "${name}" foi adicionada com sucesso ao sistema!`);
             })
             .catch(function (error) {
@@ -118,13 +116,15 @@ const AddInstituicao = () => {
         };
         axios.post(`${API_LINK}locations`, locationData, { headers })
             .then((response) => {
-                toastSuccess(`A localização "${name}" foi adicionada com sucesso ao sistema!`);
+                getLocations()
+                navigate('/work_area/institutions/add');
+                toastSuccess(`A localização "${locationName}" foi adicionada com sucesso ao sistema!`);
             })
             .catch(function (error) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
-                toastError(`Não foi possível adicionar a localização "${name}" ao sistema!`)
+                toastError(`Não foi possível adicionar a localização "${locationName}" ao sistema!`)
             })
     }
 
@@ -192,7 +192,7 @@ const AddInstituicao = () => {
                             <Button variant="secondary" onClick={() => { setAddingLocation(false) }}><FontAwesomeIcon icon={faArrowLeft} /> Voltar</Button>{' '}
                         </Col>
                     </Row>
-                    <Form>
+                    <Form onSubmit={postLocationForm}>
                         <Form.Group className="mb-3" controlId="name">
                             <Form.Label>Nome da cidade</Form.Label>
                             <Form.Control type="text" placeholder="Introduza a cidade" value={locationName} onChange={(event) => { setLocationName(event.target.value) }} required />
@@ -204,7 +204,7 @@ const AddInstituicao = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="postalCode">
-                            <Form.Label>Código Postal</Form.Label>
+                            <Form.Label>Código postal</Form.Label>
                             <Form.Control type="text" placeholder="Introduza o código postal" value={locationPostcode} onChange={(event) => { setLocationPostcode(event.target.value) }} required />
                         </Form.Group>
 
@@ -219,13 +219,13 @@ const AddInstituicao = () => {
                             </Form.Select>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" onClick={postLocationForm}>
+                        <Button variant="primary" type="submit">
                             Inserir Localização
                         </Button>
                     </Form>
                 </>
                 :
-                <Form>
+                <Form onSubmit={postInstitutionForm}>
                     <Form.Group className="mb-3" controlId="name">
                         <Form.Label>Nome</Form.Label>
                         <Form.Control type="text" placeholder="Introduza o nome da instituição" value={name} onChange={(event) => { setName(event.target.value) }} required />
@@ -242,7 +242,7 @@ const AddInstituicao = () => {
                         </Form.Select>
                     </Form.Group>
 
-                    <Button variant="success" type="submit" onClick={postInstitutionForm}>
+                    <Button variant="success" type="submit">
                         Inserir Instituição
                     </Button>
                 </Form>

@@ -8,9 +8,6 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import UtentesItems from './UtentesListItems/UtentesListItems';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-const [showModal, setShowModal] = useState(false)
-const handleCloseModal = () => setShowModal(false);
-const handleShowModal = () => setShowModal(true);
 
 const UtentesList = () => {
     const [patientsData, setPatientsData] = useState();
@@ -56,7 +53,6 @@ const UtentesList = () => {
         axios.delete(`${API_LINK}patients/${id}`, { headers })
             .then(() => {
                 getPatients()
-                handleCloseModal()
                 toastSuccess(`O paciente "${patient_name}" foi removido com sucesso do sistema!`)
             })
             .catch(({ response }) => {

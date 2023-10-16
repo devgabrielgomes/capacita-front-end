@@ -57,10 +57,10 @@ const InstituicoesItems = ({ institution, removeInstitution }) => {
                 <Modal.Body>{`Tem a certeza de que quer remover a instituição "${institution.name}" do sistema?`}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        Sim
+                        Não
                     </Button>
                     <Button variant="btn btn-danger" onClick={() => removeInstitution(institution.id, institution.name)}>
-                        Não
+                        Sim
                     </Button>
                 </Modal.Footer>
             </Modal>
