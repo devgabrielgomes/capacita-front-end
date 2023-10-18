@@ -121,7 +121,7 @@ const UtentesList = () => {
                         <th scope="col">Nome</th>
                         <th scope="col">NIF</th>
                         <th scope="col">NISS</th>
-                        <th scope="col">Instituição</th>
+                        <th scope="col">Localização</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>

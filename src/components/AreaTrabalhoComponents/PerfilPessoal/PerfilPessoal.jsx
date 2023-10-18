@@ -46,7 +46,7 @@ const PerfilPessoal = () => {
                     <p><b>Email:</b> {sessionStorage.getItem('email')}</p>
                     <p><b>Data de Nascimento:</b> {staffData.birthdate}</p>
                     <hr></hr>
-                    <h4>Instituição</h4>
+                    <h4>Localização</h4>
                     <p><b>Nome:</b> {staffData.location && staffData.location.name}</p>
                     <p><b>Morada:</b> {staffData.location && staffData.location.address}</p>
                 </Col>

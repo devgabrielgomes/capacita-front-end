@@ -65,7 +65,7 @@ const Utente = () => {
                     <p><b>Data de Nascimento:</b> {patientData.birthdate}</p>
                     <p><b>Género:</b> {patientData.gender}</p>
                     <hr></hr>
-                    <p><b>Nome da Instituição:</b> {patientData.location && patientData.location.name}</p>
+                    <p><b>Localização:</b> {patientData.location && patientData.location.name}</p>
                 </Col>
             </Row >
 

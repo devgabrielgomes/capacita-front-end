@@ -36,7 +36,7 @@ const TecnicosEFList = () => {
         axios.delete(`${API_LINK}staff/${id}`, { headers })
             .then(() => {
                 getStaff()
-                toastSuccess(`Técnico "${technicianName}" removido com sucesso do sistema!`)
+                toastSuccess(`O Técnico "${technicianName}" removido com sucesso do sistema!`)
             })
             .catch(({ response }) => {
                 toastError(`Não foi possível remover o Técnico "${technicianName}" do sistema!`)
@@ -109,7 +109,7 @@ const TecnicosEFList = () => {
                     <tr>
                         <th scope="col">Nº</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Instituição</th>
+                        <th scope="col">Localização</th>
                         <th scope="col">Email</th>
                         <th scope="col">Data de Nascimento</th>
                         <th scope="col">Ações</th>

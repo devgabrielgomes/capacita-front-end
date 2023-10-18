@@ -15,7 +15,7 @@ const AddUtente = () => {
     const [gendersData, setGendersData] = useState([]);
     const [locationsData, setLocationsData] = useState([]);
     const [aidTypesData, setAidTypesData] = useState([]);
-    const [staffInstitutionName, setStaffInstitutionName] = useState("");
+    const [staffLocationName, setStaffLocationName] = useState("");
     const effectRan = useRef(false)
 
     const [firstName, setFirstName] = useState("");
@@ -88,7 +88,7 @@ const AddUtente = () => {
                 const res = await fetch(API_LINK + 'staff/' + sessionStorage.getItem('id'), { headers })
                 const data = await res.json()
                 setLocationId(data.location.id)
-                setStaffInstitutionName(data.location.name)
+                setStaffLocationName(data.location.name)
             }
 
             getGenders()
@@ -272,7 +272,7 @@ const AddUtente = () => {
                 <Form.Group className="mb-3" controlId="location_id">
                     {sessionStorage.getItem('id') == 1 ?
                         <>
-                            <Form.Label>Lar</Form.Label>
+                            <Form.Label>Localização</Form.Label>
                             <Form.Select value={locationId} onChange={(event) => { setLocationId(event.target.value) }} >
                                 {locationsData.map((val, key) => {
                                     return (
@@ -283,7 +283,7 @@ const AddUtente = () => {
                         </>
                         :
                         <>
-                            <Form.Label>Lar: {staffInstitutionName}</Form.Label>
+                            <Form.Label>Localização: {staffLocationName}</Form.Label>
                         </>
                     }
                 </Form.Group>
