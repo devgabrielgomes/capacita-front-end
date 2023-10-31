@@ -53,13 +53,13 @@ export default function Auth() {
                     sessionStorage.setItem('token', data.access_token);
                     sessionStorage.setItem('email', email);
                     if (sessionStorage.getItem('email') == "admin@gmail.com") {
-                        sessionStorage.setItem('name', "Una Kuhic")
+                        sessionStorage.setItem('name', "Joaquim Alves")
                         sessionStorage.setItem('id', "1")
                     } else if (sessionStorage.getItem('email') != "therapist@gmail.com") {
-                        sessionStorage.setItem('name', "Tatyana Anderson")
+                        sessionStorage.setItem('name', "Jorge Mendes")
                         sessionStorage.setItem('id', "2")
                     } else {
-                        sessionStorage.setItem('name', "Mariane Jakubowski")
+                        sessionStorage.setItem('name', "Alfredo Varela")
                         sessionStorage.setItem('id', "3")
                     }
                     window.location.href = '/';
