@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Contatos.css";
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,7 +18,7 @@ const center = {
 const Contatos = () => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: MAPS_API_KEY
+        googleMapsApiKey: import.meta.env.VITE_MAPS_KEY
     })
 
     const [map, setMap] = React.useState(null)

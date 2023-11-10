@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentePrescricoes.css";
 import UtentePrescricoesItems from './UtentePrescricoesItems';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';

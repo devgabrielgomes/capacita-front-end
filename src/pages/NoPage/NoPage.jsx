@@ -1,5 +1,4 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Image } from 'react-bootstrap';
 import noResults from '/src/assets/no-results.png';
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./TecnicosEFItems.css";
 import { useNavigate } from "react-router-dom"
 import { OverlayTrigger, Tooltip, Modal, Button } from 'react-bootstrap';

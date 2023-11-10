@@ -1,6 +1,4 @@
 import { React, useEffect, useRef, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtenteAnalise.css";
 import { Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';

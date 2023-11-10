@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./PerfilPessoal.css";
 import { Row, Col, Image } from 'react-bootstrap';
 import userIcon from '/src/assets/user.png';

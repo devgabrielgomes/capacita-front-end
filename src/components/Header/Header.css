@@ -1,5 +1,5 @@
 #navbar {
-    padding: 4px;
+    padding: 9px;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -34,4 +34,9 @@
 #logout-link {
     display: inline-block;
     margin-left: 10px;
+    padding: 0px;
+}
+
+.auth-side {
+    padding: 0px;
 }

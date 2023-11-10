@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Auth.css";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -62,7 +61,7 @@ export default function Auth() {
                         sessionStorage.setItem('name', "Alfredo Varela")
                         sessionStorage.setItem('id', "3")
                     }
-                    window.location.href = '/';
+                    window.location.href = '/home';
                 } else {
                     toastError(`As credenciais estão incorretas!`)
                     resetForm()

@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Outlet, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -40,38 +40,38 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
-        <Route index path="/" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<Sobre />} />
         <Route path="/contacts" element={<Contatos />} />
         <Route path="/work_area" element={isAuth ? <AreaTrabalho /> : <Auth />} >
           <Route path="/work_area/personal_profile" element={isAuth ? <PerfilPessoal /> : <Auth />} />
-          <Route path="green_book" element={isAuth ? <LivroVerde /> : <Auth />} />
-          <Route path="statistics" element={isAuth ? <AnaliseEstatistica /> : <Auth />} />
-          <Route path="technics_ef" element={isAdmin ? <TecnicosEFList /> : <Auth />} />
-          <Route path="technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
-          <Route path="technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
-          <Route path="technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
-          <Route path="institutions" element={isAdmin ? <InstituicoesList /> : <Auth />} />
-          <Route path="institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
-          <Route path="institutions/add" element={isAuth ? <AddInstituicao /> : <Auth />} />
-          <Route path="institutions/:id/edit" element={isAuth ? <EditInstituicao /> : <Auth />} />
-          <Route path="patients" element={isAuth ? <UtentesList /> : <Auth />} />
-          <Route path="patients/add" element={isAuth ? <AddUtente /> : <Auth />} />
-          <Route path="patients/:id/edit" element={isAuth ? <EditUtente /> : <Auth />} />
-          <Route path="patients/:id" element={isAuth ? <Utente /> : <Auth />}>
-            <Route path="calendar" element={isAuth ? <UtenteCalendario /> : <Auth />} />
-            <Route path="history" element={isAuth ? <UtenteHistorico /> : <Auth />} />
-            <Route path="medication" element={isAuth ? <UtenteMedicacao /> : <Auth />} />
-            <Route path="physical_data" element={isAuth ? <UtenteDadosFisicos /> : <Auth />} />
-            <Route path="tests_performed" element={isAuth ? <UtenteTestes /> : <Auth />} />
-            <Route path="reports" element={isAuth ? <UtenteRelatorios /> : <Auth />} />
-            <Route path="prescriptions" element={isAuth ? <UtentePrescricoes /> : <Auth />} />
-            <Route path="analysis" element={isAuth ? <UtenteAnalise /> : <Auth />} />
+          <Route path="/work_area/green_book" element={isAuth ? <LivroVerde /> : <Auth />} />
+          <Route path="/work_area/statistics" element={isAuth ? <AnaliseEstatistica /> : <Auth />} />
+          <Route path="/work_area/technics_ef" element={isAdmin ? <TecnicosEFList /> : <Auth />} />
+          <Route path="/work_area/technics_ef/:id" element={isAdmin ? <TecnicoEF /> : <Auth />} />
+          <Route path="/work_area/technics_ef/add" element={isAdmin ? <AddTecnicoEF /> : <Auth />} />
+          <Route path="/work_area/technics_ef/:id/edit" element={isAdmin ? <EditTecnicoEF /> : <Auth />} />
+          <Route path="/work_area/institutions" element={isAdmin ? <InstituicoesList /> : <Auth />} />
+          <Route path="/work_area/institutions/:id" element={isAdmin ? <Instituicao /> : <Auth />} />
+          <Route path="/work_area/institutions/add" element={isAuth ? <AddInstituicao /> : <Auth />} />
+          <Route path="/work_area/institutions/:id/edit" element={isAuth ? <EditInstituicao /> : <Auth />} />
+          <Route path="/work_area/patients" element={isAuth ? <UtentesList /> : <Auth />} />
+          <Route path="/work_area/patients/add" element={isAuth ? <AddUtente /> : <Auth />} />
+          <Route path="/work_area/patients/:id/edit" element={isAuth ? <EditUtente /> : <Auth />} />
+          <Route path="/work_area/patients/:id" element={isAuth ? <Utente /> : <Auth />}>
+            <Route path="/work_area/patients/:id/calendar" element={isAuth ? <UtenteCalendario /> : <Auth />} />
+            <Route path="/work_area/patients/:id/history" element={isAuth ? <UtenteHistorico /> : <Auth />} />
+            <Route path="/work_area/patients/:id/medication" element={isAuth ? <UtenteMedicacao /> : <Auth />} />
+            <Route path="/work_area/patients/:id/physical_data" element={isAuth ? <UtenteDadosFisicos /> : <Auth />} />
+            <Route path="/work_area/patients/:id/tests_performed" element={isAuth ? <UtenteTestes /> : <Auth />} />
+            <Route path="/work_area/patients/:id/reports" element={isAuth ? <UtenteRelatorios /> : <Auth />} />
+            <Route path="/work_area/patients/:id/prescriptions" element={isAuth ? <UtentePrescricoes /> : <Auth />} />
+            <Route path="/work_area/patients/:id/analysis" element={isAuth ? <UtenteAnalise /> : <Auth />} />
           </Route>
         </Route>
-        <Route path="auth" element={isAuth ? <AreaTrabalho /> : <Auth />} />
-        <Route path="*" element={<NoPage />} />
+        <Route path="/auth" element={isAuth ? <AreaTrabalho /> : <Auth />} />
+        <Route path="/*" element={<Navigate to="/" />} />
       </Route >
     )
   )
@@ -97,10 +97,10 @@ export default function App() {
 
 const Root = () => {
   return (
-    <>
+    <div>
       <Header />
       <Outlet />
-    </>
+    </div>
   )
 }
 

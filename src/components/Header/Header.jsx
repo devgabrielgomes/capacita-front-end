@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Header.css";
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -57,7 +56,7 @@ const Header = () => {
                             <Nav.Link className='nav-link' as={Link} to="/contacts">Contatos</Nav.Link>
                             <Nav.Link className='nav-link' as={Link} to="/about">Sobre</Nav.Link>
                         </Nav>
-                        <Nav>
+                        <Nav className='auth-side'>
                             {sessionStorage.getItem('email') == null ?
                                 <Nav.Link className='right-side' as={Link} to="/auth">
                                     <FontAwesomeIcon icon={faRightToBracket} /> Iniciar Sessão

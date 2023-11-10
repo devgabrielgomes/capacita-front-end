@@ -1,5 +1,4 @@
 import { React, useEffect, useRef, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Utente.css";
 import UtenteItems from './UtenteItems.jsx';
 import { Form, Button, Container, Row, Col, Image } from 'react-bootstrap';

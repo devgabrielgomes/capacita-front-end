@@ -1,5 +1,4 @@
 import { React, useEffect, useRef, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Instituicao.css";
 import { Button, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentePrescricoes.css";
 import DatePicker from "react-datepicker";
 import { Form, Button, Row, Table, Col } from 'react-bootstrap';

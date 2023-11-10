@@ -1,6 +1,5 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./AreaTrabalho.css";
 import { Row, Col } from 'react-bootstrap';
 import { SideBarAdminItems, SideBarItems } from './AreaTrabalhoItems';

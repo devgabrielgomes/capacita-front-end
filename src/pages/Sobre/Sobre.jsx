@@ -1,5 +1,4 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Sobre.css";
 import { Container, Image, Row } from 'react-bootstrap';
 import eldersSport from '/src/assets/sport.jpg';

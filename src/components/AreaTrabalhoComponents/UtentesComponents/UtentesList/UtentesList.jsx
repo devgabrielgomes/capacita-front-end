@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./UtentesList.css";
 import { useNavigate } from "react-router-dom"
 import { Button, Row, Col } from 'react-bootstrap';
